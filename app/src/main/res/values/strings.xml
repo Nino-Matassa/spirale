@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">spirale</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Spirale</string>
+    <string name="ProjectSpirale">Dec 10 2020\nNino Matassa (mbcs)\nCOVID19 analysis using WHO data</string>
 
 </resources>
