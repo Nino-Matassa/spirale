@@ -11,6 +11,7 @@ onStart is called once
 onResume is called all the time including after onStart is called
 
 https://medium.com/@sanjeevy133/an-idiots-guide-to-android-asynctaskloader-76f8bfb0a0c0
+https://stackoverflow.com/questions/43055661/reading-csv-file-in-android-app
 
 */
 
