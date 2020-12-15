@@ -8,5 +8,8 @@ public class Constants
 	public static final String dbName = null; // "dbSpirale"; // null = keep it in memory
 	public static final String csvDetailsName = "DetailsTable.csv";
 	public static final String csvOverviewName = "OverviewTable.csv";
+	
+	public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
+	public static final String[] Names = {csvOverviewName, csvDetailsName };
 }
 
