@@ -12,6 +12,7 @@ import java.text.*;
 import java.util.*;
 import org.apache.http.impl.client.*;
 import java.sql.*;
+import android.text.format.*;
 
 
 public class MainActivity extends Activity {
@@ -20,18 +21,23 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		getDataFiles(iQueue);
 	}
 
+	@Override
+	protected void onResume() {
+		getDataFiles(interfaceQueue);
+		super.onResume();
+	}
+	
 	private void apresDownload() {
 		toast(MainActivity.this, "Apres Download", Toast.LENGTH_SHORT);
 	}
 
 	private int queue = 0;
-	private interface IQueue { void iNext(); }
-	private IQueue iQueue = new IQueue() {
+	private interface FileQueue { void fileInQueue(); }
+	private FileQueue interfaceQueue = new FileQueue() {
 		@Override
-		public void iNext() {
+		public void fileInQueue() {
 			if (queue == 1) {
 				getDataFiles(this);
 			} else {
@@ -41,7 +47,7 @@ public class MainActivity extends Activity {
 	};
 
 	private Thread thread = null;
-	private void getDataFiles(final IQueue iQueueListener) {
+	private void getDataFiles(final FileQueue fileQueueListener) {
 		if (thread != null) { return; }
 		thread = new Thread(new Runnable() {
 				@Override 
@@ -49,7 +55,7 @@ public class MainActivity extends Activity {
 					downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 					queue++;
 					if (queue == 1) thread = null;
-					iQueueListener.iNext();
+					fileQueueListener.fileInQueue();
 				}
 			});
 		thread.start();
@@ -79,6 +85,8 @@ public class MainActivity extends Activity {
 	private boolean csvIsUpdated(String urlString, String name) {
 		String filePath = getFilesDir().getPath().toString() + "/" + name;
 		File csv = new File(filePath);
+		if(!DateUtils.isToday(csv.lastModified()))
+			return true;
 		if(!csv.exists())
 			return true;
 		try {
