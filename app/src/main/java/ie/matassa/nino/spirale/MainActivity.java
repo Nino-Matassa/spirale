@@ -16,11 +16,15 @@ import android.text.format.*;
 
 
 public class MainActivity extends Activity {
-
+	
+	private TextView view = null;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		view = findViewById(R.id.mainTextID);
+		//view.setText(displayText);
 	}
 
 	@Override
@@ -30,7 +34,15 @@ public class MainActivity extends Activity {
 	}
 	
 	private void apresDownload() {
-		toast(MainActivity.this, "Apres Download", Toast.LENGTH_SHORT);
+		toast(MainActivity.this, "Reading CSV", Toast.LENGTH_SHORT);
+		List resultList = new ArrayList();
+		for(String name: Constants.Names) {
+//			String text = (String)view.getText();
+//			text += "\nReading " + name;
+//			view.setText(text);
+			List list = new CSV(MainActivity.this, name).readCSV();
+			;resultList.add(list);
+		}
 	}
 
 	private int queue = 0;
@@ -78,7 +90,7 @@ public class MainActivity extends Activity {
 			writeChannel.close();
 			readChannel.close();
 		}
-		catch (IOException e) { Log.d("MainActivity", e.toString()); }
+		catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 		return true;
 	}
 	
