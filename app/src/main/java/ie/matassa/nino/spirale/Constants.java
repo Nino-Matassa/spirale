@@ -11,5 +11,7 @@ public class Constants
 	
 	public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
 	public static final String[] Names = {csvOverviewName, csvDetailsName };
+	
+	public static final int dbVersion = 1;
 }
 

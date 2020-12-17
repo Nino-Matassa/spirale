@@ -13,68 +13,46 @@ import java.util.*;
 import org.apache.http.impl.client.*;
 import java.sql.*;
 import android.text.format.*;
+import android.database.sqlite.*;
 
 
 public class MainActivity extends Activity {
-	
+
 	private TextView view = null;
-	
+ 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		view = findViewById(R.id.mainTextID);
-		//view.setText(displayText);
 	}
 
 	@Override
 	protected void onResume() {
-		getDataFiles(interfaceQueue);
+		getDataFiles();
 		super.onResume();
 	}
 	
-	private void apresDownload() {
-		toast(MainActivity.this, "Reading CSV", Toast.LENGTH_SHORT);
-		List resultList = new ArrayList();
-		for(String name: Constants.Names) {
-//			String text = (String)view.getText();
-//			text += "\nReading " + name;
-//			view.setText(text);
-			List list = new CSV(MainActivity.this, name).readCSV();
-			;resultList.add(list);
-		}
-	}
-
-	private int queue = 0;
-	private interface FileQueue { void fileInQueue(); }
-	private FileQueue interfaceQueue = new FileQueue() {
-		@Override
-		public void fileInQueue() {
-			if (queue == 1) {
-				getDataFiles(this);
-			} else {
-				apresDownload();
-			}
-		}
-	};
-
 	private Thread thread = null;
-	private void getDataFiles(final FileQueue fileQueueListener) {
+	private void getDataFiles() {
 		if (thread != null) { return; }
 		thread = new Thread(new Runnable() {
 				@Override 
 				public void run() {
-					downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-					queue++;
-					if (queue == 1) thread = null;
-					fileQueueListener.fileInQueue();
+					for(int queue = 0; queue < Constants.Urls.length; queue++) {
+						downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);	
+					}
 				}
 			});
 		thread.start();
+		try {
+			thread.join();
+			apresDownload();
+		} catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
 	}
 
 	private boolean downloadUrlRequest(String url, String name) {
-		if(!csvIsUpdated(url, name)) 
+		if (!csvIsUpdated(url, name)) 
 			return false;
 		toast(MainActivity.this, url, Toast.LENGTH_SHORT);
 		String filePath = getFilesDir().getPath().toString() + "/" + name;
@@ -93,15 +71,15 @@ public class MainActivity extends Activity {
 		catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 		return true;
 	}
-	
+
 	private boolean csvIsUpdated(String urlString, String name) {
 		String filePath = getFilesDir().getPath().toString() + "/" + name;
 		File csv = new File(filePath);
-		if(!DateUtils.isToday(csv.lastModified()))
+		if (!csv.exists())
 			return true;
-		if(!csv.exists())
+		if (!DateUtils.isToday(csv.lastModified()))
 			return true;
-		try {
+		try { // Only relevant if the files are updated more than once per day
 			URL url = new URL(urlString);
 			URLConnection urlConnection = url.openConnection();
 			urlConnection.connect();
@@ -109,7 +87,7 @@ public class MainActivity extends Activity {
 			Long csvTimeStamp = csv.lastModified();
 			java.util.Date urlTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(urlTimeStamp).toString());
 			java.util.Date csvTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(csvTimeStamp).toString());
-			if(urlTS.after(csvTS)) {
+			if (urlTS.after(csvTS)) {
 				return true;
 			}
 		}
@@ -117,6 +95,19 @@ public class MainActivity extends Activity {
 			Log.d("MainActivity", e.toString());
 		}
 		return false;
+	}
+	
+	private void apresDownload() { // Effective callback
+		List resultList = new ArrayList();
+		for(String name: Constants.Names) {
+			String text = (String)view.getText();
+			text += "\nReading " + name;
+			view.setText(text);
+			List list = new CSV(MainActivity.this, name).readCSV();
+			resultList.add(list);
+		}
+		
+		SQLiteDatabase db = Database.getInstance(MainActivity.this);
 	}
 
 	private static void toast(final Context context, final String text, final int length) {

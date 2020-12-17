@@ -4,17 +4,33 @@ import android.database.sqlite.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	@Override
-	public void onCreate(SQLiteDatabase p1) {
-		// TODO: Implement this method
+	public DatabaseHelper(Context context) {
+		super(context, Constants.dbName, null, Constants.dbVersion);
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase p1, int p2, int p3) {
-		// TODO: Implement this method
+	public void onCreate(SQLiteDatabase db) throws SQLiteFullException {
+		db.execSQL(sqlTableOverview);
+		db.execSQL(sqlTableRegion);
+		db.execSQL(sqlTableCountry);
+		db.execSQL(sqlTableDetail);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) throws SQLiteFullException {
+		// Unused because database is run in memory
 	}
 	
-	public DatabaseHelper(Context context) {
-		super(context, Constants.dbName, null, 1);
-	}
+	private String sqlTableOverview = null;
+	private String sqlTableRegion =
+	"create table Region ("
+	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
+	+ "Continent TEXT NOT NULL"
+	+ ");";
+	private String sqlTableCountry = null;
+	private String sqlTableDetail = null;
+	
+//	private String createTableRegion = "create table " + Constants.tblRegion + 
+//	"(" + Constants.pkId + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+//	Constants.colContinent + " TEXT NOT NULL);";
 }
