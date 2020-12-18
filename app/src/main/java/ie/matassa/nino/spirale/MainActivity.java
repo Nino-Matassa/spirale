@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
 		thread.start();
 		try {
 			thread.join();
-			apresDownload();
+			postDownload();
 		} catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
 	}
 
@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
 		return false;
 	}
 	
-	private void apresDownload() { // Effective callback
+	private void postDownload() { // Effective callback
 		List resultList = new ArrayList();
 		for(String name: Constants.Names) {
 			String text = (String)view.getText();
@@ -107,7 +107,11 @@ public class MainActivity extends Activity {
 			resultList.add(list);
 		}
 		
-		SQLiteDatabase db = Database.getInstance(MainActivity.this);
+		try {
+			SQLiteDatabase db = Database.getInstance(MainActivity.this);
+		} catch(Exception e) {
+			Log.d("postDownload", e.toString());
+		}
 	}
 
 	private static void toast(final Context context, final String text, final int length) {
