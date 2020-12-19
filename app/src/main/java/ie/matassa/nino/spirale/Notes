@@ -7,13 +7,6 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
-onStart is called once
-onResume is called all the time including after onStart is called
-
-https://riptutorial.com/android/example/15330/basic-asynctaskloader // is deprecated...
-https://stackoverflow.com/questions/43055661/reading-csv-file-in-android-app
-
-
 
 */
 

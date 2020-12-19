@@ -1,6 +1,8 @@
 package ie.matassa.nino.spirale;
 import android.content.*;
 import android.database.sqlite.*;
+import android.database.*;
+import android.util.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -9,11 +11,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) throws SQLiteFullException {
-		db.execSQL(sqlTableRegion);
-		db.execSQL(sqlTableOverview);
-		db.execSQL(sqlTableCountry);
-		db.execSQL(sqlTableDetail);
+	public void onCreate(SQLiteDatabase db) {
+		try {
+			db.execSQL(sqlTableRegion);
+			db.execSQL(sqlTableOverview);
+			db.execSQL(sqlTableCountry);
+			db.execSQL(sqlTableDetail);
+		}
+		catch (SQLException e) {
+			Log.d("DatabaseHelper.onCreate", e.toString());
+		}
 	}
 
 	@Override
@@ -24,14 +31,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private String sqlTableRegion =
 	"create table Region ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	+ "Continent TEXT NOT NULL"
+	+ "Region TEXT NOT NULL"
 	+ ");";
 	private String sqlTableOverview =
 	"create table Overview ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	+ "FK_Region INT NOT NULL, "
+	//+ "FK_Region INT NOT NULL, "
+	+ "Region TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
-	+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id)"
+	+ "TotalCase INT NOT NULL, "
+	+ "CasePerMillion DECIMAL(10, 5) NOT NULL, "
+	+ "Case7Day INT NOT NULL, "
+	+ "Case24Hour INT NOT NULL, "
+	+ "TotalDeath INT NOT NULL, "
+	+ "DeathPerMillion DECIMAL(10, 5) NOT NULL, "
+	+ "Death7Day INT NOT NULL, "
+	+ "Death24Hour INT NOT NULL, "
+	+ "Source TEXT NOT NULL"
+	//+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id)"
 	+ ");";
 	private String sqlTableCountry =
 	"create table Country ("

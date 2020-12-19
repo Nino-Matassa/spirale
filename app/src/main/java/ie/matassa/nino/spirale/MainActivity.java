@@ -98,13 +98,20 @@ public class MainActivity extends Activity {
 	}
 	
 	private void postDownload() { // Effective callback
-		List resultList = new ArrayList();
 		for(String name: Constants.Names) {
 			String text = (String)view.getText();
 			text += "\nReading " + name;
 			view.setText(text);
-			List list = new CSV(MainActivity.this, name).readCSV();
-			resultList.add(list);
+			switch(name) {
+				case Constants.csvOverviewName:
+					 new CSV(MainActivity.this, name).populateTableOverview();
+					break;
+				case Constants.csvDetailsName:
+					new CSV(MainActivity.this, name).populateTableDetails();
+					break;
+				default:
+					break;
+			}
 		}
 		
 		try {
