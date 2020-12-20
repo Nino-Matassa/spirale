@@ -37,6 +37,17 @@ public class CSV {
 	}
 
 	public boolean populateTableOverview() {
+		String Region = null;
+		String Country = null;
+		Integer TotalCase = 0;
+		Double CasePerMillion = 0.0;
+		Integer Case7Day = 0;
+		Integer Case24Hour = 0;
+		Integer TotalDeath = 0;
+		Double DeathPerMillion = 0.0;
+		Integer Death7Day = 0;
+		Integer Death24Hour = 0;
+		String Source = null;
 		try {
 			for (String[] row: rows) {
 				// Ignore the first row
@@ -44,30 +55,41 @@ public class CSV {
 					firstRowRead = true;
 					continue;
 				}
-				
-//			ContentValues values = new ContentValues();
-//			values.put(Constants.fkRegion, fkRegion);
-//			values.put(Constants.colCountryCode, countryCode);
-//			fkCountry = db.insert(Constants.tblCountry, null, values);
 				int index = 0;
-				String Region = row[index++];
-				String Country = row[index++];
-				Integer TotalCase = Integer.parseInt(row[index++]);
-				Double CasePerMillion = Double.parseDouble(row[index++]);
-				Integer Case7Day = Integer.parseInt(row[index++]);
-				Integer Case24Hour = Integer.parseInt(row[index++]);
-				Integer TotalDeath = Integer.parseInt(row[index++]);
-				Double DeathPerMillion = Double.parseDouble(row[index++]);
-				Integer Death7Day = Integer.parseInt(row[index++]);
-				Integer Death24Hour = Integer.parseInt(row[index++]);
-				String Source = null;
+				Country = row[index++];
+				if(Country.indexOf("\"") > -1)
+					Country += ", " + row[index++];
+				Region = row[index++];
+				if(Region.equals("Other")) continue;
+				TotalCase = Integer.parseInt(row[index++]);
+				CasePerMillion = Double.parseDouble(row[index++]);
+				Case7Day = Integer.parseInt(row[index++]);
+				Case24Hour = Integer.parseInt(row[index++]);
+				TotalDeath = Integer.parseInt(row[index++]);
+				DeathPerMillion = Double.parseDouble(row[index++]);
+				Death7Day = Integer.parseInt(row[index++]);
+				Death24Hour = Integer.parseInt(row[index++]);
+				Source = null;
 				if(secondRowRead) Source = row[index];
 				// 2nd row populate country as Terra
 				if (!secondRowRead && firstRowRead) {
 					secondRowRead = true;
 					Source = "N/A";
-					Region = "N/A";
+					Region = "Terra";
 				}
+				ContentValues values = new ContentValues();
+				values.put("Country", Country);
+				values.put("Region", Region);
+				values.put("TotalCase", TotalCase);
+				values.put("CasePerMillion", CasePerMillion);
+				values.put("Case7Day", Case7Day);
+				values.put("Case24Hour", Case24Hour);
+				values.put("TotalDeath", TotalDeath);
+				values.put("DeathPerMillion", DeathPerMillion);
+				values.put("Death7Day", Death7Day);
+				values.put("Death24Hour", Death24Hour);
+				values.put("Source", Source);
+				Long Id = db.insert("Overview", null, values);
 			}
 		}
 		catch (NumberFormatException e) {
