@@ -25,15 +25,27 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	view = findViewById(R.id.mainTextID);
+	notificationMessage("Checking For Updates");
+//	String displayText = (String) view.getText();
+//	view.setText(displayText);
+	
+	Handler handler = new Handler();
+	handler.postDelayed(new Runnable() {
+		public void run() {
+		  	getDataFiles();
+		}
+	  }, 500);
+	  
+	if(bDownloadRequest)
+	  postDownload();
   }
 
   @Override
   protected void onResume() {
-	getDataFiles();
-	postDownload();
 	super.onResume();
   }
 
+  private static boolean bDownloadRequest = false;
   private Thread thread = null;
   private void getDataFiles() {
 	if (thread != null) { return; }
@@ -41,21 +53,22 @@ public class MainActivity extends Activity {
 		@Override 
 		public void run() {
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);	
+			bDownloadRequest = downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+			bDownloadRequest = true; // force post download
 		  }
 		}
 	  });
 	thread.start();
 	try {
 	  thread.join();
-	}
-	catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
+	} catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
   }
 
   private boolean downloadUrlRequest(String url, String name) {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
 	toast(MainActivity.this, url, Toast.LENGTH_SHORT);
+	notificationMessage(url);
 	String filePath = getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
 	if (file.exists()) file.delete();
@@ -68,8 +81,7 @@ public class MainActivity extends Activity {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	}
-	catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
+	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
 
@@ -91,8 +103,7 @@ public class MainActivity extends Activity {
 	  if (urlTS.after(csvTS)) {
 		return true;
 	  }
-	}
-	catch (Exception e) {
+	} catch (Exception e) {
 	  Log.d("MainActivity", e.toString());
 	}
 	return false;
@@ -100,15 +111,13 @@ public class MainActivity extends Activity {
 
   private void postDownload() { // Effective callback
 	for (String name: Constants.Names) {
-	  String text = (String)view.getText();
-	  text += "\nReading " + name;
-	  view.setText(text);
+//	  String text = (String)view.getText();
+//	  text += "\nReading " + name;
+//	  view.setText(text);
 	  switch (name) {
 		case Constants.csvOverviewName:
+		  notificationMessage("Populating Table Overview");
 		  new CSV(MainActivity.this, name).populateTableOverview();
-		  String displayText = view.getText().toString();
-		  displayText += "\n Table " + name + " populated";
-		  view.setText(displayText);
 		  break;
 		case Constants.csvDetailsName:
 		  new CSV(MainActivity.this, name).populateTableDetails();
@@ -116,13 +125,6 @@ public class MainActivity extends Activity {
 		default:
 		  break;
 	  }
-	}
-
-	try {
-	  SQLiteDatabase db = Database.getInstance(MainActivity.this);
-	}
-	catch (Exception e) {
-	  Log.d("postDownload", e.toString());
 	}
   }
 
@@ -133,6 +135,25 @@ public class MainActivity extends Activity {
 		  Toast.makeText(context, text, length).show();
 		}
 	  });
+  }
+
+  private static AlertDialog.Builder builder = null;
+  private static AlertDialog alertDialog = null;
+
+  public void notificationMessage(final String msg) {
+    runOnUiThread(new Runnable() {
+		@Override
+		public void run() {
+		  if (builder == null) {
+			builder = new AlertDialog.Builder(MainActivity.this);
+			alertDialog = builder.create();
+		  } else {
+			//alertDialog.dismiss(); // It's already been run
+		  }
+		  alertDialog.setMessage(msg);
+		  alertDialog.show();
+        }
+      });
   }
 }
 

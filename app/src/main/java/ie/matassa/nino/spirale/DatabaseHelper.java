@@ -17,8 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.execSQL(sqlTableOverview);
 			db.execSQL(sqlTableCountry);
 			db.execSQL(sqlTableDetail);
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			Log.d("DatabaseHelper.onCreate", e.toString());
 		}
 	}
@@ -60,8 +59,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private String sqlTableDetail =
 	"create table Detail ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	+ "FK_Country INT NOT NULL, "
+	//+ "FK_Country INT NOT NULL, "
+	+ "Date TEXT NOT NULL, "
+	+ "Code TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
-	+ "FOREIGN KEY (FK_Country) REFERENCES Country(Id)"
+	+ "Region TEXT NOT NULL, "
+	+ "NewCases INT NOT NULL, "
+	+ "TotalCases INT NOT NULL, "
+	+ "NewDeaths INT NOT NULL, "
+	+ "TotalDeaths INT NOT NULL"
+	//+ "FOREIGN KEY (FK_Country) REFERENCES Country(Id)"
 	+ ");";
 }
