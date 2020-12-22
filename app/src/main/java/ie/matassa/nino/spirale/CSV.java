@@ -5,24 +5,27 @@ import java.text.*;
 import java.util.*;
 import android.util.*;
 import android.database.sqlite.*;
+import android.app.*;
+import java.net.*;
+import java.nio.channels.*;
+import android.widget.*;
+import android.text.format.*;
+import android.os.*;
+import java.sql.*;
 
 public class CSV {
-  private String filePath = null;
-  //private Context context = null;
-  private List rows = null;
+  private Context context = null;
   private SQLiteDatabase db = null;
   private boolean firstRowRead = false;
   private boolean secondRowRead = false;
 
-  public CSV(Context context, String csvFileName) {
-	//this.context = context;
+  public CSV(Context context) {
+	this.context = context;
 	db = Database.getInstance(context);
-	filePath = context.getFilesDir().getPath().toString() + "/" + csvFileName;
-	rows = new ArrayList<String>();
-	readCSV();
   }
 
-  private void readCSV() {
+  private List readCSV(String filePath) {
+	List rows = new ArrayList<String>();
 	String line = null;
 	try {
 	  BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
@@ -32,8 +35,8 @@ public class CSV {
 		rows.add(row);
 	  }
 	  bufferedReader.close();
-	}
-	catch (IOException e) {  Log.d("readCSV", e.toString());}
+	} catch (IOException e) {  Log.d("readCSV", e.toString());}
+	return rows;
   }
 
   public boolean populateTableOverview() {
@@ -48,7 +51,10 @@ public class CSV {
 	Integer Death7Day = 0;
 	Integer Death24Hour = 0;
 	String Source = null;
+	List rows = null;
 
+	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvOverviewName;
+	rows = readCSV(filePath);
 	try {
 	  for (String[] row: rows) {
 		// Ignore the first row
@@ -107,6 +113,10 @@ public class CSV {
 	Integer TotalCases = 0;
 	Integer NewDeaths = 0;
 	Integer TotalDeaths = 0;
+	List rows = null;
+
+	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
+	rows = readCSV(filePath);
 	
 	try {
 	  for (String[] row: rows) {
@@ -141,5 +151,113 @@ public class CSV {
 	  Log.d("populateTableDetails", e.toString());
 	}
 	return true;
+  }
+
+  private static boolean bDownloadRequest = false;
+  private Thread thread = null;
+  public void getDataFiles() {
+	if (thread != null) { return; }
+	thread = new Thread(new Runnable() {
+		@Override 
+		public void run() {
+		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
+			bDownloadRequest = downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+			bDownloadRequest = true; // force post download
+			if (bDownloadRequest)
+			  generateDatabaseTable(Constants.Names[queue]);
+		  }
+		}
+	  });
+	thread.start();
+	try {
+	  thread.join();
+	} catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
+  }
+
+  private boolean downloadUrlRequest(String url, String name) {
+	if (!csvIsUpdated(url, name)) 
+	  return false;
+	toast(context, url, Toast.LENGTH_SHORT);
+	notificationMessage(context, url);
+	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
+	File file = new File(filePath);
+	if (file.exists()) file.delete();
+	ReadableByteChannel readChannel = null;
+
+	try {
+	  readChannel = Channels.newChannel(new URL(url).openStream());
+	  FileOutputStream fileOS = new FileOutputStream(filePath);
+	  FileChannel writeChannel = fileOS.getChannel();
+	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
+	  writeChannel.close();
+	  readChannel.close();
+	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
+	return true;
+  }
+
+  private boolean csvIsUpdated(String urlString, String name) {
+	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
+	File csv = new File(filePath);
+	if (!csv.exists())
+	  return true;
+	if (!DateUtils.isToday(csv.lastModified()))
+	  return true;
+	try { // Only relevant if the files are updated more than once per day
+	  URL url = new URL(urlString);
+	  URLConnection urlConnection = url.openConnection();
+	  urlConnection.connect();
+	  Long urlTimeStamp = urlConnection.getDate();
+	  Long csvTimeStamp = csv.lastModified();
+	  java.util.Date urlTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(urlTimeStamp).toString());
+	  java.util.Date csvTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(csvTimeStamp).toString());
+	  if (urlTS.after(csvTS)) {
+		return true;
+	  }
+	} catch (Exception e) {
+	  Log.d("MainActivity", e.toString());
+	}
+	return false;
+  }
+
+  private void generateDatabaseTable(String nameOfCsvFile) {
+	switch (nameOfCsvFile) {
+	  case Constants.csvOverviewName:
+		notificationMessage(context, "Populating Table Overview");
+		populateTableOverview();
+		break;
+	  case Constants.csvDetailsName:
+		//populateTableDetails(); // ignore for now takes too long
+		break;
+	  default:
+		break;
+	}
+  }
+
+  private static void toast(final Context context, final String text, final int length) {
+	new Handler(Looper.getMainLooper()).post(new Runnable() {
+		@Override
+		public void run() {
+		  Toast.makeText(context, text, length).show();
+		}
+	  });
+  }
+
+  private static AlertDialog.Builder builder = null;
+  private static AlertDialog alertDialog = null;
+
+  public static void notificationMessage(final Context context, final String msg) {
+    MainActivity.activity.runOnUiThread(new Runnable() {
+		@Override
+		public void run() {
+		  if (builder == null) {
+			builder = new AlertDialog.Builder(context);
+			alertDialog = builder.create();
+		  } else {
+			alertDialog.dismiss(); // It's already been run
+		  }
+		  alertDialog.setMessage(msg);
+		  alertDialog.show();
+        }
+      });
   }
 }
