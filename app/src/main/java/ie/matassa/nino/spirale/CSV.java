@@ -16,12 +16,9 @@ import java.sql.*;
 public class CSV {
   private Context context = null;
   private SQLiteDatabase db = null;
-  private boolean firstRowRead = false;
-  private boolean secondRowRead = false;
 
   public CSV(Context context) {
 	this.context = context;
-	db = Database.getInstance(context);
   }
 
   private List readCSV(String filePath) {
@@ -40,6 +37,8 @@ public class CSV {
   }
 
   public boolean populateTableOverview() {
+	boolean firstRowRead = false;
+	boolean secondRowRead = false;
 	String Region = null;
 	String Country = null;
 	Integer TotalCase = 0;
@@ -100,11 +99,13 @@ public class CSV {
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableOverview", e.toString());
+	  return false;
 	}
 	return true;
   }
 
   public boolean populateTableDetails() {
+	boolean firstRowRead = false;
 	String Date = null;
 	String Code = null;
 	String Country = null;
@@ -117,7 +118,7 @@ public class CSV {
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
 	rows = readCSV(filePath);
-	
+
 	try {
 	  for (String[] row: rows) {
 		// Ignore the first row
@@ -149,32 +150,12 @@ public class CSV {
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableDetails", e.toString());
+	  return false;
 	}
 	return true;
   }
 
-  private static boolean bDownloadRequest = false;
-  private Thread thread = null;
-  public void getDataFiles() {
-	if (thread != null) { return; }
-	thread = new Thread(new Runnable() {
-		@Override 
-		public void run() {
-		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			bDownloadRequest = downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-			bDownloadRequest = true; // force post download
-			if (bDownloadRequest)
-			  generateDatabaseTable(Constants.Names[queue]);
-		  }
-		}
-	  });
-	thread.start();
-	try {
-	  thread.join();
-	} catch (InterruptedException e) { Log.d("getDataFiles", e.toString()); }
-  }
-
-  private boolean downloadUrlRequest(String url, String name) {
+  public boolean downloadUrlRequest(String url, String name) {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
 	toast(context, url, Toast.LENGTH_SHORT);
@@ -219,14 +200,18 @@ public class CSV {
 	return false;
   }
 
-  private void generateDatabaseTable(String nameOfCsvFile) {
+  public void generateDatabaseTable(String nameOfCsvFile) {
+	db = Database.getInstance(context);
 	switch (nameOfCsvFile) {
 	  case Constants.csvOverviewName:
 		notificationMessage(context, "Populating Table Overview");
 		populateTableOverview();
+		//alertDialog.dismiss();
 		break;
 	  case Constants.csvDetailsName:
-		//populateTableDetails(); // ignore for now takes too long
+		notificationMessage(context, "Populating Table Detail");
+		populateTableDetails(); // ignore for now takes too long
+		//alertDialog.dismiss();
 		break;
 	  default:
 		break;
@@ -249,6 +234,10 @@ public class CSV {
     MainActivity.activity.runOnUiThread(new Runnable() {
 		@Override
 		public void run() {
+		  if(msg == null) {
+			alertDialog.dismiss();
+			return;
+		  }
 		  if (builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
