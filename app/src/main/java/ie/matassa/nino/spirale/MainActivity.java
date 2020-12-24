@@ -58,12 +58,12 @@ public class MainActivity extends Activity {
 			  csv.generateDatabaseTable(Constants.csvOverviewName);  
 			}
 			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
-			  csv.generateDatabaseTable(Constants.csvDetailsName);
+			  //csv.generateDatabaseTable(Constants.csvDetailsName);
 			}
 		  }
 		  if(!Database.databaseExists()) {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
-			csv.generateDatabaseTable(Constants.csvDetailsName);
+			//csv.generateDatabaseTable(Constants.csvDetailsName);
 		  }
 		  whoListener.WHOThreadFinished();
 		}
