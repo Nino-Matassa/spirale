@@ -15,10 +15,12 @@ import java.sql.*;
 
 public class CSV {
   private Context context = null;
+  private Activity activity = null;
   private SQLiteDatabase db = null;
 
-  public CSV(Context context) {
+  public CSV(Context context, Activity activity) {
 	this.context = context;
+	this.activity = activity;
   }
 
   private List readCSV(String filePath) {
@@ -158,8 +160,8 @@ public class CSV {
   public boolean downloadUrlRequest(String url, String name) {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
-	toast(context, url, Toast.LENGTH_SHORT);
-	notificationMessage(context, url);
+	UIMessage.toast(context, url, Toast.LENGTH_SHORT);
+	UIMessage.notificationMessage(context, activity, url);
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
 	if (file.exists()) file.delete();
@@ -204,49 +206,17 @@ public class CSV {
 	db = Database.getInstance(context);
 	switch (nameOfCsvFile) {
 	  case Constants.csvOverviewName:
-		notificationMessage(context, "Populating Table Overview");
+		UIMessage.notificationMessage(context, activity, "Populating Table Overview");
 		populateTableOverview();
 		//alertDialog.dismiss();
 		break;
 	  case Constants.csvDetailsName:
-		notificationMessage(context, "Populating Table Detail");
+		UIMessage.notificationMessage(context, activity, "Populating Table Detail");
 		populateTableDetails(); // ignore for now takes too long
 		//alertDialog.dismiss();
 		break;
 	  default:
 		break;
 	}
-  }
-
-  private static void toast(final Context context, final String text, final int length) {
-	new Handler(Looper.getMainLooper()).post(new Runnable() {
-		@Override
-		public void run() {
-		  Toast.makeText(context, text, length).show();
-		}
-	  });
-  }
-
-  private static AlertDialog.Builder builder = null;
-  private static AlertDialog alertDialog = null;
-
-  public static void notificationMessage(final Context context, final String msg) {
-    MainActivity.activity.runOnUiThread(new Runnable() {
-		@Override
-		public void run() {
-		  if(msg == null) {
-			alertDialog.dismiss();
-			return;
-		  }
-		  if (builder == null) {
-			builder = new AlertDialog.Builder(context);
-			alertDialog = builder.create();
-		  } else {
-			alertDialog.dismiss(); // It's already been run
-		  }
-		  alertDialog.setMessage(msg);
-		  alertDialog.show();
-        }
-      });
   }
 }

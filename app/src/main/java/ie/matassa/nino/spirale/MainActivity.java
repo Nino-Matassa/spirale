@@ -10,7 +10,7 @@ import android.widget.*;
 
 public class MainActivity extends Activity {
 
-  public static Activity activity = null;
+  private Activity activity = null;
   private TextView view = null;
 
   @Override
@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 	//String displayText = (String) view.getText();
 	//view.setText(displayText);
 
-	CSV.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
+	UIMessage.notificationMessage(MainActivity.this, activity, "Checking " + Constants.DataSource + " For Updates");
 	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
@@ -38,16 +38,8 @@ public class MainActivity extends Activity {
   WHOListener whoListener = new WHOListener() {
 	@Override
 	public void WHOThreadFinished() {
-	  CSV.notificationMessage(MainActivity.this, null);
-//	  SQLiteDatabase db = Database.getInstance(MainActivity.this);
-//	  Cursor overview = db.rawQuery("select Country from overview where id = 1", null);
-//	  overview.moveToFirst();
-//	  Cursor details = db.rawQuery("select Date from detail where code = 'IE' order by date desc limit 1", null);
-//	  details.moveToFirst();
-//	  //long currentRegionId = cRegion.getInt(cRegion.getColumnIndex("ID")); // ?
-//	  String Country = overview.getString(overview.getColumnIndex("Country")); // ?
-//	  String Date = details.getString(details.getColumnIndex("Date"));
-//	  String s = Date + Country;
+	  UIMessage.notificationMessage(MainActivity.this, activity, null);
+	  overview();
 	}
   };
 
@@ -58,7 +50,7 @@ public class MainActivity extends Activity {
 	thread = new Thread(new Runnable() {
 		@Override 
 		public void run() {
-		  CSV csv = new CSV(MainActivity.this);
+		  CSV csv = new CSV(MainActivity.this, activity);
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
 			bDownloadRequest = csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
@@ -69,6 +61,10 @@ public class MainActivity extends Activity {
 			  csv.generateDatabaseTable(Constants.csvDetailsName);
 			}
 		  }
+		  if(!Database.databaseExists()) {
+			csv.generateDatabaseTable(Constants.csvOverviewName); 
+			csv.generateDatabaseTable(Constants.csvDetailsName);
+		  }
 		  whoListener.WHOThreadFinished();
 		}
 	  });
@@ -78,6 +74,18 @@ public class MainActivity extends Activity {
   @Override
   protected void onResume() {
 	super.onResume();
+  }
+  
+  private void overview() {
+	Handler handler = new Handler(Looper.getMainLooper());
+	handler.post(new Runnable() {
+		@Override
+		public void run() {
+		  try {
+			new UIOverview(MainActivity.this, activity, "");
+		  } catch(Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
+		}     
+	  });
   }
 }
 

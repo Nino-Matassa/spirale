@@ -19,7 +19,7 @@ public class Database {
   }
 
   public static boolean databaseExists() {
-	if (instance.equals(null))
+	if (instance == null)
 	  return false;
 	else
 	  return true;

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_alignParentTop="true"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<RelativeLayout
+		android:id="@+id/header"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		android:gravity="center"
+		android:background="#E6E6CA">
+
+		<TableLayout
+			android:id="@+id/layoutTableHeader"
+			android:layout_width="match_parent"
+			android:layout_height="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:layout_marginRight="30dp">
+
+		</TableLayout>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/footer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		android:gravity="center"
+		android:background="#E6E6CA">
+
+		<TableLayout
+			android:id="@+id/layoutTableFooter"
+			android:layout_width="match_parent"
+			android:layout_height="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:layout_marginRight="20dp">
+
+		</TableLayout>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_above="@id/footer"
+		android:layout_below="@id/header"
+		android:gravity="center"
+		android:background="#F4FDF9">
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="20dp">
+
+			<TableLayout
+				android:id="@+id/layoutTable"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="00dp"
+				android:layout_marginBottom="00dp"
+				android:layout_marginRight="20dp">
+
+			</TableLayout>
+
+		</ScrollView>
+
+	</RelativeLayout>
+
+</RelativeLayout>
