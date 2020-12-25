@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 		}
 	  }, 500);
 	super.onResume();
+	UIMessage.notificationMessage(MainActivity.this, activity, null);
   }
 
   public interface WHOListener { public void WHOThreadFinished(); }
