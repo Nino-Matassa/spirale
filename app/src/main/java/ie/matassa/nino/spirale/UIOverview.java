@@ -30,25 +30,31 @@ public class UIOverview extends UI {
 		@Override
 		public void run() {
 		  populateOverview();
-		  setHeader("Overview", "Total Case / New Cases/24h");
-		  setFooter("Overview of Total Case / New Cases/24h");
+		  setHeader("Overview", "Total Case");
+		  setFooter("Order by Total Case");
         }
       });
   }
   
   private void populateOverview() {
-    ArrayList<MetaTable> tkvs = new ArrayList<MetaTable>();
-    String sql = "select distinct Country, Case24Hour, TotalCase from Overview where Country is not 'Global' order by TotalCase desc";
+    ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
+    String sql = "select distinct Country, Case24Hour, TotalCase, Case7Day, Death24Hour, TotalDeath, CasePerMillion from Overview where Country is not 'Global' order by TotalCase desc";
     Cursor cOverview = db.rawQuery(sql, null);
     cOverview.moveToFirst();
-    MetaTable mt = new MetaTable();
+    MetaField metaField = new MetaField();
 	int countryIndex = 1;
     do {
-	  mt.key = String.valueOf(countryIndex++) + " " + cOverview.getString(cOverview.getColumnIndex("Country"));
-	  mt.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCase")))) + " / " + String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case24Hour"))));
-      tkvs.add(mt);
-      mt = new MetaTable();
+	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
+	  metaField.key += "\nCases\nCases24H\nCase7Day\nDeath24H\nDeaths\nCasePerMillion";
+	  metaField.value = "\n" + String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCase")))) + "\n"
+	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case24Hour")))) + "\n"
+		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case7Day")))) + "\n"
+		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Death24Hour")))) + "\n"
+		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalDeath")))) + "\n"
+		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("CasePerMillion"))));
+      metaFields.add(metaField);
+      metaField = new MetaField();
 	} while(cOverview.moveToNext());
-    setTableLayout(getTableRows(tkvs));
+    setTableLayout(getTableRows(metaFields)); 
   }
 }

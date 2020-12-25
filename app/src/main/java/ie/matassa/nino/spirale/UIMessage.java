@@ -30,7 +30,7 @@ public class UIMessage {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
 		  } else {
-			alertDialog.dismiss(); // It's already been run
+			//salertDialog.dismiss(); // It's already been run
 		  }
 		  alertDialog.setMessage(msg);
 		  alertDialog.show();

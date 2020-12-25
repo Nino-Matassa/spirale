@@ -19,11 +19,12 @@ public class MainActivity extends Activity {
 	activity = this;
 	setContentView(R.layout.main);
 	view = findViewById(R.id.mainTextID);
-	//String displayText = (String) view.getText();
-	//view.setText(displayText);
+  }
 
+  @Override
+  protected void onResume() {
 	UIMessage.notificationMessage(MainActivity.this, activity, "Checking " + Constants.DataSource + " For Updates");
-	
+
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
 		  } catch(Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
+	super.onResume();
   }
 
   public interface WHOListener { public void WHOThreadFinished(); }
@@ -58,12 +60,12 @@ public class MainActivity extends Activity {
 			  csv.generateDatabaseTable(Constants.csvOverviewName);  
 			}
 			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
-			  //csv.generateDatabaseTable(Constants.csvDetailsName);
+			  csv.generateDatabaseTable(Constants.csvDetailsName);
 			}
 		  }
 		  if(!Database.databaseExists()) {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
-			//csv.generateDatabaseTable(Constants.csvDetailsName);
+			csv.generateDatabaseTable(Constants.csvDetailsName);
 		  }
 		  whoListener.WHOThreadFinished();
 		}
@@ -71,11 +73,6 @@ public class MainActivity extends Activity {
 	thread.start();
   }
 
-  @Override
-  protected void onResume() {
-	super.onResume();
-  }
-  
   private void overview() {
 	Handler handler = new Handler(Looper.getMainLooper());
 	handler.post(new Runnable() {

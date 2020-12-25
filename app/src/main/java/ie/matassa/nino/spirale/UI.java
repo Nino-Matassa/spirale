@@ -38,10 +38,10 @@ public class UI {
     tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
     tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
   }
-  protected ArrayList<TableRow> getTableRows(ArrayList<MetaTable> metaTable) {
+  protected ArrayList<TableRow> getTableRows(ArrayList<MetaField> metaFields) {
     ArrayList<TableRow> tableRows = new ArrayList<TableRow>();
     boolean bColourSwitch = true;
-    for(final MetaTable mt: metaTable) {
+    for(final MetaField metaField: metaFields) {
       TableRow tableRow = new TableRow(context);
       LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
       tableRow.setLayoutParams(tableRowParams);
@@ -54,20 +54,20 @@ public class UI {
       textViewKey.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View p1) {
-			onClickListenerFired(p1, mt);
+			onClickListenerFired(p1, metaField);
           }
         });
       textViewValue.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View p1) {
-			onClickListenerFired(p1, mt);
+			onClickListenerFired(p1, metaField);
           }
         });
       textViewValue.setTextSize(18);
       textViewKey.setLayoutParams(cellParams);
       textViewValue.setLayoutParams(cellParams);
-      textViewKey.setText(mt.key);
-      textViewValue.setText(mt.value);
+      textViewKey.setText(metaField.key);
+      textViewValue.setText(metaField.value);
       tableRow.addView(textViewKey);
       tableRow.addView(textViewValue);
       if(bColourSwitch) {
@@ -112,7 +112,7 @@ public class UI {
 	}
   }
 
-  private void onClickListenerFired(View p1, MetaTable mt) {
+  private void onClickListenerFired(View p1, MetaField mt) {
   }
 
   protected void setFooter(String description) {

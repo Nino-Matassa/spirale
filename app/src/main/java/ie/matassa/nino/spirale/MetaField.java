@@ -1,6 +1,6 @@
 package ie.matassa.nino.spirale;
 
-public class MetaTable {
+public class MetaField {
   String key = null;
   String value = null;
 }
