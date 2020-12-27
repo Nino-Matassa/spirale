@@ -19,24 +19,22 @@ public class UI {
   private TableLayout tableLayoutHeader = null;
   private TableLayout tableLayoutFooter = null;
   protected SQLiteDatabase db = null;
-  private ProgressDialog progressDialog = null;
   private Vibrator vibrator = null;
-  private String dialogMessage = null;
   
   public UI(Context context, Activity activity, String dialogMessage) {
 	this.context = context;
 	this.activity = activity;
-	this.dialogMessage = dialogMessage;
-	progressDialog = new ProgressDialog(activity);
 	
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
 
 	db = Database.getInstance(context);
-    ((Activity)context).setContentView(R.layout.table_layout);
-    tableLayout = (TableLayout) ((Activity)context).findViewById(R.id.layoutTable);
-    tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
-    tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
+	((Activity)context).setContentView(R.layout.table_layout);
+	
+	tableLayout = (TableLayout) ((Activity)context).findViewById(R.id.layoutTable);
+	tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
+	tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
+	
   }
   protected ArrayList<TableRow> getTableRows(ArrayList<MetaField> metaFields) {
     ArrayList<TableRow> tableRows = new ArrayList<TableRow>();
@@ -132,5 +130,4 @@ public class UI {
     tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
     tableLayoutFooter.addView(tableRow);
   }
-  
 }

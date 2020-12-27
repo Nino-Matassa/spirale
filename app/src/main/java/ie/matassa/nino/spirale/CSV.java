@@ -183,8 +183,8 @@ public class CSV {
 	File csv = new File(filePath);
 	if (!csv.exists())
 	  return true;
-	if (!DateUtils.isToday(csv.lastModified()))
-	  return true;
+	//if (!DateUtils.isToday(csv.lastModified()))
+	  //return true;
 	try { // Only relevant if the files are updated more than once per day
 	  URL url = new URL(urlString);
 	  URLConnection urlConnection = url.openConnection();

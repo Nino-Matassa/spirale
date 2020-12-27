@@ -20,10 +20,33 @@ public class UIOverview extends UI {
 	this.activity = activity;
 	this.dialogMessage = dialogMessage;
 	formatter = new DecimalFormat("#,###.##");
-	
+
 	uiHandler();
   }
-  
+//  private interface UIListener { void uiListenerFinished(); }
+//  UIListener uiListener = new UIListener() {
+//	@Override
+//	public void uiListenerFinished() {
+//	  UIMessage.notificationMessage(context, activity, null);
+//	}
+//  };
+//
+//  private Thread thread = null;
+//  private void uiHandler(final UIListener uiListener) {
+//	if (thread != null) { return; }
+//	thread = new Thread(new Runnable() {
+//		@Override 
+//		public void run() {
+//		  UIMessage.notificationMessage(context, activity, "Generating UI");
+//		  populateOverview();
+//		  setHeader("Overview", "Total Case");
+//		  setFooter("Order by Total Case");
+//		  uiListener.uiListenerFinished();
+//		}
+//	  });
+//	thread.start();
+//  }
+
   private void uiHandler() {
     Handler handler = new Handler(Looper.getMainLooper());
     handler.post(new Runnable() {
@@ -32,26 +55,26 @@ public class UIOverview extends UI {
 		  populateOverview();
 		  setHeader("Overview", "Total Case");
 		  setFooter("Order by Total Case");
+		  UIMessage.notificationMessage(context, activity, null);
         }
       });
   }
-  
+
   private void populateOverview() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-    String sql = "select distinct Country, Case24Hour, TotalCase, Case7Day, Death24Hour, TotalDeath, CasePerMillion from Overview where Country is not 'Global' order by TotalCase desc";
+    //String sql = "select distinct Country, Case24Hour, TotalCase, Case7Day, Death24Hour, TotalDeath, CasePerMillion from Overview where Country is not 'Global' order by TotalCase desc";
+	String sql = "select country, Date, TotalCases, NewCases from detail group by country order by totalcases desc";
     Cursor cOverview = db.rawQuery(sql, null);
     cOverview.moveToFirst();
     MetaField metaField = new MetaField();
 	int countryIndex = 1;
     do {
+//	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
+//	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCase")))) + " : "
+//	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case24Hour"))));
 	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
-	  metaField.key += "\nCases\nCases24H\nCase7Day\nDeath24H\nDeaths\nCasePerMillion";
-	  metaField.value = "\n" + String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCase")))) + "\n"
-	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case24Hour")))) + "\n"
-		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Case7Day")))) + "\n"
-		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("Death24Hour")))) + "\n"
-		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalDeath")))) + "\n"
-		+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("CasePerMillion"))));
+	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases")))) + " : "
+	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
       metaFields.add(metaField);
       metaField = new MetaField();
 	} while(cOverview.moveToNext());

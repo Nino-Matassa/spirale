@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 		  try {
-			new UIOverview(MainActivity.this, activity, "");
+			new UIOverview(MainActivity.this, activity, "Generating Overview");
 		  } catch(Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
 		}     
 	  });
