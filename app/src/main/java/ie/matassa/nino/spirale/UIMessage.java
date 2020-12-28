@@ -18,8 +18,8 @@ public class UIMessage {
   private static AlertDialog.Builder builder = null;
   private static AlertDialog alertDialog = null;
 
-  public static void notificationMessage(final Context context, final Activity activity, final String msg) {
-    activity.runOnUiThread(new Runnable() {
+  public static void notificationMessage(final Context context, final String msg) {
+	((Activity)context).runOnUiThread(new Runnable() {
 		@Override
 		public void run() {
 		  if(msg == null) {

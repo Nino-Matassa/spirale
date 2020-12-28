@@ -10,21 +10,21 @@ import android.widget.*;
 
 public class MainActivity extends Activity {
 
-  private Activity activity = null;
-  private TextView view = null;
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	activity = this;
 	setContentView(R.layout.main);
-	view = findViewById(R.id.mainTextID);
+	funnel();
   }
 
   @Override
   protected void onResume() {
-	UIMessage.notificationMessage(MainActivity.this, activity, "Checking " + Constants.DataSource + " For Updates");
-
+	super.onResume();
+	funnel();
+  }
+  
+  private void funnel() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -33,15 +33,13 @@ public class MainActivity extends Activity {
 		  } catch(Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
-	super.onResume();
-	UIMessage.notificationMessage(MainActivity.this, activity, null);
+	UIMessage.notificationMessage(MainActivity.this, null);
   }
 
   public interface WHOListener { public void WHOThreadFinished(); }
   WHOListener whoListener = new WHOListener() {
 	@Override
 	public void WHOThreadFinished() {
-	  UIMessage.notificationMessage(MainActivity.this, activity, null);
 	  overview();
 	}
   };
@@ -53,7 +51,7 @@ public class MainActivity extends Activity {
 	thread = new Thread(new Runnable() {
 		@Override 
 		public void run() {
-		  CSV csv = new CSV(MainActivity.this, activity);
+		  CSV csv = new CSV(MainActivity.this);
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
 			bDownloadRequest = csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
@@ -80,7 +78,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 		  try {
-			new UIOverview(MainActivity.this, activity, "Generating Overview");
+			new UIOverview(MainActivity.this);
 		  } catch(Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
 		}     
 	  });

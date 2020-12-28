@@ -15,12 +15,10 @@ import java.sql.*;
 
 public class CSV {
   private Context context = null;
-  private Activity activity = null;
   private SQLiteDatabase db = null;
 
-  public CSV(Context context, Activity activity) {
+  public CSV(Context context) {
 	this.context = context;
-	this.activity = activity;
   }
 
   private List readCSV(String filePath) {
@@ -160,8 +158,7 @@ public class CSV {
   public boolean downloadUrlRequest(String url, String name) {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
-	//UIMessage.toast(context, url, Toast.LENGTH_SHORT);
-	UIMessage.notificationMessage(context, activity, url);
+	UIMessage.notificationMessage(context, url);
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
 	if (file.exists()) file.delete();
@@ -183,17 +180,13 @@ public class CSV {
 	File csv = new File(filePath);
 	if (!csv.exists())
 	  return true;
-	//if (!DateUtils.isToday(csv.lastModified()))
-	  //return true;
-	try { // Only relevant if the files are updated more than once per day
+	try {
 	  URL url = new URL(urlString);
 	  URLConnection urlConnection = url.openConnection();
 	  urlConnection.connect();
 	  Long urlTimeStamp = urlConnection.getDate();
 	  Long csvTimeStamp = csv.lastModified();
-	  java.util.Date urlTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(urlTimeStamp).toString());
-	  java.util.Date csvTS = new SimpleDateFormat("yyyy-MM-dd").parse(new Timestamp(csvTimeStamp).toString());
-	  if (urlTS.after(csvTS)) {
+	  if(urlTimeStamp > csvTimeStamp) {
 		return true;
 	  }
 	} catch (Exception e) {
@@ -206,14 +199,12 @@ public class CSV {
 	db = Database.getInstance(context);
 	switch (nameOfCsvFile) {
 	  case Constants.csvOverviewName:
-		UIMessage.notificationMessage(context, activity, "Populating Table Overview");
+		UIMessage.notificationMessage(context, "Populating Table Overview");
 		populateTableOverview();
-		//alertDialog.dismiss();
 		break;
 	  case Constants.csvDetailsName:
-		UIMessage.notificationMessage(context, activity, "Populating Table Detail");
+		UIMessage.notificationMessage(context, "Populating Table Detail");
 		populateTableDetails(); // ignore for now takes too long
-		//alertDialog.dismiss();
 		break;
 	  default:
 		break;
