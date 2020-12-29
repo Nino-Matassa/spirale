@@ -1,7 +1,7 @@
 package ie.matassa.nino.spirale;
-import android.database.sqlite.*;
-import java.io.*;
 import android.content.*;
+import android.database.sqlite.*;
+import android.util.*;
 
 public class Database {
   private Database() {}

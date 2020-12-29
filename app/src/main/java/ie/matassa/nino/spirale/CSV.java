@@ -158,7 +158,8 @@ public class CSV {
   public boolean downloadUrlRequest(String url, String name) {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
-	UIMessage.notificationMessage(context, url);
+	//UIMessage.notificationMessage(context, url);
+	UIMessage.toast(context, "Downloading (" + url + ")", Toast.LENGTH_LONG);
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
 	if (file.exists()) file.delete();

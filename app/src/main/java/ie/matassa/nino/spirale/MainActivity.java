@@ -22,30 +22,27 @@ public class MainActivity extends Activity {
 	super.onResume();
 	funnel();
   }
-  
+
+  @Override
+  public void onBackPressed() {
+	Database.setInstanceToNull();
+	super.onBackPressed();
+  }
+
+
   private void funnel() {
-	// In case a database reference exists but the database itself doesn't
-	SQLiteDatabase db = null;
-	if(Database.databaseExists()) {
-	  try {
-		db = Database.getInstance(MainActivity.this);
-	  } catch(Exception e) {
-		Database.setInstanceToNull();
-		Log.d("MainActivity.funnel", e.toString());
-	  }
-	}
-	
+	Database.setInstanceToNull();
 	Toast.makeText(MainActivity.this, "Checking " + Constants.DataSource + " For Updates", Toast.LENGTH_LONG).show();
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
+	//UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
 			getDataFiles(whoListener);
-		  } catch(Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
+		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
-	UIMessage.notificationMessage(MainActivity.this, null);
+	//UIMessage.notificationMessage(MainActivity.this, null);
   }
 
   public interface WHOListener { public void WHOThreadFinished(); }
@@ -74,7 +71,7 @@ public class MainActivity extends Activity {
 			  csv.generateDatabaseTable(Constants.csvDetailsName);
 			}
 		  }
-		  if(!Database.databaseExists()) {
+		  if (!Database.databaseExists()) {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
 			csv.generateDatabaseTable(Constants.csvDetailsName);
 		  }
@@ -91,7 +88,7 @@ public class MainActivity extends Activity {
 		public void run() {
 		  try {
 			new UIOverview(MainActivity.this);
-		  } catch(Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
+		  } catch (Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
 		}     
 	  });
   }
