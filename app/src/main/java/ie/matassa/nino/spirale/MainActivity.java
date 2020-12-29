@@ -24,6 +24,18 @@ public class MainActivity extends Activity {
   }
   
   private void funnel() {
+	// In case a database reference exists but the database itself doesn't
+	SQLiteDatabase db = null;
+	if(Database.databaseExists()) {
+	  try {
+		db = Database.getInstance(MainActivity.this);
+	  } catch(Exception e) {
+		Database.setInstanceToNull();
+		Log.d("MainActivity.funnel", e.toString());
+	  }
+	}
+	
+	Toast.makeText(MainActivity.this, "Checking " + Constants.DataSource + " For Updates", Toast.LENGTH_LONG).show();
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
