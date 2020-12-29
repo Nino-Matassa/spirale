@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
   WHOListener whoListener = new WHOListener() {
 	@Override
 	public void WHOThreadFinished() {
-	  overview();
+	  terra();
 	}
   };
 
@@ -81,13 +81,13 @@ public class MainActivity extends Activity {
 	thread.start();
   }
 
-  private void overview() {
+  private void terra() {
 	Handler handler = new Handler(Looper.getMainLooper());
 	handler.post(new Runnable() {
 		@Override
 		public void run() {
 		  try {
-			new UIOverview(MainActivity.this);
+			new UITerra(MainActivity.this);
 		  } catch (Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
 		}     
 	  });

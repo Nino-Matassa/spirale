@@ -13,8 +13,7 @@ import java.util.*;
 
 public class UI {
   protected Context context = null;
-  protected Activity activity = null;
-
+  
   private TableLayout tableLayout = null;
   private TableLayout tableLayoutHeader = null;
   private TableLayout tableLayoutFooter = null;

@@ -10,7 +10,6 @@ import android.icu.text.*;
 
 public class UIOverview extends UI {
   protected Context context = null;
-  protected Activity activity = null;
   DecimalFormat formatter = null;
 
   public UIOverview(Context context) {
