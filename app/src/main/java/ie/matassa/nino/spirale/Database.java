@@ -17,7 +17,7 @@ public class Database {
 	}
 	return instance;
   }
-
+  
   public static boolean databaseExists() {
 	if (instance == null)
 	  return false;

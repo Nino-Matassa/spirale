@@ -12,6 +12,8 @@ import android.widget.*;
 import android.text.format.*;
 import android.os.*;
 import java.sql.*;
+import java.nio.file.attribute.*;
+import java.nio.file.*;
 
 public class CSV {
   private Context context = null;
@@ -156,9 +158,10 @@ public class CSV {
   }
 
   public boolean downloadUrlRequest(String url, String name) {
+
 	if (!csvIsUpdated(url, name)) 
 	  return false;
-	//UIMessage.notificationMessage(context, url);
+
 	UIMessage.toast(context, "Downloading (" + url + ")", Toast.LENGTH_LONG);
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
@@ -172,6 +175,7 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
+	  file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
@@ -185,9 +189,10 @@ public class CSV {
 	  URL url = new URL(urlString);
 	  URLConnection urlConnection = url.openConnection();
 	  urlConnection.connect();
-	  Long urlTimeStamp = urlConnection.getDate();
-	  Long csvTimeStamp = csv.lastModified();
-	  if(urlTimeStamp > csvTimeStamp) {
+	  Timestamp urlTimeStamp = new Timestamp(urlConnection.getDate());
+	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
+	  
+	  if (csvTimeStamp.before(urlTimeStamp)) {
 		return true;
 	  }
 	} catch (Exception e) {

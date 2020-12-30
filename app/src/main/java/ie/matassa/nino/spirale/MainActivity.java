@@ -14,35 +14,35 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	
+//	Handler handler = new Handler();
+//	handler.postDelayed(new Runnable() {
+//		public void run() {
+//		  try {
+//			funnel();
+//		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
+//		}
+//	  }, 500);
 	funnel();
   }
 
   @Override
   protected void onResume() {
 	super.onResume();
+	Database.setInstanceToNull();
 	funnel();
   }
 
   @Override
   public void onBackPressed() {
-	Database.setInstanceToNull();
+	//Database.setInstanceToNull();
+	System.exit(0);
 	super.onBackPressed();
   }
 
-
   private void funnel() {
 	Database.setInstanceToNull();
-	Toast.makeText(MainActivity.this, "Checking " + Constants.DataSource + " For Updates", Toast.LENGTH_LONG).show();
-	//UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource + " For Updates");
-	Handler handler = new Handler();
-	handler.postDelayed(new Runnable() {
-		public void run() {
-		  try {
-			getDataFiles(whoListener);
-		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
-		}
-	  }, 500);
-	//UIMessage.notificationMessage(MainActivity.this, null);
+	getDataFiles(whoListener);
   }
 
   public interface WHOListener { public void WHOThreadFinished(); }
@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 		public void run() {
 		  try {
 			new UITerra(MainActivity.this);
-		  } catch (Exception e) { Log.d("MainActivity.openTerra", e.toString()); }
+		  } catch (Exception e) { Log.d("MainActivity.terra", e.toString()); }
 		}     
 	  });
   }

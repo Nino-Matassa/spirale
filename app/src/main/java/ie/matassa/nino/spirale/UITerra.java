@@ -22,6 +22,8 @@ public class UITerra extends UI {
   Integer Death7Day = 0;
   Integer Death24Hour = 0;
   String lastUpdated = null;
+  
+  ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
 
   public UITerra(Context context) {
 	super(context);
@@ -37,6 +39,8 @@ public class UITerra extends UI {
 		@Override
 		public void run() {
 		  populateTerra();
+		  populateOverview();
+		  setTableLayout(populateWithTwoColumns(metaFields));
 		  setHeaderTwoColumns("Terra", lastUpdated);
 		  setFooter("Terra");
 		  UIMessage.notificationMessage(context, null);
@@ -45,7 +49,7 @@ public class UITerra extends UI {
   }
 
   private void populateTerra() {
-    ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
+    //ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
     String sql = "select Country, TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
 	Cursor cTerra = db.rawQuery(sql, null);
     cTerra.moveToFirst();
@@ -73,7 +77,7 @@ public class UITerra extends UI {
 	
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";
-	metaField.value = String.valueOf(formatter.format(TotalCase * (int)Math.round(CasePerMillion)));
+	metaField.value = String.valueOf(formatter.format(TotalCase * CasePerMillion));
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
@@ -115,7 +119,36 @@ public class UITerra extends UI {
 	metaField.key = "Death/7D";
 	metaField.value = String.valueOf(formatter.format(Death7Day));
 	metaFields.add(metaField);
+	metaField = new MetaField();
+	
+	metaField.key = "";
+	metaField.value = "";
+	metaFields.add(metaField);
+	metaField = new MetaField();
+	
+	metaField.key = "Country";
+	metaField.value = "Cases + New";
+	metaFields.add(metaField);
 
-    setTableLayout(populateWithTwoColumns(metaFields)); 
+    //setTableLayout(populateWithTwoColumns(metaFields)); 
+  }
+  
+  private void populateOverview() {
+    //ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
+    //String sql = "select distinct Country, Case24Hour, TotalCase, Case7Day, Death24Hour, TotalDeath, CasePerMillion from Overview where Country is not 'Global' order by TotalCase desc";
+	String sql = "select country, Date, TotalCases, NewCases from detail group by country order by totalcases desc";
+    Cursor cOverview = db.rawQuery(sql, null);
+    cOverview.moveToFirst();
+    MetaField metaField = new MetaField();
+	int countryIndex = 1;
+    do {
+	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
+	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases")))) + " : "
+	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
+      metaFields.add(metaField);
+      metaField = new MetaField();
+	} while(cOverview.moveToNext());
+	metaFields.add(metaField);
+    //setTableLayout(populateWithTwoColumns(metaFields)); 
   }
 }
