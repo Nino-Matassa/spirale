@@ -1,19 +1,15 @@
 package ie.matassa.nino.spirale;
 import android.content.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
-import android.util.*;
 import android.database.sqlite.*;
-import android.app.*;
+import android.util.*;
+import java.io.*;
 import java.net.*;
 import java.nio.channels.*;
-import android.widget.*;
-import android.text.format.*;
-import android.os.*;
 import java.sql.*;
-import java.nio.file.attribute.*;
-import java.nio.file.*;
+import java.util.*;
+
+import java.util.Date;
+
 
 public class CSV {
   private Context context = null;
@@ -174,30 +170,32 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	  file.setLastModified(new URL(url).openConnection().getDate());
+	  //file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
 
   private boolean csvIsUpdated(String urlString, String name) {
-	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
-	File csv = new File(filePath);
-	if (!csv.exists())
-	  return true;
-	try {
-	  URL url = new URL(urlString);
-	  URLConnection urlConnection = url.openConnection();
-	  urlConnection.connect();
-	  Timestamp urlTimeStamp = new Timestamp(urlConnection.getDate());
-	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
-	  
-	  if (csvTimeStamp.after(urlTimeStamp)) {
-		return true;
-	  }
-	} catch (Exception e) {
-	  Log.d("MainActivity", e.toString());
-	}
-	return false;
+	// for now it looks like the url timestamp reads the current time so for now just download the csvs
+	return true;
+//	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
+//	File csv = new File(filePath);
+//	if (!csv.exists())
+//	  return true;
+//	try {
+//	  URL url = new URL(urlString);
+//	  URLConnection urlConnection = url.openConnection();
+//	  urlConnection.connect();
+//	  Timestamp urlTimeStamp = new Timestamp(urlConnection.getDate());
+//	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
+//	  
+//	  if (!csvTimeStamp.equals(urlTimeStamp)) {
+//		return true;
+//	  }
+//	} catch (Exception e) {
+//	  Log.d("MainActivity", e.toString());
+//	}
+//	return false;
   }
 
   public void generateDatabaseTable(String nameOfCsvFile) {

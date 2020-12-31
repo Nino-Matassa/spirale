@@ -79,12 +79,17 @@ public class MainActivity extends Activity {
 		Log.d("getDataFiles", e.toString());
 		} finally { // and after the thread has finished....
 		  UIMessage.notificationMessage(MainActivity.this, null);
-		  new GenerateTables(MainActivity.this);
 		  terra();
 		}
   }
 
   private void terra() {
+	new Thread(new Runnable() {
+		@Override
+		public void run() {
+		  new GenerateTables(MainActivity.this);
+		}
+	});
 	Handler handler = new Handler(Looper.getMainLooper());
 	handler.post(new Runnable() {
 		@Override
