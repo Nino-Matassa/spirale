@@ -162,7 +162,6 @@ public class CSV {
 	if (!csvIsUpdated(url, name)) 
 	  return false;
 
-	UIMessage.toast(context, "Downloading (" + url + ")", Toast.LENGTH_LONG);
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);
 	if (file.exists()) file.delete();
@@ -192,7 +191,7 @@ public class CSV {
 	  Timestamp urlTimeStamp = new Timestamp(urlConnection.getDate());
 	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
 	  
-	  if (csvTimeStamp.before(urlTimeStamp)) {
+	  if (csvTimeStamp.after(urlTimeStamp)) {
 		return true;
 	  }
 	} catch (Exception e) {
@@ -205,11 +204,9 @@ public class CSV {
 	db = Database.getInstance(context);
 	switch (nameOfCsvFile) {
 	  case Constants.csvOverviewName:
-		UIMessage.notificationMessage(context, "Populating Table Overview");
 		populateTableOverview();
 		break;
 	  case Constants.csvDetailsName:
-		UIMessage.notificationMessage(context, "Populating Table Detail");
 		populateTableDetails(); // ignore for now takes too long
 		break;
 	  default:

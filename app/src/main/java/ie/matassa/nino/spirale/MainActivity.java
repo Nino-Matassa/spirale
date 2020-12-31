@@ -14,23 +14,22 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	
-//	Handler handler = new Handler();
-//	handler.postDelayed(new Runnable() {
-//		public void run() {
-//		  try {
-//			funnel();
-//		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
-//		}
-//	  }, 500);
-	funnel();
   }
 
   @Override
   protected void onResume() {
 	super.onResume();
+	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
 	Database.setInstanceToNull();
-	funnel();
+	Handler handler = new Handler();
+	handler.postDelayed(new Runnable() {
+		public void run() {
+		  try {
+			Database.setInstanceToNull();
+			getDataFiles(/*whoListener*/);
+		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
+		}
+	  }, 500);
   }
 
   @Override
@@ -40,23 +39,18 @@ public class MainActivity extends Activity {
 	super.onBackPressed();
   }
 
-  private void funnel() {
-	Database.setInstanceToNull();
-	getDataFiles(whoListener);
-  }
-
-  public interface WHOListener { public void WHOThreadFinished(); }
-  WHOListener whoListener = new WHOListener() {
-	@Override
-	public void WHOThreadFinished() {
-	  terra();
-	}
-  };
+//  public interface WHOListener { public void WHOThreadFinished(); }
+//  WHOListener whoListener = new WHOListener() {
+//	@Override
+//	public void WHOThreadFinished() {
+//	  terra();
+//	}
+//  };
 
   private static boolean bDownloadRequest = false;
   private static Thread thread = null;
-  public void getDataFiles(final WHOListener whoListener) {
-	if (thread != null) { return; }
+  public void getDataFiles(/*final WHOListener whoListener*/) {
+	//if (thread != null) { return; }
 	thread = new Thread(new Runnable() {
 		@Override 
 		public void run() {
@@ -75,10 +69,19 @@ public class MainActivity extends Activity {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
 			csv.generateDatabaseTable(Constants.csvDetailsName);
 		  }
-		  whoListener.WHOThreadFinished();
+		  //whoListener.WHOThreadFinished();
 		}
 	  });
 	thread.start();
+	try {
+	  thread.join(); 
+	  } catch (InterruptedException e) {
+		Log.d("getDataFiles", e.toString());
+		} finally { // and after the thread has finished....
+		  UIMessage.notificationMessage(MainActivity.this, null);
+		  new GenerateTables(MainActivity.this);
+		  terra();
+		}
   }
 
   private void terra() {
