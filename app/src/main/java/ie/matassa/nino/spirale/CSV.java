@@ -176,26 +176,27 @@ public class CSV {
   }
 
   private boolean csvIsUpdated(String urlString, String name) {
-	// for now it looks like the url timestamp reads the current time so for now just download the csvs
-	return true;
-//	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
-//	File csv = new File(filePath);
-//	if (!csv.exists())
-//	  return true;
-//	try {
-//	  URL url = new URL(urlString);
-//	  URLConnection urlConnection = url.openConnection();
-//	  urlConnection.connect();
-//	  Timestamp urlTimeStamp = new Timestamp(urlConnection.getDate());
-//	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
-//	  
-//	  if (!csvTimeStamp.equals(urlTimeStamp)) {
-//		return true;
-//	  }
-//	} catch (Exception e) {
-//	  Log.d("MainActivity", e.toString());
-//	}
-//	return false;
+	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
+	File csv = new File(filePath);
+	if (!csv.exists())
+	  return true;
+	try {
+	  URL url = new URL(urlString);
+	  HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+
+	  Timestamp urlTimeStamp = new Timestamp(httpCon.getLastModified());
+	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
+	  
+	  //String urlTime = urlTimeStamp.toGMTString();
+	  //String csvTime = csvTimeStamp.toGMTString();
+	  
+	  if (urlTimeStamp.after(csvTimeStamp)) {
+		return true;
+	  }
+	} catch (Exception e) {
+	  Log.d("MainActivity", e.toString());
+	}
+	return false;
   }
 
   public void generateDatabaseTable(String nameOfCsvFile) {
