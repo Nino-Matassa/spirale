@@ -6,6 +6,7 @@ import android.database.sqlite.*;
 import android.os.*;
 import android.util.*;
 import android.widget.*;
+import java.sql.*;
 
 
 public class MainActivity extends Activity {
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
 		public void run() {
 		  try {
 			Database.setInstanceToNull();
-			getDataFiles(/*whoListener*/);
+			getDataFiles();
 		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
 
   private static boolean bDownloadRequest = false;
   private static Thread thread = null;
-  public void getDataFiles(/*final WHOListener whoListener*/) {
+  public void getDataFiles() {
 	//if (thread != null) { return; }
 	thread = new Thread(new Runnable() {
 		@Override 
@@ -75,12 +76,13 @@ public class MainActivity extends Activity {
 	thread.start();
 	try {
 	  thread.join(); 
-	  } catch (InterruptedException e) {
-		Log.d("getDataFiles", e.toString());
-		} finally { // and after the thread has finished....
-		  UIMessage.notificationMessage(MainActivity.this, null);
-		  terra();
-		}
+	} catch (InterruptedException e) {
+	  Log.d("getDataFiles", e.toString());
+	}
+	finally { // and after the thread has finished....
+	  UIMessage.notificationMessage(MainActivity.this, null);
+	  terra();
+	}
   }
 
   private void terra() {
@@ -89,7 +91,7 @@ public class MainActivity extends Activity {
 		public void run() {
 		  new GenerateTables(MainActivity.this);
 		}
-	});
+	  });
 	Handler handler = new Handler(Looper.getMainLooper());
 	handler.post(new Runnable() {
 		@Override

@@ -170,7 +170,8 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	  //file.setLastModified(new URL(url).openConnection().getDate());
+	  // Untested...
+	  file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
