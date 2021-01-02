@@ -9,29 +9,35 @@ import android.util.*;
 import android.database.*;
 import java.security.*;
 
-public class UITerra extends UI {
-  protected Context context = null;
-  DecimalFormat formatter = null;
+public class UITerra extends UI implements IRegisterOnStack {
 
-  String Country = null;
-  Integer TotalCase = null;
-  Double CasePerMillion = 0.0;
-  Integer Case7Day = 0;
-  Integer Case24Hour = 0;
-  Integer TotalDeath = 0;
-  Double DeathPerMillion = 0.0;
-  Integer Death7Day = 0;
-  Integer Death24Hour = 0;
-  String lastUpdated = null;
+  private Context context = null;
+  private DecimalFormat formatter = null;
+
+  private String Country = null;
+  private Integer TotalCase = null;
+  private Double CasePerMillion = 0.0;
+  private Integer Case7Day = 0;
+  private Integer Case24Hour = 0;
+  private Integer TotalDeath = 0;
+  private Double DeathPerMillion = 0.0;
+  private Integer Death7Day = 0;
+  private Integer Death24Hour = 0;
+  private String lastUpdated = null;
 
   ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-
   public UITerra(Context context) {
 	super(context);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
 
 	uiHandler();
+  }
+  
+  @Override
+  public boolean registerOnStack(UIHistory uiHistory) {
+	// TODO: Implement this method
+	return false;
   }
 
   private void uiHandler() {
@@ -43,7 +49,6 @@ public class UITerra extends UI {
 		  populateOverview();
 		  setTableLayout(populateWithTwoColumns(metaFields));
 		  setHeaderTwoColumns("Terra", "General");
-		  setFooter(lastUpdated);
 		  UIMessage.notificationMessage(context, null);
         }
       });

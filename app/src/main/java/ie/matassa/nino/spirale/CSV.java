@@ -170,8 +170,8 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	  // Untested...
-	  file.setLastModified(new URL(url).openConnection().getDate());
+	  // not sure why this is failing yet...
+	  boolean b = file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }

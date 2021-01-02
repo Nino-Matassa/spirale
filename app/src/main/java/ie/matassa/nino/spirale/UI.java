@@ -10,6 +10,7 @@ import android.view.View.*;
 import android.widget.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
+import java.io.*;
 
 public class UI {
   protected Context context = null;
@@ -32,6 +33,13 @@ public class UI {
 	tableLayout = (TableLayout) ((Activity)context).findViewById(R.id.layoutTable);
 	tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
 	tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
+	
+	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
+	File csv = new File(filePath);
+	String lastUpdated = new Date(csv.lastModified()).toString();
+	String[] arrDate = lastUpdated.split(" ");
+	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
+	setFooter(lastUpdated);
   }
 
   protected ArrayList<TableRow> populateWithTwoColumns(ArrayList<MetaField> metaFields) {
@@ -106,7 +114,7 @@ public class UI {
       tableLayout.addView(tableRow);
 	}
   }
-  protected void setFooter(String description) {
+  private void setFooter(String lastUpdated) {
     TableRow tableRow = new TableRow(context);
     LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     tableRow.setLayoutParams(tableRowParams);
@@ -117,7 +125,7 @@ public class UI {
     TextView textView = new TextView(context);
     textView.setTextSize(18);
     textView.setLayoutParams(cellParams);
-    textView.setText(description);
+    textView.setText(lastUpdated);
     textView.setTypeface(null, Typeface.BOLD);
     textView.setGravity(Gravity.CENTER);
     tableRow.addView(textView);

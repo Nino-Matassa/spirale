@@ -35,23 +35,13 @@ public class MainActivity extends Activity {
 
   @Override
   public void onBackPressed() {
-	//Database.setInstanceToNull();
 	System.exit(0);
 	super.onBackPressed();
   }
 
-//  public interface WHOListener { public void WHOThreadFinished(); }
-//  WHOListener whoListener = new WHOListener() {
-//	@Override
-//	public void WHOThreadFinished() {
-//	  terra();
-//	}
-//  };
-
   private static boolean bDownloadRequest = false;
   private static Thread thread = null;
   public void getDataFiles() {
-	//if (thread != null) { return; }
 	thread = new Thread(new Runnable() {
 		@Override 
 		public void run() {
@@ -70,7 +60,6 @@ public class MainActivity extends Activity {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
 			csv.generateDatabaseTable(Constants.csvDetailsName);
 		  }
-		  //whoListener.WHOThreadFinished();
 		}
 	  });
 	thread.start();
@@ -80,25 +69,23 @@ public class MainActivity extends Activity {
 	  Log.d("getDataFiles", e.toString());
 	}
 	finally { // and after the thread has finished....
-	  UIMessage.notificationMessage(MainActivity.this, null);
 	  terra();
 	}
   }
 
   private void terra() {
-	new Thread(new Runnable() {
-		@Override
-		public void run() {
-		  new GenerateTables(MainActivity.this);
-		}
-	  });
 	Handler handler = new Handler(Looper.getMainLooper());
 	handler.post(new Runnable() {
 		@Override
 		public void run() {
 		  try {
+			new GenerateTables(MainActivity.this);
 			new UITerra(MainActivity.this);
-		  } catch (Exception e) { Log.d("MainActivity.terra", e.toString()); }
+		  } catch (Exception e) { 
+		  Log.d("MainActivity.terra", e.toString());
+		  } finally {
+			UIMessage.notificationMessage(MainActivity.this, null);
+		  }
 		}     
 	  });
   }
