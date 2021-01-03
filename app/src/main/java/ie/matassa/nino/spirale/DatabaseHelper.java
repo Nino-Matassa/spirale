@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private String sqlTableOverview =
 	"create table Overview ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	//+ "FK_Region INT NOT NULL, "
+	+ "FK_Region INT NOT NULL DEFAULT 0, "
 	+ "Region TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
 	+ "TotalCase INT NOT NULL, "
@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private String sqlTableDetail =
 	"create table Detail ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-	//+ "FK_Country INT NOT NULL, "
+	+ "FK_Country INT NOT NULL DEFAULT 0, "
 	+ "Date TEXT NOT NULL, "
 	+ "Code TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "

@@ -11,10 +11,13 @@ import java.sql.*;
 
 public class MainActivity extends Activity {
 
+  BusyBee busyBee = null;
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	busyBee = new BusyBee(MainActivity.this);
   }
 
   @Override
@@ -79,7 +82,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 		  try {
-			new GenerateTables(MainActivity.this);
+			new GenerateTablesEtc(MainActivity.this);
 			new UITerra(MainActivity.this);
 		  } catch (Exception e) { 
 		  Log.d("MainActivity.terra", e.toString());

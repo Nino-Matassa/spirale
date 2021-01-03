@@ -7,9 +7,8 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
- url  = "2020-12-31 16:27:08.0"
- csv  = "2021-01-01 07:30:48.0"
-
+ Implementing foreign key for data. The need to be populated before they can be implemented. And that may not work.
+ 
 
 */
 
