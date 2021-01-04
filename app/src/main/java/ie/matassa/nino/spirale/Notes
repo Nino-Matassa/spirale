@@ -7,8 +7,13 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
- Implementing foreign key for data. The need to be populated before they can be implemented. And that may not work.
- 
+Implementing foreign key for data. The need to be populated before they can be implemented. And that may not work.
+https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
+ALTER TABLE [child] Overview
+  ADD CONSTRAINT [CId] ?
+  FOREIGN KEY ([CId]) FK_Region
+  REFERENCES [Parent]([CId]) Region(Id)
+  ON DELETE CASCADE ON UPDATE NO ACTION ? Is this needed 
 
 */
 

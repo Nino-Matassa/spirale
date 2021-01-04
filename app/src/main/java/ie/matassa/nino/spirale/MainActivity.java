@@ -12,7 +12,7 @@ import java.sql.*;
 public class MainActivity extends Activity {
 
   BusyBee busyBee = null;
-  
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
 		  if (!Database.databaseExists()) {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 
 			csv.generateDatabaseTable(Constants.csvDetailsName);
+			new GenerateTablesEtc(MainActivity.this);
 		  }
 		}
 	  });
@@ -82,11 +83,11 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 		  try {
-			new GenerateTablesEtc(MainActivity.this);
 			new UITerra(MainActivity.this);
 		  } catch (Exception e) { 
-		  Log.d("MainActivity.terra", e.toString());
-		  } finally {
+			Log.d("MainActivity.terra", e.toString());
+		  }
+		  finally {
 			UIMessage.notificationMessage(MainActivity.this, null);
 		  }
 		}     

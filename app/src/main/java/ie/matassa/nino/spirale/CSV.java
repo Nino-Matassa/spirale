@@ -170,8 +170,8 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	  // not sure why this is failing yet...
-	  boolean b = file.setLastModified(new URL(url).openConnection().getDate());
+	  // looks like this failing on a permissions issue, could be a waste of time
+	  //boolean b = file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
@@ -187,9 +187,6 @@ public class CSV {
 
 	  Timestamp urlTimeStamp = new Timestamp(httpCon.getLastModified());
 	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
-	  
-	  //String urlTime = urlTimeStamp.toGMTString();
-	  //String csvTime = csvTimeStamp.toGMTString();
 	  
 	  if (urlTimeStamp.after(csvTimeStamp)) {
 		return true;
