@@ -14,6 +14,16 @@ public class GenerateTablesEtc {
 	generateCountry();
 	populateOverviewFK_Region();
 	populateDetailFK_Country();
+	setForeignKeyOverview();
+	setForeignKeyDetail();
+  }
+
+  private void setForeignKeyDetail() {
+	//https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
+  }
+
+  private void setForeignKeyOverview() {
+	//https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
   }
 
   private void populateDetailFK_Country() {
@@ -27,7 +37,7 @@ public class GenerateTablesEtc {
 	  String sqlUpdate = "update Detail set FK_Country = #1 where Country = '#2'";
 	  sqlUpdate = sqlUpdate.replace("#1", String.valueOf(Id));
 	  sqlUpdate = sqlUpdate.replace("#2", Country);
-	  db.rawQuery(sqlUpdate, null);
+	  db.execSQL(sqlUpdate);
 	} while(cCountry.moveToNext());
   }
 
@@ -41,7 +51,7 @@ public class GenerateTablesEtc {
 	  String sqlUpdate = "update Overview set FK_Region = #1 where Region = '#2'";
 	  sqlUpdate = sqlUpdate.replace("#1", String.valueOf(Id));
 	  sqlUpdate = sqlUpdate.replace("#2", Region);
-	  db.rawQuery(sqlUpdate, null);
+	  db.execSQL(sqlUpdate);
 	} while(cRegion.moveToNext());
   }
 

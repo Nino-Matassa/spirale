@@ -20,9 +20,11 @@ public class UI {
   private TableLayout tableLayoutFooter = null;
   protected SQLiteDatabase db = null;
   private Vibrator vibrator = null;
+  private BusyBee busyBee = null;
 
   public UI(Context context) {
 	this.context = context;
+	busyBee = new BusyBee(context);
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
@@ -54,7 +56,7 @@ public class UI {
       cellParams.weight = 9;
       TextView textViewKey = new TextView(context);
       textViewKey.setTextSize(18);
-      TextView textViewValue = new TextView(context);
+	  TextView textViewValue = new TextView(context);
       textViewKey.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View view) {
@@ -74,7 +76,13 @@ public class UI {
       textViewValue.setText(metaField.value);
       tableRow.addView(textViewKey);
       tableRow.addView(textViewValue);
-      if (bColourSwitch) {
+	  
+	  if(metaField.underlineKey)
+		textViewKey.setPaintFlags(textViewKey.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+	  if(metaField.underlineValue)
+		textViewValue.setPaintFlags(textViewValue.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+	  
+	  if (bColourSwitch) {
         bColourSwitch = !bColourSwitch; 
         tableRow.setBackgroundColor(Color.parseColor("#F7FAFD"));
 	  } else {
@@ -186,5 +194,7 @@ public class UI {
   
   
   private void onClickListenerFired(View view, MetaField metaField) {
+	if(!metaField.underlineKey && !metaField.underlineValue)
+	  return;
   }
 }

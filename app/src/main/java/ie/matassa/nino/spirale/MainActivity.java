@@ -7,17 +7,17 @@ import android.os.*;
 import android.util.*;
 import android.widget.*;
 import java.sql.*;
+import java.util.*;
 
 
 public class MainActivity extends Activity {
-
-  BusyBee busyBee = null;
+  
+  public static Stack<UIHistory> stack = new Stack<UIHistory>();
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	busyBee = new BusyBee(MainActivity.this);
   }
 
   @Override
@@ -38,8 +38,24 @@ public class MainActivity extends Activity {
 
   @Override
   public void onBackPressed() {
-	System.exit(0);
-	super.onBackPressed();
+	if(stack.size() == 1) {
+	  super.onBackPressed();
+	} else {
+	  stack.pop();
+	  UIHistory info = stack.pop();
+	  switch(info.getUI()) {
+		case Constants.UITerra:
+		  new UITerra(MainActivity.this);
+		  break;
+		case Constants.UIRegion:
+		  new UIRegion(MainActivity.this);
+		  break;
+		case Constants.UICountry:
+		  //new UICountry(info.context, info.id);
+		  break;
+		default:
+	  }
+	}
   }
 
   private static boolean bDownloadRequest = false;

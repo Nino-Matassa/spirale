@@ -17,7 +17,6 @@ public class UIRegion extends UI implements IRegisterOnStack {
 	super(context);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
-	uiHistory = new UIHistory();
 
 	uiHandler();
   }
@@ -35,9 +34,9 @@ public class UIRegion extends UI implements IRegisterOnStack {
   }
   
   @Override
-  public boolean registerOnStack(UIHistory uiHistory) {
-	// TODO: Implement this method
-	return false;
+  public void registerOnStack() {
+	uiHistory = new UIHistory(context, 0, 0, Constants.UIRegion);
+	MainActivity.stack.add(uiHistory);
   }
   
 

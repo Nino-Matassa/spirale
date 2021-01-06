@@ -13,6 +13,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 
   private Context context = null;
   private DecimalFormat formatter = null;
+  private UIHistory uiHistory = null;
 
   private String Country = null;
   private Integer TotalCase = null;
@@ -30,14 +31,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	super(context);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
-
+	
 	uiHandler();
   }
   
   @Override
-  public boolean registerOnStack(UIHistory uiHistory) {
-	// TODO: Implement this method
-	return false;
+  public void registerOnStack() {
+	uiHistory = new UIHistory(context, 0, 0, Constants.UITerra);
+	MainActivity.stack.add(uiHistory);
   }
 
   private void uiHandler() {
@@ -46,8 +47,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTerra();
-		  populateOverview();
-		  setTableLayout(populateWithTwoColumns(metaFields));
 		  setHeaderTwoColumns("Terra", "General");
 		  UIMessage.notificationMessage(context, null);
         }
@@ -124,18 +123,34 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.key = "";
 	metaField.value = "";
 	metaFields.add(metaField);
+	// Regions
+	sql = "select Region.Region, sum(Overview.CasePerMillion) as CasePerMillion, (select count(CasePerMillion)) as N from Region join Overview on Region.Id = Overview.FK_Region group by Region.Region order by CasePerMillion";
 	metaField = new MetaField();
-
-	metaField.key = "Country";
-	metaField.value = "Cases + New";
+	metaField.key = "Region";
+	metaField.value = "Case/Million";
 	metaFields.add(metaField);
-  }
-
-  private void populateOverview() {
-	String sql = "select country, Date, TotalCases, NewCases from detail group by country order by totalcases desc";
+	Cursor cRegion = db.rawQuery(sql, null);
+	cRegion.moveToFirst();
+	do {
+	  metaField = new MetaField();
+	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
+	  double N = cRegion.getDouble(cRegion.getColumnIndex("N"));
+	  metaField.value = String.valueOf(formatter.format(cRegion.getDouble(cRegion.getColumnIndex("CasePerMillion"))/N));
+	  metaFields.add(metaField);
+	} while(cRegion.moveToNext());
+	metaField = new MetaField();
+	metaField.key = "";
+	metaField.value = "";
+	metaFields.add(metaField);
+	// Countries
+	metaField = new MetaField();
+	metaField.key = "Country";
+	metaField.value = "Case + New Case";
+	metaFields.add(metaField);
+	sql = "select country, Date, TotalCases, NewCases from detail group by country order by totalcases desc";
     Cursor cOverview = db.rawQuery(sql, null);
     cOverview.moveToFirst();
-    MetaField metaField = new MetaField();
+    metaField = new MetaField();
 	int countryIndex = 1;
     do {
 	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
@@ -145,6 +160,12 @@ public class UITerra extends UI implements IRegisterOnStack {
       metaField = new MetaField();
 	} while(cOverview.moveToNext());
 	metaFields.add(metaField);
+	// Draw Table
+	setTableLayout(populateWithTwoColumns(metaFields));
+  }
+
+  private void populateOverview() {
+	
   }
   
   private void populateRegion() {
