@@ -44,7 +44,7 @@ public class UI {
 	setFooter(lastUpdated);
   }
 
-  protected ArrayList<TableRow> populateWithTwoColumns(ArrayList<MetaField> metaFields) {
+  protected ArrayList<TableRow> populateTable(ArrayList<MetaField> metaFields) {
     ArrayList<TableRow> tableRows = new ArrayList<TableRow>();
     boolean bColourSwitch = true;
     for (final MetaField metaField: metaFields) {
@@ -60,13 +60,19 @@ public class UI {
       textViewKey.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View view) {
-			onClickListenerFired(view, metaField);
+			if(metaField.underlineKey) {
+			  if(metaField.UI.equals(Constants.UICountry)) {
+				new UICountry(context, metaField.regionId, metaField.countryId);
+			  }
+			}
           }
         });
       textViewValue.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View view) {
-			onClickListenerFired(view, metaField);
+			if(metaField.underlineValue) {
+			  
+			}
           }
         });
       textViewValue.setTextSize(18);
@@ -94,7 +100,7 @@ public class UI {
     return tableRows;
   }
 
-  protected void setHeaderTwoColumns(String keyDescription, String valueDescription) {
+  protected void setHeader(String keyDescription, String valueDescription) {
     TableRow tableRow = new TableRow(context);
     LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     tableRow.setLayoutParams(tableRowParams);
@@ -141,60 +147,4 @@ public class UI {
     tableLayoutFooter.addView(tableRow);
   }
   
-  protected ArrayList<TableRow> populateWithOneColumn(ArrayList<MetaField> metaFields) {
-    ArrayList<TableRow> tableRows = new ArrayList<TableRow>();
-    boolean bColourSwitch = true;
-    for (final MetaField metaField: metaFields) {
-      TableRow tableRow = new TableRow(context);
-      LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-      tableRow.setLayoutParams(tableRowParams);
-
-      TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
-      cellParams.weight = 9;
-      TextView textViewValue = new TextView(context);
-      textViewValue.setOnClickListener(new OnClickListener() {
-		  @Override
-		  public void onClick(View view) {
-			onClickListenerFired(view, metaField);
-          }
-        });
-      textViewValue.setTextSize(18);
-      textViewValue.setLayoutParams(cellParams);
-      textViewValue.setText(metaField.value);
-      tableRow.addView(textViewValue);
-      if (bColourSwitch) {
-        bColourSwitch = !bColourSwitch; 
-        tableRow.setBackgroundColor(Color.parseColor("#F7FAFD"));
-	  } else {
-        bColourSwitch = !bColourSwitch;
-		tableRow.setBackgroundColor(Color.parseColor("#ECF8F6"));
-	  }
-      tableRows.add(tableRow);
-	}
-    return tableRows;
-  }
-
-  protected void setHeaderOneColumn(String keyDescription, String valueDescription) {
-    TableRow tableRow = new TableRow(context);
-    LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    tableRow.setLayoutParams(tableRowParams);
-
-    TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
-    cellParams.weight = 9;
-	cellParams.gravity = Gravity.CENTER;
-    TextView textViewL = new TextView(context);
-    textViewL.setTextSize(18);
-    textViewL.setLayoutParams(cellParams);
-    textViewL.setText(keyDescription);
-    textViewL.setTypeface(null, Typeface.BOLD);
-	tableRow.addView(textViewL);
-    tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
-    tableLayoutHeader.addView(tableRow);
-  }
-  
-  
-  private void onClickListenerFired(View view, MetaField metaField) {
-	if(!metaField.underlineKey && !metaField.underlineValue)
-	  return;
-  }
 }

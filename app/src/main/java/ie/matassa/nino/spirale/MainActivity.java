@@ -42,8 +42,8 @@ public class MainActivity extends Activity {
 	  super.onBackPressed();
 	} else {
 	  stack.pop();
-	  UIHistory info = stack.pop();
-	  switch(info.getUI()) {
+	  UIHistory uiHistory = stack.pop();
+	  switch(uiHistory.getUIX()) {
 		case Constants.UITerra:
 		  new UITerra(MainActivity.this);
 		  break;
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 		  new UIRegion(MainActivity.this);
 		  break;
 		case Constants.UICountry:
-		  //new UICountry(info.context, info.id);
+		  new UICountry(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		default:
 	  }

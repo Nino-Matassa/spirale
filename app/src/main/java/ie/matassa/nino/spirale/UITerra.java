@@ -31,13 +31,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	super(context);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
-	
+	registerOnStack();
+
 	uiHandler();
   }
-  
+
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(context, 0, 0, Constants.UITerra);
+	uiHistory = new UIHistory(0, 0, Constants.UITerra);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -47,7 +48,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTerra();
-		  setHeaderTwoColumns("Terra", "General");
+		  setHeader("Terra", "General");
 		  UIMessage.notificationMessage(context, null);
         }
       });
@@ -135,7 +136,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	  metaField = new MetaField();
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
 	  double N = cRegion.getDouble(cRegion.getColumnIndex("N"));
-	  metaField.value = String.valueOf(formatter.format(cRegion.getDouble(cRegion.getColumnIndex("CasePerMillion"))/N));
+	  metaField.value = String.valueOf(formatter.format(cRegion.getDouble(cRegion.getColumnIndex("CasePerMillion")) / N));
 	  metaFields.add(metaField);
 	} while(cRegion.moveToNext());
 	metaField = new MetaField();
@@ -147,28 +148,24 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.key = "Country";
 	metaField.value = "Case + New Case";
 	metaFields.add(metaField);
-	sql = "select country, Date, TotalCases, NewCases from detail group by country order by totalcases desc";
+	sql = "select country, Date, TotalCases, NewCases, FK_Country, (select FK_Region from Country where Id = FK_Country) as FK_Region from detail group by country order by totalcases desc";
     Cursor cOverview = db.rawQuery(sql, null);
     cOverview.moveToFirst();
     metaField = new MetaField();
 	int countryIndex = 1;
     do {
 	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
-	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases")))) + " : "
-	  	+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
+	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases"))));// + " : "
+	  //+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
+	  metaField.underlineKey = true;
+	  metaField.regionId = cOverview.getInt(cOverview.getColumnIndex("FK_Region"));
+	  metaField.countryId = cOverview.getInt(cOverview.getColumnIndex("FK_Country"));
       metaFields.add(metaField);
       metaField = new MetaField();
 	} while(cOverview.moveToNext());
 	metaFields.add(metaField);
 	// Draw Table
-	setTableLayout(populateWithTwoColumns(metaFields));
+	setTableLayout(populateTable(metaFields));
   }
 
-  private void populateOverview() {
-	
-  }
-  
-  private void populateRegion() {
-	
-  }
 }

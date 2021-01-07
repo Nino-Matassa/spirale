@@ -27,7 +27,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeaderTwoColumns("Region", "Total Case");
+		  setHeader("Region", "Total Case");
 		  UIMessage.notificationMessage(context, null);
         }
       });
@@ -35,7 +35,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
   
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(context, 0, 0, Constants.UIRegion);
+	uiHistory = new UIHistory(0, 0, Constants.UIRegion);
 	MainActivity.stack.add(uiHistory);
   }
   

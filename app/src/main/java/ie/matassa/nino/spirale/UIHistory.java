@@ -3,19 +3,25 @@ import android.content.*;
 import android.app.*;
 
 public class UIHistory {
-  private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
-  private String UI = null;
+  private String UIX = null;
 
-  public UIHistory(Context context, int regionId, int countryId, String ui) {
-	this.context = context;
+  public UIHistory(int regionId, int countryId, String uiX) {
 	this.regionId = regionId;
 	this.countryId = countryId;
-	UI = ui;
+	this.UIX = uiX;
   }
 
-  public String getUI() {
-	return UI;
+  public int getRegionId() {
+	return regionId;
+  }
+
+  public int getCountryId() {
+	return countryId;
+  }
+
+  public String getUIX() {
+	return UIX;
   }
 }
