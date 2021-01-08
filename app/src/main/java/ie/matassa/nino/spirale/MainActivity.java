@@ -11,13 +11,25 @@ import java.util.*;
 
 
 public class MainActivity extends Activity {
-  
+
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	
+//	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
+//	Database.setInstanceToNull();
+//	Handler handler = new Handler();
+//	handler.postDelayed(new Runnable() {
+//		public void run() {
+//		  try {
+//			Database.setInstanceToNull();
+//			getDataFiles();
+//		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
+//		}
+//	  }, 500);
   }
 
   @Override
@@ -38,12 +50,12 @@ public class MainActivity extends Activity {
 
   @Override
   public void onBackPressed() {
-	if(stack.size() == 1) {
+	if (stack.size() == 1) {
 	  super.onBackPressed();
 	} else {
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
-	  switch(uiHistory.getUIX()) {
+	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
 		  new UITerra(MainActivity.this);
 		  break;
@@ -52,6 +64,9 @@ public class MainActivity extends Activity {
 		  break;
 		case Constants.UICountry:
 		  new UICountry(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UICase24Hour:
+		  new UICaseHistory(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		default:
 	  }
@@ -89,6 +104,7 @@ public class MainActivity extends Activity {
 	  Log.d("getDataFiles", e.toString());
 	}
 	finally { // and after the thread has finished....
+	  // TODO: if the stack is empty open terra otherwise open from the stack
 	  terra();
 	}
   }

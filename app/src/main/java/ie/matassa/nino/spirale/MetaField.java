@@ -9,4 +9,12 @@ public class MetaField {
   public int regionId = 0;
   public int countryId = 0;
   public String UI = Constants.UICountry;
+
+  public MetaField(int regionId, int countryId, String UI) {
+	this.regionId = regionId;
+	this.countryId = countryId;
+	this.UI = UI;
+  }
+  
+  public MetaField() {}
 }

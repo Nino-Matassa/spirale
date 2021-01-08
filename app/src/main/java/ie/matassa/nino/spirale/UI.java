@@ -24,7 +24,7 @@ public class UI {
 
   public UI(Context context) {
 	this.context = context;
-	busyBee = new BusyBee(context);
+	//busyBee = new BusyBee(context);
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
@@ -63,6 +63,9 @@ public class UI {
 			if(metaField.underlineKey) {
 			  if(metaField.UI.equals(Constants.UICountry)) {
 				new UICountry(context, metaField.regionId, metaField.countryId);
+			  }
+			  if(metaField.UI.equals(Constants.UICase24Hour)) {
+				new UICaseHistory(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

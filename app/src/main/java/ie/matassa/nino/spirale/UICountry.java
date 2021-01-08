@@ -17,6 +17,17 @@ public class UICountry extends UI implements IRegisterOnStack {
   private int countryId = 0;
   private String Region = null;
   private String Country = null;
+  private String lastUpdated = null;
+  private double Population = 0.0;
+  private int TotalCase = 0;
+  private double CasePerMillion = 0.0;
+  private int Case7Day = 0;
+  private int Case24Hour = 0;
+  private int TotalDeath = 0;
+  private double DeathPerMillion = 0.0;
+  private int Death7Day = 0;
+  private int Death24Hour = 0;
+  private String Source = null;
 
   public UICountry(Context context, int regionId, int countryId) {
 	super(context);
@@ -25,7 +36,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
 	registerOnStack();
-	
+
 	uiHandler();
   }
 
@@ -49,54 +60,94 @@ public class UICountry extends UI implements IRegisterOnStack {
 
   private void populateCountry() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	MetaField metaField = new MetaField();
-	String sql = "select Region.Region, Country.Country, Detail.Date, Overview.TotalCase, Overview.CasePerMillion, Overview.Case7Day, Overview.Case24Hour, Overview.TotalDeath, Overview.DeathPerMillion, Overview.Death7Day, Overview.Death24Hour, Source from Overview join Region on Overview.FK_Region = Region.Id join Country on Region.Id = Country.FK_Region join Detail on Country.Id = Detail.FK_Country where Region.Id = #1 and Country.Id = #2 order by date desc limit 1"; // Ireland, FK_Region = 3, FK_Country = 76
-	sql = sql.replace("#1", String.valueOf(regionId)).replace("#2", String.valueOf(countryId));
-    Cursor cCountry = db.rawQuery(sql, null);
-    cCountry.moveToFirst();
-	Region = cCountry.getString(cCountry.getColumnIndex("Region"));
-	Country = cCountry.getString(cCountry.getColumnIndex("Country"));
-	// Date
-	metaField = new MetaField();
-	metaField.regionId = regionId;
-	metaField.countryId = countryId;
-
-	String lastUpdated = cCountry.getString(cCountry.getColumnIndex("Date"));
-    try {
+	String sqlDetail = "select Date, Country from Detail where FK_Country = #1 order by Date desc limit 1".replace("#1", String.valueOf(countryId));
+	Cursor cDetail = db.rawQuery(sqlDetail, null);
+    cDetail.moveToFirst();
+	lastUpdated = cDetail.getString(cDetail.getColumnIndex("Date"));
+	try {
       lastUpdated = new SimpleDateFormat("yyyy-MM-dd").parse(lastUpdated).toString();
       String[] arrDate = lastUpdated.split(" ");
       lastUpdated = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
-	} catch(Exception e) {
+	} catch (Exception e) {
       Log.d(Constants.UICountry, e.toString());
 	}
+	
+	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
 
+
+	String sqlOverview = "select Region, Country, TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from Overview where Country = '#1' limit 1".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
+	Cursor cOverview = db.rawQuery(sqlOverview, null);
+	cOverview.moveToFirst();
+	
+	Region = cOverview.getString(cOverview.getColumnIndex("Region"));
+	TotalCase = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
+	CasePerMillion = cOverview.getDouble(cOverview.getColumnIndex("CasePerMillion"));
+	Case7Day = cOverview.getInt(cOverview.getColumnIndex("Case7Day"));
+	Case24Hour = cOverview.getInt(cOverview.getColumnIndex("Case24Hour"));
+	TotalDeath = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
+	DeathPerMillion = cOverview.getDouble(cOverview.getColumnIndex("DeathPerMillion"));
+	Death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
+	Death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
+	Source = cOverview.getString(cOverview.getColumnIndex("Source"));
+	Population = TotalCase / CasePerMillion * 1000000;
+
+	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
 	metaField.value = lastUpdated;
 	metaFields.add(metaField);
-	// Total Cases
-	metaField = new MetaField();
-	metaField.regionId = regionId;
-	metaField.countryId = countryId;
-	metaField.key = "TotalCase";
-	metaField.value = String.valueOf(cCountry.getInt(cCountry.getColumnIndex("TotalCase")));
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Population";
+	metaField.value = String.valueOf(formatter.format(Population));
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Total Cases";
+	metaField.value = String.valueOf(formatter.format(TotalCase));
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Case/Million";
+	metaField.value = String.valueOf(formatter.format(CasePerMillion));
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Case7Day";
+	metaField.value = String.valueOf(formatter.format(Case7Day));
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
+	metaField.key = "Case24Hour";
+	metaField.value = String.valueOf(formatter.format(Case24Hour));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Total Deaths";
+	metaField.value = String.valueOf(formatter.format(TotalDeath));
+	metaFields.add(metaField);
+
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Death/Million";
+	metaField.value = String.valueOf(formatter.format(DeathPerMillion));
+	metaFields.add(metaField);
+
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Death7Day";
+	metaField.value = String.valueOf(formatter.format(Death7Day));
+	metaFields.add(metaField);
+
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Death24Hour";
+	metaField.value = String.valueOf(formatter.format(Death24Hour));
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField.key = "Source";
+	metaField.value = Source;
 	metaFields.add(metaField);
 	
     setTableLayout(populateTable(metaFields)); 
   }
 }
 
-/*
-
-	TotalCase
-	CasePerMillion
-	Case7Day
-	Case24Hour
-	TotalDeath
-	DeathPerMillion
-	Death7Day
-	Death24Hour
-	Source
-	
-	TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source
-
-*/

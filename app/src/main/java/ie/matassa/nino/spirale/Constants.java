@@ -17,10 +17,6 @@ public class Constants {
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";
   public static final String UICountry = "UICountry";
-  public static final String UITotalCase = "UITotalCase";
-  public static final String UINewCase = "UINewCase";
-  public static final String UICasePerMillion = "UINewCase";
-  public static final String UICase7Day = "UICase7Day";
   public static final String UICase24Hour = "UICase24Hour";
 }
 
