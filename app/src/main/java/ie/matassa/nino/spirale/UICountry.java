@@ -137,9 +137,10 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(Death7Day));
 	metaFields.add(metaField);
 
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UIDeath24Hour);
 	metaField.key = "Death24Hour";
 	metaField.value = String.valueOf(formatter.format(Death24Hour));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);

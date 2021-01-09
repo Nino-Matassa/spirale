@@ -18,5 +18,6 @@ public class Constants {
   public static final String UIRegion = "UIRegion";
   public static final String UICountry = "UICountry";
   public static final String UICase24Hour = "UICase24Hour";
+  public static final String UIDeath24Hour = "UIDeath24Hour";
 }
 

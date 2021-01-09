@@ -1,13 +1,12 @@
 package ie.matassa.nino.spirale;
 import android.content.*;
 import android.icu.text.*;
-import android.os.*;
 import java.util.*;
 import android.database.*;
 import android.util.*;
+import android.os.*;
 
-public class UICaseHistory extends UI implements IRegisterOnStack {
-
+public class UIDeath24Hour extends UI implements IRegisterOnStack {
   private Context context = null;
   private DecimalFormat formatter = null;
   private UIHistory uiHistory = null;
@@ -17,7 +16,7 @@ public class UICaseHistory extends UI implements IRegisterOnStack {
   private String Country = null;
   private MetaField metaField = null;
 
-  public UICaseHistory(Context context, int regionId, int countryId) {
+  public UIDeath24Hour(Context context, int regionId, int countryId) {
 	super(context);
 	this.context = context;
 	this.regionId = regionId;
@@ -48,7 +47,7 @@ public class UICaseHistory extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, Country, Region, NewCases from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, Country, Region, NewDeaths from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	Region = cDetail.getString(cDetail.getColumnIndex("Region"));
@@ -60,13 +59,13 @@ public class UICaseHistory extends UI implements IRegisterOnStack {
 		String[] arrDate = date.split(" ");
 		date = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
 	  } catch (Exception e) {
-		Log.d(Constants.UICountry, e.toString());
+		Log.d(Constants.UIDeath24Hour, e.toString());
 	  }
-	  int case24 = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	  
-	  metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
+	  int death24 = cDetail.getInt(cDetail.getColumnIndex("NewDeaths"));
+
+	  metaField = new MetaField(regionId, countryId, Constants.UIDeath24Hour);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(case24);
+	  metaField.value = String.valueOf(formatter.format(death24));
 	  metaFields.add(metaField);
 	} while(cDetail.moveToNext());
     setTableLayout(populateTable(metaFields)); 

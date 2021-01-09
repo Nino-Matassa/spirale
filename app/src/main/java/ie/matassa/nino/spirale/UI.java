@@ -14,17 +14,17 @@ import java.io.*;
 
 public class UI {
   protected Context context = null;
-  
+
   private TableLayout tableLayout = null;
   private TableLayout tableLayoutHeader = null;
   private TableLayout tableLayoutFooter = null;
   protected SQLiteDatabase db = null;
   private Vibrator vibrator = null;
-  private BusyBee busyBee = null;
 
   public UI(Context context) {
 	this.context = context;
-	//busyBee = new BusyBee(context);
+
+	getDataFiles();
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
@@ -35,7 +35,7 @@ public class UI {
 	tableLayout = (TableLayout) ((Activity)context).findViewById(R.id.layoutTable);
 	tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
 	tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
-	
+
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
 	File csv = new File(filePath);
 	String lastUpdated = new Date(csv.lastModified()).toString();
@@ -60,12 +60,16 @@ public class UI {
       textViewKey.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View view) {
-			if(metaField.underlineKey) {
-			  if(metaField.UI.equals(Constants.UICountry)) {
+			if (metaField.underlineKey) {
+			  UIMessage.notificationMessage(context, "Busy");
+			  if (metaField.UI.equals(Constants.UICountry)) {
 				new UICountry(context, metaField.regionId, metaField.countryId);
 			  }
-			  if(metaField.UI.equals(Constants.UICase24Hour)) {
-				new UICaseHistory(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UICase24Hour)) {
+				new UICase24Hour(context, metaField.regionId, metaField.countryId);
+			  }
+			  if(metaField.UI.equals(Constants.UIDeath24Hour)) {
+				new UIDeath24Hour(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }
@@ -73,8 +77,8 @@ public class UI {
       textViewValue.setOnClickListener(new OnClickListener() {
 		  @Override
 		  public void onClick(View view) {
-			if(metaField.underlineValue) {
-			  
+			if (metaField.underlineValue) {
+
 			}
           }
         });
@@ -85,12 +89,12 @@ public class UI {
       textViewValue.setText(metaField.value);
       tableRow.addView(textViewKey);
       tableRow.addView(textViewValue);
-	  
-	  if(metaField.underlineKey)
+
+	  if (metaField.underlineKey)
 		textViewKey.setPaintFlags(textViewKey.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-	  if(metaField.underlineValue)
+	  if (metaField.underlineValue)
 		textViewValue.setPaintFlags(textViewValue.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-	  
+
 	  if (bColourSwitch) {
         bColourSwitch = !bColourSwitch; 
         tableRow.setBackgroundColor(Color.parseColor("#F7FAFD"));
@@ -149,5 +153,37 @@ public class UI {
     tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
     tableLayoutFooter.addView(tableRow);
   }
-  
+
+  private static boolean bDownloadRequest = false;
+  private static Thread thread = null;
+  public void getDataFiles() {
+	thread = new Thread(new Runnable() {
+		@Override 
+		public void run() {
+		  CSV csv = new CSV(context);
+		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
+			bDownloadRequest = csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
+			  csv.generateDatabaseTable(Constants.csvOverviewName);  
+			}
+			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
+			  csv.generateDatabaseTable(Constants.csvDetailsName);
+			}
+		  }
+		  if (!Database.databaseExists()) {
+			csv.generateDatabaseTable(Constants.csvOverviewName); 
+			csv.generateDatabaseTable(Constants.csvDetailsName);
+			new GenerateTablesEtc(context);
+		  }
+		}
+	  });
+	thread.start();
+	try {
+	  thread.join(); 
+	} catch (InterruptedException e) {
+	  Log.d("getDataFiles", e.toString());
+	} finally {
+	  UIMessage.notificationMessage(context, null);
+	}
+  }
 }

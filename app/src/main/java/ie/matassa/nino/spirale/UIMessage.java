@@ -29,8 +29,6 @@ public class UIMessage {
 		  if (builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
-		  } else {
-			//salertDialog.dismiss(); // It's already been run
 		  }
 		  alertDialog.setMessage(msg);
 		  alertDialog.show();

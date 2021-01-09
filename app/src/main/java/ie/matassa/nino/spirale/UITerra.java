@@ -125,7 +125,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.value = "";
 	metaFields.add(metaField);
 	// Regions
-	sql = "select Region.Region, sum(Overview.CasePerMillion) as CasePerMillion, (select count(CasePerMillion)) as N from Region join Overview on Region.Id = Overview.FK_Region group by Region.Region order by CasePerMillion";
+	sql = "select Region.Region, sum(Overview.CasePerMillion) as CasePerMillion, (select count(CasePerMillion)) as N from Region join Overview on Region.Id = Overview.FK_Region group by Region.Region";
 	metaField = new MetaField();
 	metaField.key = "Region";
 	metaField.value = "Case/Million";
@@ -146,7 +146,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	// Countries
 	metaField = new MetaField();
 	metaField.key = "Country";
-	metaField.value = "Case + New Case";
+	metaField.value = "Total Cases";
 	metaFields.add(metaField);
 	sql = "select country, Date, TotalCases, NewCases, FK_Country, (select FK_Region from Country where Id = FK_Country) as FK_Region from detail group by country order by totalcases desc";
     Cursor cOverview = db.rawQuery(sql, null);

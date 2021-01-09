@@ -19,40 +19,24 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	
-//	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
-//	Database.setInstanceToNull();
-//	Handler handler = new Handler();
-//	handler.postDelayed(new Runnable() {
-//		public void run() {
-//		  try {
-//			Database.setInstanceToNull();
-//			getDataFiles();
-//		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
-//		}
-//	  }, 500);
-  }
-
-  @Override
-  protected void onResume() {
-	super.onResume();
 	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
-	Database.setInstanceToNull();
+	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
-			Database.setInstanceToNull();
-			getDataFiles();
+			new UITerra(MainActivity.this);
 		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
   }
-
+  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
 	  super.onBackPressed();
 	} else {
+	  UIMessage.notificationMessage(MainActivity.this, "Busy");
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
@@ -66,64 +50,11 @@ public class MainActivity extends Activity {
 		  new UICountry(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UICase24Hour:
-		  new UICaseHistory(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UICase24Hour(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		default:
 	  }
 	}
-  }
-
-  private static boolean bDownloadRequest = false;
-  private static Thread thread = null;
-  public void getDataFiles() {
-	thread = new Thread(new Runnable() {
-		@Override 
-		public void run() {
-		  CSV csv = new CSV(MainActivity.this);
-		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			bDownloadRequest = csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
-			  Database.setInstanceToNull();
-			  csv.generateDatabaseTable(Constants.csvOverviewName);  
-			}
-			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
-			  csv.generateDatabaseTable(Constants.csvDetailsName);
-			}
-		  }
-		  if (!Database.databaseExists()) {
-			csv.generateDatabaseTable(Constants.csvOverviewName); 
-			csv.generateDatabaseTable(Constants.csvDetailsName);
-			new GenerateTablesEtc(MainActivity.this);
-		  }
-		}
-	  });
-	thread.start();
-	try {
-	  thread.join(); 
-	} catch (InterruptedException e) {
-	  Log.d("getDataFiles", e.toString());
-	}
-	finally { // and after the thread has finished....
-	  // TODO: if the stack is empty open terra otherwise open from the stack
-	  terra();
-	}
-  }
-
-  private void terra() {
-	Handler handler = new Handler(Looper.getMainLooper());
-	handler.post(new Runnable() {
-		@Override
-		public void run() {
-		  try {
-			new UITerra(MainActivity.this);
-		  } catch (Exception e) { 
-			Log.d("MainActivity.terra", e.toString());
-		  }
-		  finally {
-			UIMessage.notificationMessage(MainActivity.this, null);
-		  }
-		}     
-	  });
   }
 }
 
