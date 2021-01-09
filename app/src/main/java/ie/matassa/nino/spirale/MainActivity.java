@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		  new UITerra(MainActivity.this);
 		  break;
 		case Constants.UIRegion:
-		  new UIRegion(MainActivity.this);
+		  new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UICountry:
 		  new UICountry(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());

@@ -25,7 +25,7 @@ public class UITerra extends UI implements IRegisterOnStack {
   private Integer Death7Day = 0;
   private Integer Death24Hour = 0;
   private String lastUpdated = null;
-
+  
   ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
   public UITerra(Context context) {
 	super(context);
@@ -61,7 +61,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 
-    String sql = "select Country, TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
+    String sql = "select distinct Country, TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
 	Cursor cTerra = db.rawQuery(sql, null);
     cTerra.moveToFirst();
 
@@ -78,6 +78,8 @@ public class UITerra extends UI implements IRegisterOnStack {
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";
 	metaField.value = String.valueOf(formatter.format(TotalCase / CasePerMillion * 1000000));
+	metaField.underlineKey = true;
+	metaField.UI = Constants.UIRegion;
 	metaFields.add(metaField);
 	metaField = new MetaField();
 

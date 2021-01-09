@@ -62,6 +62,12 @@ public class UI {
 		  public void onClick(View view) {
 			if (metaField.underlineKey) {
 			  UIMessage.notificationMessage(context, "Busy");
+			  if (metaField.UI.equals(Constants.UIRegion)) {
+				new UIRegion(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UICountryByRegion)) {
+				new UICountryByRegion(context, metaField.regionId, metaField.countryId);
+			  }
 			  if (metaField.UI.equals(Constants.UICountry)) {
 				new UICountry(context, metaField.regionId, metaField.countryId);
 			  }
