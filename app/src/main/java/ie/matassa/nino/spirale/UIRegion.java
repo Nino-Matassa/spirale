@@ -14,12 +14,13 @@ public class UIRegion extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private int regionId = 0;
   private int countryId = 0;
-  private String Region = null;
+  private String Region = "Terra";
 
   public UIRegion(Context context, int regionId, int countryId) {
 	super(context);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
+	registerOnStack();
 
 	uiHandler();
   }
@@ -48,7 +49,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 	String sql = "select Region.Id, Region.Region, sum(Overview.CasePerMillion) as CasePerMillion from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by CasePerMillion";
     Cursor cRegion = db.rawQuery(sql, null);
     cRegion.moveToFirst();
-    MetaField metaField = null;
+	MetaField metaField = null;
     do {
 	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));

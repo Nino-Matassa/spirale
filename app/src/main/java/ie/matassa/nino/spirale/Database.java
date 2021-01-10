@@ -20,4 +20,8 @@ public class Database {
 	else
 	  return true;
   }
+  
+  public static void deleteDatabase() {
+	instance = null;
+  }
 }

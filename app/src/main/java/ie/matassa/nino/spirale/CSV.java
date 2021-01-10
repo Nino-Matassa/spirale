@@ -179,8 +179,10 @@ public class CSV {
   private boolean csvIsUpdated(String urlString, String name) {
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File csv = new File(filePath);
-	if (!csv.exists())
+	if (!csv.exists()) {
+	  Database.deleteDatabase();
 	  return true;
+	}
 	try {
 	  URL url = new URL(urlString);
 	  HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -189,6 +191,7 @@ public class CSV {
 	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
 	  
 	  if (urlTimeStamp.after(csvTimeStamp)) {
+		Database.deleteDatabase();
 		return true;
 	  }
 	} catch (Exception e) {

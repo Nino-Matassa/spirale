@@ -30,30 +30,32 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader("Country", "Case/Million");
+		  setHeader(Region, "Case/Million");
 		  UIMessage.notificationMessage(context, null);
+		  registerOnStack();
         }
       });
   }
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIRegion);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UICountryByRegion);
 	MainActivity.stack.add(uiHistory);
   }
 
 
   private void populateRegion() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select distinct Country.Id, Country.FK_Region, Country.Country, Overview.CasePerMillion from Country join Overview on Country.FK_Region = Overview.FK_Region where Country.FK_Region = #1 order by CasePerMillion asc";
+	String sql = "select Id, Country, FK_Region from Country where Country.FK_Region = #1 order by Country";
 	sql = sql.replace("#1", String.valueOf(regionId));
     Cursor cRegion = db.rawQuery(sql, null);
     cRegion.moveToFirst();
+	Region = "TODO";//cRegion.getString(cRegion.getColumnIndex("Region"));
     MetaField metaField = null;
     do {
 	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
-	  metaField.value = String.valueOf(formatter.format(cRegion.getInt(cRegion.getColumnIndex("CasePerMillion"))));
+	  metaField.value = "TODO";//String.valueOf(formatter.format(cRegion.getInt(cRegion.getColumnIndex("CasePerMillion"))));
 	  metaField.underlineKey = true;
 	  metaField.UI = Constants.UICountry;
 	  metaField.regionId = regionId;

@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	
+	Database.deleteDatabase();
 	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
 	
 	Handler handler = new Handler();
@@ -51,6 +52,9 @@ public class MainActivity extends Activity {
 		  break;
 		case Constants.UICase24Hour:
 		  new UICase24Hour(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UICountryByRegion:
+		  new UICountryByRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		default:
 	  }

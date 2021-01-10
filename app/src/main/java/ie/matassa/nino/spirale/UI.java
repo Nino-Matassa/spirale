@@ -160,7 +160,7 @@ public class UI {
     tableLayoutFooter.addView(tableRow);
   }
 
-  private static boolean bDownloadRequest = false;
+  //private static boolean bDownloadRequest = false;
   private static Thread thread = null;
   public void getDataFiles() {
 	thread = new Thread(new Runnable() {
@@ -168,13 +168,13 @@ public class UI {
 		public void run() {
 		  CSV csv = new CSV(context);
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			bDownloadRequest = csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
-			  csv.generateDatabaseTable(Constants.csvOverviewName);  
-			}
-			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
-			  csv.generateDatabaseTable(Constants.csvDetailsName);
-			}
+			/*bDownloadRequest = */csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+//			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvOverviewURL)) {
+//			  csv.generateDatabaseTable(Constants.csvOverviewName);  
+//			}
+//			if (bDownloadRequest && Constants.Urls[queue].equals(Constants.CsvDetailsURL)) {
+//			  csv.generateDatabaseTable(Constants.csvDetailsName);
+//			}
 		  }
 		  if (!Database.databaseExists()) {
 			csv.generateDatabaseTable(Constants.csvOverviewName); 

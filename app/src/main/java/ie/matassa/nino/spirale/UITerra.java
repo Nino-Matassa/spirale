@@ -126,47 +126,47 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.key = "";
 	metaField.value = "";
 	metaFields.add(metaField);
-	// Regions
-	sql = "select Region.Region, sum(Overview.CasePerMillion) as CasePerMillion, (select count(CasePerMillion)) as N from Region join Overview on Region.Id = Overview.FK_Region group by Region.Region";
-	metaField = new MetaField();
-	metaField.key = "Region";
-	metaField.value = "Case/Million";
-	metaFields.add(metaField);
-	Cursor cRegion = db.rawQuery(sql, null);
-	cRegion.moveToFirst();
-	do {
-	  metaField = new MetaField();
-	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
-	  double N = cRegion.getDouble(cRegion.getColumnIndex("N"));
-	  metaField.value = String.valueOf(formatter.format(cRegion.getDouble(cRegion.getColumnIndex("CasePerMillion")) / N));
-	  metaFields.add(metaField);
-	} while(cRegion.moveToNext());
-	metaField = new MetaField();
-	metaField.key = "";
-	metaField.value = "";
-	metaFields.add(metaField);
-	// Countries
-	metaField = new MetaField();
-	metaField.key = "Country";
-	metaField.value = "Total Cases";
-	metaFields.add(metaField);
-	sql = "select country, Date, TotalCases, NewCases, FK_Country, (select FK_Region from Country where Id = FK_Country) as FK_Region from detail group by country order by totalcases desc";
-    Cursor cOverview = db.rawQuery(sql, null);
-    cOverview.moveToFirst();
-    metaField = new MetaField();
-	int countryIndex = 1;
-    do {
-	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
-	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases"))));// + " : "
-	  //+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
-	  metaField.underlineKey = true;
-	  metaField.regionId = cOverview.getInt(cOverview.getColumnIndex("FK_Region"));
-	  metaField.countryId = cOverview.getInt(cOverview.getColumnIndex("FK_Country"));
-      metaFields.add(metaField);
-      metaField = new MetaField();
-	} while(cOverview.moveToNext());
-	metaFields.add(metaField);
-	// Draw Table
+//	// Regions
+//	sql = "select Region.Region, sum(Overview.CasePerMillion) as CasePerMillion, (select count(CasePerMillion)) as N from Region join Overview on Region.Id = Overview.FK_Region group by Region.Region";
+//	metaField = new MetaField();
+//	metaField.key = "Region";
+//	metaField.value = "Case/Million";
+//	metaFields.add(metaField);
+//	Cursor cRegion = db.rawQuery(sql, null);
+//	cRegion.moveToFirst();
+//	do {
+//	  metaField = new MetaField();
+//	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
+//	  double N = cRegion.getDouble(cRegion.getColumnIndex("N"));
+//	  metaField.value = String.valueOf(formatter.format(cRegion.getDouble(cRegion.getColumnIndex("CasePerMillion")) / N));
+//	  metaFields.add(metaField);
+//	} while(cRegion.moveToNext());
+//	metaField = new MetaField();
+//	metaField.key = "";
+//	metaField.value = "";
+//	metaFields.add(metaField);
+//	// Countries
+//	metaField = new MetaField();
+//	metaField.key = "Country";
+//	metaField.value = "Total Cases";
+//	metaFields.add(metaField);
+//	sql = "select country, Date, TotalCases, NewCases, FK_Country, (select FK_Region from Country where Id = FK_Country) as FK_Region from detail group by country order by totalcases desc";
+//    Cursor cOverview = db.rawQuery(sql, null);
+//    cOverview.moveToFirst();
+//    metaField = new MetaField();
+//	int countryIndex = 1;
+//    do {
+//	  metaField.key = "(" + String.valueOf(countryIndex++) + ") " + cOverview.getString(cOverview.getColumnIndex("Country"));
+//	  metaField.value = String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("TotalCases"))));// + " : "
+//	  //+ String.valueOf(formatter.format(cOverview.getInt(cOverview.getColumnIndex("NewCases"))));
+//	  metaField.underlineKey = true;
+//	  metaField.regionId = cOverview.getInt(cOverview.getColumnIndex("FK_Region"));
+//	  metaField.countryId = cOverview.getInt(cOverview.getColumnIndex("FK_Country"));
+//      metaFields.add(metaField);
+//      metaField = new MetaField();
+//	} while(cOverview.moveToNext());
+//	metaFields.add(metaField);
+//	// Draw Table
 	setTableLayout(populateTable(metaFields));
   }
 
