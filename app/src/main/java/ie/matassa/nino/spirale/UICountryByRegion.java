@@ -4,6 +4,7 @@ import android.icu.text.*;
 import android.os.*;
 import java.util.*;
 import android.database.*;
+import android.util.*;
 
 public class UICountryByRegion extends UI implements IRegisterOnStack {
   private Context context = null;
@@ -52,29 +53,32 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
     cRegion.moveToFirst();
 	Region = cRegion.getString(cRegion.getColumnIndex("Region"));
     MetaField metaField = null;
-    do {
-	  String sqlCPM = "select max(CasePerMillion) as CasePerMillion from Overview where FK_Region = #1 and Country = '#2'";
-	  sqlCPM = sqlCPM.replace("#1", String.valueOf(regionId));
-	  sqlCPM = sqlCPM.replace("#2", cRegion.getString(cRegion.getColumnIndex("Country")));
-	  Cursor cCPM = db.rawQuery(sqlCPM, null);
-	  cCPM.moveToFirst();
-	  double casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
-	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
-	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
-	  metaField.value = String.valueOf(formatter.format(casePerMillion));
-	  metaField.underlineKey = true;
-	  metaField.UI = Constants.UICountry;
-	  metaField.regionId = regionId;
-	  metaField.countryId = cRegion.getInt(cRegion.getColumnIndex("Id"));
-      metaFields.add(metaField);
-	} while(cRegion.moveToNext());
+	try {
+	  do {
+		String sqlCPM = "select max(CasePerMillion) as CasePerMillion from Overview where FK_Region = #1 and Country = '#2'";
+		sqlCPM = sqlCPM.replace("#1", String.valueOf(regionId));
+		sqlCPM = sqlCPM.replace("#2", cRegion.getString(cRegion.getColumnIndex("Country")));
+		Cursor cCPM = db.rawQuery(sqlCPM, null);
+		cCPM.moveToFirst();
+		double casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
+		metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
+		metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
+		metaField.value = String.valueOf(formatter.format(casePerMillion));
+		metaField.underlineKey = true;
+		metaField.UI = Constants.UICountry;
+		metaField.regionId = regionId;
+		metaField.countryId = cRegion.getInt(cRegion.getColumnIndex("Id"));
+		metaFields.add(metaField);
+	  } while(cRegion.moveToNext());
+	} catch (Exception e) {
+	  Log.d("UICountryByRegion", e.toString());
+	}
 	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
 }
 
-class sortStats implements Comparator<MetaField>
-{
+class sortStats implements Comparator<MetaField> {
   @Override
   public int compare(MetaField mfA, MetaField mfB) {
 	// TODO: Implement this method
