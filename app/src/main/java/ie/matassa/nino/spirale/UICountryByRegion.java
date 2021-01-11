@@ -46,22 +46,40 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 
   private void populateRegion() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Id, Country, FK_Region from Country where Country.FK_Region = #1 order by Country";
-	sql = sql.replace("#1", String.valueOf(regionId));
-    Cursor cRegion = db.rawQuery(sql, null);
+	String sqlCountryRegion = "select Country.Id, Country, FK_Region, Region from Country join Region on Country.FK_Region = Region.Id where Country.FK_Region = #1 order by Country";
+	sqlCountryRegion = sqlCountryRegion.replace("#1", String.valueOf(regionId));
+    Cursor cRegion = db.rawQuery(sqlCountryRegion, null);
     cRegion.moveToFirst();
-	Region = "TODO";//cRegion.getString(cRegion.getColumnIndex("Region"));
+	Region = cRegion.getString(cRegion.getColumnIndex("Region"));
     MetaField metaField = null;
     do {
+	  String sqlCPM = "select max(CasePerMillion) as CasePerMillion from Overview where FK_Region = #1 and Country = '#2'";
+	  sqlCPM = sqlCPM.replace("#1", String.valueOf(regionId));
+	  sqlCPM = sqlCPM.replace("#2", cRegion.getString(cRegion.getColumnIndex("Country")));
+	  Cursor cCPM = db.rawQuery(sqlCPM, null);
+	  cCPM.moveToFirst();
+	  double casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
 	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
-	  metaField.value = "TODO";//String.valueOf(formatter.format(cRegion.getInt(cRegion.getColumnIndex("CasePerMillion"))));
+	  metaField.value = String.valueOf(formatter.format(casePerMillion));
 	  metaField.underlineKey = true;
 	  metaField.UI = Constants.UICountry;
 	  metaField.regionId = regionId;
 	  metaField.countryId = cRegion.getInt(cRegion.getColumnIndex("Id"));
       metaFields.add(metaField);
 	} while(cRegion.moveToNext());
+	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
+  }
+}
+
+class sortStats implements Comparator<MetaField>
+{
+  @Override
+  public int compare(MetaField mfA, MetaField mfB) {
+	// TODO: Implement this method
+	Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	return dA.compareTo(dB);
   }
 }

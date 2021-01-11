@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 	
 	Database.deleteDatabase();
-	UIMessage.notificationMessage(MainActivity.this, "Checking For Updates");
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {

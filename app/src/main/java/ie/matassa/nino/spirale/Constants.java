@@ -13,6 +13,7 @@ public class Constants {
   public static final String[] Names = {csvOverviewName, csvDetailsName };
 
   public static final int dbVersion = 1;
+  public static final int oneMillion = 1000000;
 
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";

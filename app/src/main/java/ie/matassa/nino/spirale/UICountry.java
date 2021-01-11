@@ -75,7 +75,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
 
 
-	String sqlOverview = "select Region, Country, TotalCase, CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from Overview where Country = '#1' limit 1".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
+	String sqlOverview = "select Region, Country, TotalCase, max(CasePerMillion) as CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
 	
@@ -89,7 +89,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
 	Death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	Source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	Population = TotalCase / CasePerMillion * 1000000;
+	Population = TotalCase / CasePerMillion * Constants.oneMillion;
 
 	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
