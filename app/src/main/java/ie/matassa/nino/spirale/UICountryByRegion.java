@@ -16,7 +16,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
   private String Country = null;
 
   public UICountryByRegion(Context context, int regionId, int countryId) {
-	super(context);
+	super(context, Constants.UICountryByRegion);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -52,13 +52,13 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
     Cursor cRegion = db.rawQuery(sqlCountryRegion, null);
     cRegion.moveToFirst();
 	Region = cRegion.getString(cRegion.getColumnIndex("Region"));
+	Cursor cCPM = null;
     MetaField metaField = null;
 	try {
 	  do {
-		String sqlCPM = "select max(CasePerMillion) as CasePerMillion from Overview where FK_Region = #1 and Country = '#2'";
-		sqlCPM = sqlCPM.replace("#1", String.valueOf(regionId));
-		sqlCPM = sqlCPM.replace("#2", cRegion.getString(cRegion.getColumnIndex("Country")));
-		Cursor cCPM = db.rawQuery(sqlCPM, null);
+		String sqlCPM = "select sum(CasePerMillion) as CasePerMillion from Overview where Country = '#1'";
+		sqlCPM = sqlCPM.replace("#1", cRegion.getString(cRegion.getColumnIndex("Country")).replace("'", "''"));
+		cCPM = db.rawQuery(sqlCPM, null);
 		cCPM.moveToFirst();
 		double casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
 		metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);

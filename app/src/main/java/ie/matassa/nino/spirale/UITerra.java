@@ -28,7 +28,7 @@ public class UITerra extends UI implements IRegisterOnStack {
   
   ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
   public UITerra(Context context) {
-	super(context);
+	super(context, Constants.UITerra);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
 	registerOnStack();

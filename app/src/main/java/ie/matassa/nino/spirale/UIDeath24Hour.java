@@ -17,7 +17,7 @@ public class UIDeath24Hour extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UIDeath24Hour(Context context, int regionId, int countryId) {
-	super(context);
+	super(context, Constants.UIDeath24Hour);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;

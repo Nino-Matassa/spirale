@@ -34,7 +34,7 @@ public class CSV {
 	return rows;
   }
 
-  public boolean populateTableOverview() {
+  private boolean populateTableOverview() {
 	boolean firstRowRead = false;
 	boolean secondRowRead = false;
 	String Region = null;
@@ -102,7 +102,7 @@ public class CSV {
 	return true;
   }
 
-  public boolean populateTableDetails() {
+  private boolean populateTableDetails() {
 	boolean firstRowRead = false;
 	String Date = null;
 	String Code = null;
@@ -153,7 +153,7 @@ public class CSV {
 	return true;
   }
 
-  public boolean downloadUrlRequest(String url, String name) {
+  private boolean downloadUrlRequest(String url, String name) {
 
 	if (!csvIsUpdated(url, name)) 
 	  return false;
@@ -170,8 +170,6 @@ public class CSV {
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();
 	  readChannel.close();
-	  // looks like this failing on a permissions issue, could be a waste of time
-	  //boolean b = file.setLastModified(new URL(url).openConnection().getDate());
 	} catch (IOException e) { Log.d("downloadUrlRequest", e.toString()); }
 	return true;
   }
@@ -200,7 +198,7 @@ public class CSV {
 	return false;
   }
 
-  public void generateDatabaseTable(String nameOfCsvFile) {
+  private void generateDatabaseTable(String nameOfCsvFile) {
 	db = Database.getInstance(context);
 	switch (nameOfCsvFile) {
 	  case Constants.csvOverviewName:
@@ -211,6 +209,32 @@ public class CSV {
 		break;
 	  default:
 		break;
+	}
+  }
+  
+  private static Thread thread = null;
+  public void getDataFiles() {
+	thread = new Thread(new Runnable() {
+		@Override 
+		public void run() {
+		  //CSV csv = new CSV(context);
+		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
+			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+		  }
+		  if (!Database.databaseExists()) {
+			generateDatabaseTable(Constants.csvOverviewName); 
+			generateDatabaseTable(Constants.csvDetailsName);
+			new GenerateTablesEtc(context);
+		  }
+		}
+	  });
+	thread.start();
+	try {
+	  thread.join(); 
+	} catch (InterruptedException e) {
+	  Log.d("getDataFiles", e.toString());
+	} finally {
+	  UIMessage.notificationMessage(context, null);
 	}
   }
 }

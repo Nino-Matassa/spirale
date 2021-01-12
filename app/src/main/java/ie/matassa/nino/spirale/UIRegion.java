@@ -17,7 +17,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
   private String Region = "Terra";
 
   public UIRegion(Context context, int regionId, int countryId) {
-	super(context);
+	super(context, Constants.UIRegion);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
 	registerOnStack();
@@ -46,7 +46,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 
   private void populateRegion() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Region.Id, Region.Region, max(Overview.CasePerMillion) as CasePerMillion from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by CasePerMillion";
+	String sql = "select Region.Id, Region.Region, sum(Overview.CasePerMillion)/(select count(Region.Id)) as CasePerMillion from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by CasePerMillion";
     Cursor cRegion = db.rawQuery(sql, null);
     cRegion.moveToFirst();
 	MetaField metaField = null;

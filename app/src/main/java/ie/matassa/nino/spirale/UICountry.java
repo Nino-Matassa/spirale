@@ -30,7 +30,7 @@ public class UICountry extends UI implements IRegisterOnStack {
   private String Source = null;
 
   public UICountry(Context context, int regionId, int countryId) {
-	super(context);
+	super(context, Constants.UICountry);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;

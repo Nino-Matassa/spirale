@@ -13,7 +13,8 @@ import java.util.*;
 import java.io.*;
 
 public class UI {
-  protected Context context = null;
+  private Context context = null;
+  private String UIX = null;
 
   private TableLayout tableLayout = null;
   private TableLayout tableLayoutHeader = null;
@@ -21,10 +22,13 @@ public class UI {
   protected SQLiteDatabase db = null;
   private Vibrator vibrator = null;
 
-  public UI(Context context) {
+  public UI(Context context, String UIX) {
 	this.context = context;
+	this.UIX = UIX;
 
-	getDataFiles();
+	if(UIX.equals(Constants.UITerra)) {
+	  new CSV(context).getDataFiles();
+	}
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
@@ -160,29 +164,29 @@ public class UI {
     tableLayoutFooter.addView(tableRow);
   }
 
-  private static Thread thread = null;
-  public void getDataFiles() {
-	thread = new Thread(new Runnable() {
-		@Override 
-		public void run() {
-		  CSV csv = new CSV(context);
-		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-		  }
-		  if (!Database.databaseExists()) {
-			csv.generateDatabaseTable(Constants.csvOverviewName); 
-			csv.generateDatabaseTable(Constants.csvDetailsName);
-			new GenerateTablesEtc(context);
-		  }
-		}
-	  });
-	thread.start();
-	try {
-	  thread.join(); 
-	} catch (InterruptedException e) {
-	  Log.d("getDataFiles", e.toString());
-	} finally {
-	  UIMessage.notificationMessage(context, null);
-	}
-  }
+//  private static Thread thread = null;
+//  public void getDataFiles() {
+//	thread = new Thread(new Runnable() {
+//		@Override 
+//		public void run() {
+//		  CSV csv = new CSV(context);
+//		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
+//			csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+//		  }
+//		  if (!Database.databaseExists()) {
+//			csv.generateDatabaseTable(Constants.csvOverviewName); 
+//			csv.generateDatabaseTable(Constants.csvDetailsName);
+//			new GenerateTablesEtc(context);
+//		  }
+//		}
+//	  });
+//	thread.start();
+//	try {
+//	  thread.join(); 
+//	} catch (InterruptedException e) {
+//	  Log.d("getDataFiles", e.toString());
+//	} finally {
+//	  UIMessage.notificationMessage(context, null);
+//	}
+//  }
 }

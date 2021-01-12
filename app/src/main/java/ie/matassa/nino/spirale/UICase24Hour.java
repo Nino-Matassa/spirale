@@ -18,7 +18,7 @@ public class UICase24Hour extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UICase24Hour(Context context, int regionId, int countryId) {
-	super(context);
+	super(context, Constants.UICase24Hour);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
