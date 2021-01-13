@@ -28,6 +28,8 @@ public class UICountry extends UI implements IRegisterOnStack {
   private int Death7Day = 0;
   private int Death24Hour = 0;
   private String Source = null;
+  private Double precentInfected = 0.0;
+  private Double infectionRate = 0.0;
 
   public UICountry(Context context, int regionId, int countryId) {
 	super(context, Constants.UICountry);
@@ -90,6 +92,8 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	Source = cOverview.getString(cOverview.getColumnIndex("Source"));
 	Population = TotalCase / CasePerMillion * Constants.oneMillion;
+	precentInfected = TotalCase/Population*100;
+	infectionRate = (double)TotalCase/(TotalCase-Case24Hour);
 
 	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
@@ -146,6 +150,18 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Source";
 	metaField.value = Source;
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UITotalPrecentInfected);
+	metaField.key = "Total Infected";
+	metaField.value = String.valueOf(formatter.format(precentInfected)) + "%";
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	
+	metaField = new MetaField(regionId, countryId, Constants.UIInfectionRate);
+	metaField.key = "Infection Rate";
+	metaField.value = String.valueOf(formatter.format(infectionRate));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
     setTableLayout(populateTable(metaFields)); 

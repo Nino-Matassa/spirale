@@ -81,6 +81,12 @@ public class UI {
 			  if(metaField.UI.equals(Constants.UIDeath24Hour)) {
 				new UIDeath24Hour(context, metaField.regionId, metaField.countryId);
 			  }
+			  if(metaField.UI.equals(Constants.UITotalPrecentInfected)) {
+				new UITotalPrecentInfected(context, metaField.regionId, metaField.countryId);
+			  }
+			  if(metaField.UI.equals(Constants.UIInfectionRate)) {
+				new UIInfectionRate(context, metaField.regionId, metaField.countryId);
+			  }
 			}
           }
         });

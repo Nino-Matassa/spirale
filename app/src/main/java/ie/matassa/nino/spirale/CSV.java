@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.*;
 
 import java.util.Date;
+import android.widget.*;
 
 
 public class CSV {
@@ -217,7 +218,6 @@ public class CSV {
 	thread = new Thread(new Runnable() {
 		@Override 
 		public void run() {
-		  //CSV csv = new CSV(context);
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
 			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 		  }

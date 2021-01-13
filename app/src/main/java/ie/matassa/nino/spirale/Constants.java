@@ -14,12 +14,13 @@ public class Constants {
 
   public static final int dbVersion = 1;
   public static final int oneMillion = 1000000;
-
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";
   public static final String UICountry = "UICountry";
   public static final String UICountryByRegion = "UICountryByRegion";
   public static final String UICase24Hour = "UICase24Hour";
   public static final String UIDeath24Hour = "UIDeath24Hour";
+  public static final String UITotalPrecentInfected = "UITotalPrecentInfected";
+  public static final String UIInfectionRate = "UIInfectionRate";
 }
 
