@@ -49,29 +49,20 @@ public class MainActivity extends Activity {
 			}, 500);
 		  break;
 		case Constants.UIRegion:
-		  UIMessage.toast(MainActivity.this, "Generating Region", Toast.LENGTH_LONG);
 		  new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UICountry:
-		  UIMessage.toast(MainActivity.this, "Generating Country", Toast.LENGTH_LONG);
 		  new UICountry(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UICase24Hour:
-		  UIMessage.toast(MainActivity.this, "Generating Case History", Toast.LENGTH_LONG);
-		  new UICase24Hour(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
-		case Constants.UIDeath24Hour:
-		  UIMessage.toast(MainActivity.this, "Generating Death History", Toast.LENGTH_LONG);
-		  new UIDeath24Hour(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
 		case Constants.UICountryByRegion:
-		  UIMessage.toast(MainActivity.this, "Generating Region/Country", Toast.LENGTH_LONG);
 		  new UICountryByRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UITerraInfectionsCurve:
+		  new UITerraInfectionsCurve(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		default:
 	  }
 	}
   }
 }
-
 

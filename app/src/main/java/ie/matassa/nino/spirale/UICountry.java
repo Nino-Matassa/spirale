@@ -15,21 +15,21 @@ public class UICountry extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private int regionId = 0;
   private int countryId = 0;
-  private String Region = null;
+  private String region = null;
   private String Country = null;
   private String lastUpdated = null;
-  private double Population = 0.0;
-  private int TotalCase = 0;
-  private double CasePerMillion = 0.0;
-  private int Case7Day = 0;
-  private int Case24Hour = 0;
-  private int TotalDeath = 0;
-  private double DeathPerMillion = 0.0;
-  private int Death7Day = 0;
-  private int Death24Hour = 0;
-  private String Source = null;
+  private double population = 0.0;
+  private int totalCases = 0;
+  private double casePerMillion = 0.0;
+  private int case7Day = 0;
+  private int case24Hour = 0;
+  private int totalDeath = 0;
+  private double deathPerMillion = 0.0;
+  private int death7Day = 0;
+  private int death24Hour = 0;
+  private String source = null;
   private Double precentInfected = 0.0;
-  private Double infectionRate = 0.0;
+  private Double infectionsCurve = 0.0;
 
   public UICountry(Context context, int regionId, int countryId) {
 	super(context, Constants.UICountry);
@@ -54,7 +54,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateCountry();
-		  setHeader(Region, Country);
+		  setHeader(region, Country);
 		  UIMessage.notificationMessage(context, null);
         }
       });
@@ -81,19 +81,19 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
 	
-	Region = cOverview.getString(cOverview.getColumnIndex("Region"));
-	TotalCase = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
-	CasePerMillion = cOverview.getDouble(cOverview.getColumnIndex("CasePerMillion"));
-	Case7Day = cOverview.getInt(cOverview.getColumnIndex("Case7Day"));
-	Case24Hour = cOverview.getInt(cOverview.getColumnIndex("Case24Hour"));
-	TotalDeath = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
-	DeathPerMillion = cOverview.getDouble(cOverview.getColumnIndex("DeathPerMillion"));
-	Death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
-	Death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
-	Source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	Population = TotalCase / CasePerMillion * Constants.oneMillion;
-	precentInfected = TotalCase/Population*100;
-	infectionRate = (double)TotalCase/(TotalCase-Case24Hour);
+	region = cOverview.getString(cOverview.getColumnIndex("Region"));
+	totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
+	casePerMillion = cOverview.getDouble(cOverview.getColumnIndex("CasePerMillion"));
+	case7Day = cOverview.getInt(cOverview.getColumnIndex("Case7Day"));
+	case24Hour = cOverview.getInt(cOverview.getColumnIndex("Case24Hour"));
+	totalDeath = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
+	deathPerMillion = cOverview.getDouble(cOverview.getColumnIndex("DeathPerMillion"));
+	death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
+	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
+	source = cOverview.getString(cOverview.getColumnIndex("Source"));
+	population = totalCases / casePerMillion * Constants.oneMillion;
+	precentInfected = totalCases/population*100;
+	infectionsCurve = Math.log((double)case24Hour);
 
 	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
@@ -102,54 +102,54 @@ public class UICountry extends UI implements IRegisterOnStack {
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Population";
-	metaField.value = String.valueOf(formatter.format(Population));
+	metaField.value = String.valueOf(formatter.format(population));
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Total Cases";
-	metaField.value = String.valueOf(formatter.format(TotalCase));
+	metaField.value = String.valueOf(formatter.format(totalCases));
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Case/Million";
-	metaField.value = String.valueOf(formatter.format(CasePerMillion));
+	metaField.value = String.valueOf(formatter.format(casePerMillion));
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Case7Day";
-	metaField.value = String.valueOf(formatter.format(Case7Day));
+	metaField.value = String.valueOf(formatter.format(case7Day));
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
 	metaField.key = "Case24Hour";
-	metaField.value = String.valueOf(formatter.format(Case24Hour));
+	metaField.value = String.valueOf(formatter.format(case24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Total Deaths";
-	metaField.value = String.valueOf(formatter.format(TotalDeath));
+	metaField.value = String.valueOf(formatter.format(totalDeath));
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Death/Million";
-	metaField.value = String.valueOf(formatter.format(DeathPerMillion));
+	metaField.value = String.valueOf(formatter.format(deathPerMillion));
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Death7Day";
-	metaField.value = String.valueOf(formatter.format(Death7Day));
+	metaField.value = String.valueOf(formatter.format(death7Day));
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeath24Hour);
 	metaField.key = "Death24Hour";
-	metaField.value = String.valueOf(formatter.format(Death24Hour));
+	metaField.value = String.valueOf(formatter.format(death24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Source";
-	metaField.value = Source;
+	metaField.value = source;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UITotalPrecentInfected);
@@ -158,9 +158,9 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UIInfectionRate);
-	metaField.key = "Infection Rate";
-	metaField.value = String.valueOf(formatter.format(infectionRate));
+	metaField = new MetaField(regionId, countryId, Constants.UIInfectionsCurve);
+	metaField.key = "Infections Curve";
+	metaField.value = String.valueOf(formatter.format(infectionsCurve));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
