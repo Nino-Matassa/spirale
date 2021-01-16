@@ -148,6 +148,35 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.key = "";
 	metaField.value = "";
 	metaFields.add(metaField);
+	metaField = new MetaField();
+	
+	metaField.key = "Country";
+	metaField.value = "Infections Curve";
+	metaFields.add(metaField);
+	metaField = new MetaField();
+	
+	int index = 0;
+	sql = "select Country.Id, Country.FK_Region, Detail.Country, max(Detail.NewCases) as NewCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country order by max(Detail.NewCases) desc";
+	cTerra = db.rawQuery(sql, null);
+	cTerra.moveToFirst();
+	do {
+	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
+	  int newCases = cTerra.getInt(cTerra.getColumnIndex("NewCases"));
+	  double log = newCases == 0 ? 0:Math.log(newCases);
+	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
+	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
+	  
+	  metaField.key = "(" + String.valueOf(++index) + ") " + country;
+	  metaField.value = String.valueOf(formatter.format(log));
+	  metaField.regionId = regionId;
+	  metaField.countryId = countryId;
+	  metaField.underlineKey = true;
+	  metaField.UI = Constants.UICountry;
+	  metaFields.add(metaField);
+	  metaField = new MetaField();
+	  
+	} while(cTerra.moveToNext());
+	
 	setTableLayout(populateTable(metaFields));
   }
 
