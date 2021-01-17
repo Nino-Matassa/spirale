@@ -31,7 +31,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader(Region, "Case/Million");
+		  setHeader(Region, "Infection Curve");
 		  UIMessage.notificationMessage(context, null);
         }
       });
@@ -46,14 +46,15 @@ public class UIRegion extends UI implements IRegisterOnStack {
 
   private void populateRegion() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Region.Id, Region.Region, sum(Overview.CasePerMillion)/(select count(Region.Id)) as CasePerMillion from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by CasePerMillion";
+	String sql = "select Region.Id, Region.Region, sum(Overview.Case24Hour) as NewCases from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by NewCases desc";
     Cursor cRegion = db.rawQuery(sql, null);
     cRegion.moveToFirst();
 	MetaField metaField = null;
     do {
 	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
-	  metaField.value = String.valueOf(formatter.format(cRegion.getInt(cRegion.getColumnIndex("CasePerMillion"))));
+	  double log = Math.log(cRegion.getInt(cRegion.getColumnIndex("NewCases")));
+	  metaField.value = String.valueOf(formatter.format(log));
 	  metaField.underlineKey = true;
 	  metaField.UI = Constants.UICountryByRegion;
 	  metaField.regionId = cRegion.getInt(cRegion.getColumnIndex("Id"));

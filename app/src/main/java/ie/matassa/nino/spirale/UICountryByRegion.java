@@ -31,7 +31,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader(Region, "Case/Million");
+		  setHeader(Region, "Infections Curve");
 		  UIMessage.notificationMessage(context, null);
 		  registerOnStack();
         }
@@ -56,14 +56,15 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
     MetaField metaField = null;
 	try {
 	  do {
-		String sqlCPM = "select sum(CasePerMillion) as CasePerMillion from Overview where Country = '#1'";
+		String sqlCPM = "select distinct Case24Hour from Overview where Country = '#1'";
 		sqlCPM = sqlCPM.replace("#1", cRegion.getString(cRegion.getColumnIndex("Country")).replace("'", "''"));
 		cCPM = db.rawQuery(sqlCPM, null);
 		cCPM.moveToFirst();
-		double casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
 		metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 		metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
-		metaField.value = String.valueOf(formatter.format(casePerMillion));
+		int case24Hour = cCPM.getInt(cCPM.getColumnIndex("Case24Hour"));
+		double log = case24Hour == 0 ? 0:Math.log(case24Hour);
+		metaField.value = String.valueOf(formatter.format(log));
 		metaField.underlineKey = true;
 		metaField.UI = Constants.UICountry;
 		metaField.regionId = regionId;
@@ -81,9 +82,8 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 class sortStats implements Comparator<MetaField> {
   @Override
   public int compare(MetaField mfA, MetaField mfB) {
-	// TODO: Implement this method
 	Double dA = Double.parseDouble(mfA.value.replace(",", ""));
 	Double dB = Double.parseDouble(mfB.value.replace(",", ""));
-	return dA.compareTo(dB);
+	return dB.compareTo(dA);
   }
 }
