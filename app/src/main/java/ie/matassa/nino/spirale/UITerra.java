@@ -81,7 +81,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	death24Hour = cTerra.getInt(cTerra.getColumnIndex("Death24Hour"));
 	population = totalCases/casePerMillion*Constants.oneMillion;
 	precentInfected = totalCases/population*100;
-	infectionsCurve = Math.log((double)case24Hour);
+	infectionsCurve = Math.log((double)totalCases);
 
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";
@@ -156,13 +156,13 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField = new MetaField();
 	
 	int index = 0;
-	sql = "select Country.Id, Country.FK_Region, Detail.Country, max(Detail.NewCases) as NewCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country order by max(Detail.NewCases) desc";
+	sql = "select Country.Id, Country.FK_Region, Detail.Country, TotalCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country order by max(Detail.TotalCases) desc";
 	cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
-	  int newCases = cTerra.getInt(cTerra.getColumnIndex("NewCases"));
-	  double log = newCases == 0 ? 0:Math.log(newCases);
+	  int totalCases = cTerra.getInt(cTerra.getColumnIndex("TotalCases"));
+	  double log = totalCases == 0 ? 0:Math.log(totalCases);
 	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
 	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
 	  

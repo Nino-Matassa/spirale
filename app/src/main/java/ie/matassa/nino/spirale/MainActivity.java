@@ -28,6 +28,18 @@ public class MainActivity extends Activity {
 		}
 	  }, 500);
   }
+
+  @Override
+  protected void onResume() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	super.onResume();
+  }
+
+  @Override
+  protected void onRestart() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	super.onRestart();
+  }
   
   @Override
   public void onBackPressed() {
