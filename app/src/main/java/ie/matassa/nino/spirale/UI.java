@@ -26,11 +26,11 @@ public class UI {
 	this.context = context;
 	this.UIX = UIX;
 
-	MainActivity.activity.setTitle("Spirale - " + UIX);
-	if(UIX.equals(Constants.UITerra)) {
+	setTitlebar();
+	if (UIX.equals(Constants.UITerra)) {
 	  new CSV(context).getDataFiles();
 	}
-	
+
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
 
@@ -47,6 +47,37 @@ public class UI {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 	setFooter(lastUpdated);
+  }
+
+  private void setTitlebar() {
+	switch (UIX) {
+	  case Constants.UITerra:
+		MainActivity.activity.setTitle("Spirale - Terra");
+		break;
+	  case Constants.UIRegion:
+		MainActivity.activity.setTitle("Spirale - Regions");
+		break;
+	  case Constants.UICountryByRegion:
+		MainActivity.activity.setTitle("Spirale - Country by Region");
+		break;
+	  case Constants.UICountry:
+		MainActivity.activity.setTitle("Spirale - Country");
+		break;
+	  case Constants.UICase24Hour:
+		MainActivity.activity.setTitle("Spirale - Cases 24 Hours");
+		break;
+	  case Constants.UIDeath24Hour:
+		MainActivity.activity.setTitle("Spirale - Deaths 24 Hours");
+		break;
+	  case Constants.UITotalPrecentInfected:
+		MainActivity.activity.setTitle("Spirale - Precentage Infected");
+		break;
+	  case Constants.UIInfectionsCurve:
+		MainActivity.activity.setTitle("Spirale - Infections Curve");
+		break;
+	  case Constants.UITerraInfectionsCurve:
+		MainActivity.activity.setTitle("Spirale - Terra Infections Curve");
+	}
   }
 
   protected ArrayList<TableRow> populateTable(ArrayList<MetaField> metaFields) {
@@ -79,16 +110,16 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UICase24Hour)) {
 				new UICase24Hour(context, metaField.regionId, metaField.countryId);
 			  }
-			  if(metaField.UI.equals(Constants.UIDeath24Hour)) {
+			  if (metaField.UI.equals(Constants.UIDeath24Hour)) {
 				new UIDeath24Hour(context, metaField.regionId, metaField.countryId);
 			  }
-			  if(metaField.UI.equals(Constants.UITotalPrecentInfected)) {
+			  if (metaField.UI.equals(Constants.UITotalPrecentInfected)) {
 				new UITotalPrecentInfected(context, metaField.regionId, metaField.countryId);
 			  }
-			  if(metaField.UI.equals(Constants.UIInfectionsCurve)) {
+			  if (metaField.UI.equals(Constants.UIInfectionsCurve)) {
 				new UIInfectionsCurve(context, metaField.regionId, metaField.countryId);
 			  }
-			  if(metaField.UI.equals(Constants.UITerraInfectionsCurve)) {
+			  if (metaField.UI.equals(Constants.UITerraInfectionsCurve)) {
 				new UITerraInfectionsCurve(context, metaField.regionId, metaField.countryId);
 			  }
 			}

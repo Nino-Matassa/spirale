@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 	
 	activity = this;
-	setTitle("Spirale");
+	setTitle("Spirale - by Nino Matassa (mbsc)");
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	
 	Handler handler = new Handler();
