@@ -5,6 +5,7 @@ import android.os.*;
 import android.util.*;
 import java.util.*;
 import android.widget.*;
+import android.content.*;
 
 
 public class MainActivity extends Activity {
@@ -16,7 +17,7 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	
-	Database.deleteDatabase();
+	//Database.deleteDatabase();
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	
 	Handler handler = new Handler();
@@ -29,18 +30,6 @@ public class MainActivity extends Activity {
 	  }, 500);
   }
 
-  @Override
-  protected void onResume() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onResume();
-  }
-
-  @Override
-  protected void onRestart() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onRestart();
-  }
-  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {

@@ -26,7 +26,7 @@ public class UITerra extends UI implements IRegisterOnStack {
   private Integer death24Hour = 0;
   private String lastUpdated = null;
   private Double precentInfected = 0.0;
-  private Double reproductionRate = 0.0;
+  //private Double reproductionRate = 0.0;
   private Double population = 0.0;
   private Double infectionsCurve = 0.0;
   
