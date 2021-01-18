@@ -26,10 +26,11 @@ public class UI {
 	this.context = context;
 	this.UIX = UIX;
 
+	MainActivity.activity.setTitle("Spirale - " + UIX);
 	if(UIX.equals(Constants.UITerra)) {
 	  new CSV(context).getDataFiles();
 	}
-
+	
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
 
