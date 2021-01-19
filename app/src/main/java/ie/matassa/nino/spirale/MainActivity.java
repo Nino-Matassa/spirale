@@ -17,10 +17,12 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	
+
 	activity = this;
 	setTitle("Spirale - by Nino Matassa (mbcs)");
-	
+
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -32,11 +34,6 @@ public class MainActivity extends Activity {
   }
 
   //https://developer.android.com/guide/components/activities/activity-lifecycle
-  @Override
-  protected void onStart() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onStart();
-  }
 
   @Override
   public void onBackPressed() {
