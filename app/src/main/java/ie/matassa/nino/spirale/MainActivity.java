@@ -19,8 +19,7 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 	
 	activity = this;
-	setTitle("Spirale - by Nino Matassa (mbsc)");
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	setTitle("Spirale - by Nino Matassa (mbcs)");
 	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
@@ -30,6 +29,13 @@ public class MainActivity extends Activity {
 		  } catch (Exception e) { Log.d("MainActivity.getDataFiles", e.toString()); }
 		}
 	  }, 500);
+  }
+
+  //https://developer.android.com/guide/components/activities/activity-lifecycle
+  @Override
+  protected void onStart() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	super.onStart();
   }
 
   @Override
@@ -47,7 +53,7 @@ public class MainActivity extends Activity {
 			  public void run() {
 				try {
 				  new UITerra(MainActivity.this);
-				} catch (Exception e) { Log.d("MainActivity", e.toString()); }
+				} catch (Exception e) { Log.d("MainActivity.onBackPressed", e.toString()); }
 			  }
 			}, 500);
 		  break;

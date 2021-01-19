@@ -233,8 +233,6 @@ public class CSV {
 	  thread.join(); 
 	} catch (InterruptedException e) {
 	  Log.d("getDataFiles", e.toString());
-	} finally {
-	  UIMessage.notificationMessage(context, null);
 	}
   }
 }

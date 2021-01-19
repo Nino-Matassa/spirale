@@ -62,7 +62,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 
   private void populateCountry() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, Country from Detail where FK_Country = #1 order by Date desc limit 1".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select max(Date) as Date, Country from Detail where FK_Country = #1".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	lastUpdated = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -74,7 +74,7 @@ public class UICountry extends UI implements IRegisterOnStack {
       Log.d(Constants.UICountry, e.toString());
 	}
 	
-	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
+	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
 
 
 	String sqlOverview = "select Region, Country, TotalCase, max(CasePerMillion) as CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
