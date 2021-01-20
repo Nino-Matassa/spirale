@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 
 	activity = this;
-	setTitle("Spirale - by Nino Matassa (mbcs)");
+	//setTitle("Spirale");
 
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 
@@ -40,11 +40,11 @@ public class MainActivity extends Activity {
 	if (stack.size() == 1) {
 	  super.onBackPressed();
 	} else {
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
+		  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 		  Handler handler = new Handler();
 		  handler.postDelayed(new Runnable() {
 			  public void run() {

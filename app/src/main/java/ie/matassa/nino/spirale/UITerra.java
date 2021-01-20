@@ -54,7 +54,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTerra();
 		  setHeader("Terra", "General");
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }

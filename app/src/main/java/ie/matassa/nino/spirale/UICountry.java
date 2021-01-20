@@ -55,7 +55,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateCountry();
 		  setHeader(region, Country);
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }

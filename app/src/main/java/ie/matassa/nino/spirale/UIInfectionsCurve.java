@@ -48,7 +48,7 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(region, country);
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }

@@ -32,7 +32,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateRegion();
 		  setHeader(Region, "Infection Curve");
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }

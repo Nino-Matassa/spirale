@@ -9,11 +9,10 @@ https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overv
 
 Implementing foreign key for data. The need to be populated before they can be implemented. And that may not work.
 https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
-ALTER TABLE [child] Overview
-  ADD CONSTRAINT [CId] ?
-  FOREIGN KEY ([CId]) FK_Region
-  REFERENCES [Parent]([CId]) Region(Id)
-  ON DELETE CASCADE ON UPDATE NO ACTION ? Is this needed 
+ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not working...
 
+UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+UIMessage.notificationMessage(context, "Busy");
+UIMessage.notificationMessage(context, null);
 */
 

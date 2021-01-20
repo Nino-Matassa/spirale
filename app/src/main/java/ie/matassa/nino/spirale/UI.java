@@ -13,6 +13,7 @@ import java.util.*;
 import java.io.*;
 
 public class UI {
+
   private Context context = null;
   private String UIX = null;
 
@@ -47,8 +48,6 @@ public class UI {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 	setFooter(lastUpdated);
-	
-	UIMessage.notificationMessage(context, null);
   }
 
   private void setTitlebar() {
@@ -99,7 +98,7 @@ public class UI {
 		  @Override
 		  public void onClick(View view) {
 			if (metaField.underlineKey) {
-			  UIMessage.notificationMessage(context, "Busy");
+			  //UIMessage.notificationMessage(context, "Busy");
 			  if (metaField.UI.equals(Constants.UIRegion)) {
 				new UIRegion(context, metaField.regionId, metaField.countryId);
 			  }
@@ -206,30 +205,4 @@ public class UI {
     tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
     tableLayoutFooter.addView(tableRow);
   }
-
-//  private static Thread thread = null;
-//  public void getDataFiles() {
-//	thread = new Thread(new Runnable() {
-//		@Override 
-//		public void run() {
-//		  CSV csv = new CSV(context);
-//		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-//			csv.downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-//		  }
-//		  if (!Database.databaseExists()) {
-//			csv.generateDatabaseTable(Constants.csvOverviewName); 
-//			csv.generateDatabaseTable(Constants.csvDetailsName);
-//			new GenerateTablesEtc(context);
-//		  }
-//		}
-//	  });
-//	thread.start();
-//	try {
-//	  thread.join(); 
-//	} catch (InterruptedException e) {
-//	  Log.d("getDataFiles", e.toString());
-//	} finally {
-//	  UIMessage.notificationMessage(context, null);
-//	}
-//  }
 }

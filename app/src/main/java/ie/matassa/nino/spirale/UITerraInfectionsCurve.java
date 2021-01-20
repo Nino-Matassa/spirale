@@ -46,7 +46,7 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Date", "Terra");
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }

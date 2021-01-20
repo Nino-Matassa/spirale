@@ -40,7 +40,7 @@ public class UIDeath24Hour extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(Region, Country);
-		  UIMessage.notificationMessage(context, null);
+		  //UIMessage.notificationMessage(context, null);
         }
       });
   }
