@@ -6,7 +6,7 @@ import android.util.*;
 import java.util.*;
 import android.widget.*;
 import android.content.*;
-
+import android.view.*;
 
 public class MainActivity extends Activity {
 
@@ -69,6 +69,24 @@ public class MainActivity extends Activity {
 		default:
 	  }
 	}
+  }
+
+  public boolean onTouchEvent(MotionEvent event) {
+	// Touching the header or footer
+	int action = event.getAction();//MotionEventCompat.getActionMasked(event);
+    if (action == MotionEvent.ACTION_DOWN) {
+	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	  stack.clear();
+	  Handler handler = new Handler();
+	  handler.postDelayed(new Runnable() {
+		  public void run() {
+			try {
+			  new UITerra(MainActivity.this);
+			} catch (Exception e) { Log.d("MainActivity.onTouchEvent", e.toString()); }
+		  }
+		}, 500);
+	}
+	return super.onTouchEvent(event);
   }
 }
 
