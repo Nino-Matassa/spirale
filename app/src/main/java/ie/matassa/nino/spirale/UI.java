@@ -78,6 +78,9 @@ public class UI {
 		break;
 	  case Constants.UITerraInfectionsCurve:
 		MainActivity.activity.setTitle("Spirale - Terra Infections Curve");
+		break;
+	  case Constants.UIRNought:
+		MainActivity.activity.setTitle("Spirale - R Nought");
 	}
   }
 
@@ -122,6 +125,9 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraInfectionsCurve)) {
 				new UITerraInfectionsCurve(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UIRNought)) {
+				new UIRNought(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

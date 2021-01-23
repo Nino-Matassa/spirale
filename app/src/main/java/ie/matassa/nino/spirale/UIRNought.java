@@ -2,14 +2,13 @@ package ie.matassa.nino.spirale;
 
 import android.content.*;
 import android.database.*;
-import android.graphics.*;
 import android.icu.text.*;
 import android.os.*;
 import android.util.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
 
-public class UIInfectionsCurve extends UI implements IRegisterOnStack {
+public class UIRNought extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -18,14 +17,12 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
   private String region = null;
   private String country = null;
   private MetaField metaField = null;
-  private Double casePerMillion = 0.0;
-  private Integer totalCases = 0;
-  private Double population = 0.0;
-  private Integer case24 = 0;
-  private Double infectionsCurve = 0.0;
+  private Integer today = 0;
+  private Integer yesterday = 0;
+  private Double rNought = 0.0;
 
-  public UIInfectionsCurve(Context context, int regionId, int countryId) {
-	super(context, Constants.UIInfectionsCurve);
+  public UIRNought(Context context, int regionId, int countryId) {
+	super(context, Constants.UIRNought);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -34,13 +31,11 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
 	registerOnStack();
 	uiHandler();
   }
-
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIInfectionsCurve);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIRNought);
 	MainActivity.stack.add(uiHistory);
   }
-
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
     handler.post(new Runnable() {
@@ -54,14 +49,13 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, NewCases, Detail.Region, Detail.Country, CasePerMillion, TotalCase from Detail join Overview on Overview.Country = Detail.Country where FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select distinct Date, NewCases, Detail.Region, Detail.Country from Detail join Overview on Overview.Country = Detail.Country where FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePerMillion"));
-	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-	population = totalCases / casePerMillion * Constants.oneMillion;
+	today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
+	cDetail.moveToNext();
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
 	  try {
@@ -71,17 +65,18 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  case24 = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	  infectionsCurve = Math.log((double)case24);
+	  yesterday = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
+	  rNought = 1 - Math.log(today/(double)yesterday);
 	  
-	  if(!(case24 > 0)) continue;
-
-	  metaField = new MetaField(regionId, countryId, Constants.UIInfectionsCurve);
+	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(infectionsCurve));
+	  metaField.value = String.valueOf(formatter.format(rNought));
 	  metaFields.add(metaField);
+	  
+	  today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	} while(cDetail.moveToNext());
 	Collections.reverse(metaFields);
     setTableLayout(populateTable(metaFields)); 
   }
+  
 }
