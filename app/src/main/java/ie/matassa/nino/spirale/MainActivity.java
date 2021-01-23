@@ -12,6 +12,7 @@ public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
   public static Activity activity = null;
+ 
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,6 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 
 	activity = this;
-	//setTitle("Spirale");
 
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 
@@ -33,8 +33,24 @@ public class MainActivity extends Activity {
 	  }, 500);
   }
 
-  //https://developer.android.com/guide/components/activities/activity-lifecycle
+  @Override
+  protected void onRestart() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	super.onRestart();
+  }
 
+  @Override
+  protected void onResume() {
+	// TODO: Implement this method
+	super.onResume();
+  }
+
+  @Override
+  protected void onStart() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	super.onStart();
+  }
+  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {

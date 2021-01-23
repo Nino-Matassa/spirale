@@ -54,7 +54,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTerra();
 		  setHeader("Terra", "General");
-		  //UIMessage.notificationMessage(context, null);
         }
       });
   }
@@ -81,7 +80,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	death24Hour = cTerra.getInt(cTerra.getColumnIndex("Death24Hour"));
 	population = totalCases/casePerMillion*Constants.oneMillion;
 	precentInfected = totalCases/population*100;
-	infectionsCurve = Math.log((double)totalCases);
+	infectionsCurve = Math.log((double)case24Hour);
 
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";

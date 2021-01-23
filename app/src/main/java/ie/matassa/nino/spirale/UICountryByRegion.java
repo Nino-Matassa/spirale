@@ -33,7 +33,6 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		  populateRegion();
 		  setHeader(Region, "Infections Curve");
 		  MainActivity.activity.setTitle("Spirale - " + Region);
-		  //UIMessage.notificationMessage(context, null);
 		  registerOnStack();
         }
       });
