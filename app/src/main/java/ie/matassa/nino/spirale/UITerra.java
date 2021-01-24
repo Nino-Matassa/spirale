@@ -143,6 +143,39 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.UI = Constants.UITerraInfectionsCurve;
 	metaFields.add(metaField);
 	metaField = new MetaField();
+	
+	String sqlRNought = "select sum(NewCases) as NewCases from Detail group by Date order by Date desc limit 2";
+	Cursor cRNought = db.rawQuery(sqlRNought, null);
+	cRNought.moveToFirst();
+	int today = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
+	int previous = 0;
+	double growthRate = 0.0;
+	if(cRNought.getCount() > 1)
+	{
+	  cRNought.moveToNext();
+	  previous = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
+	  if(previous > today) {
+		growthRate = previous/(double)today;
+	  } else if(today > previous) {
+		growthRate = today/(double)previous;
+	  } else if(today == previous) {
+		growthRate = 1.0;
+	  } else {
+		growthRate = 0.0;
+	  }
+
+	  if(Double.isInfinite(growthRate) || Double.isNaN(growthRate))
+		growthRate = 0.0;
+	} else {
+	  growthRate = 0.0;
+	}
+
+	metaField = new MetaField(0, 0, Constants.UITerraGrowthRate);
+	metaField.key = "Growth Rate*";
+	metaField.value = String.valueOf(formatter.format(Math.log(growthRate)));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	metaField = new MetaField();
 		
 	metaField.key = "";
 	metaField.value = "";

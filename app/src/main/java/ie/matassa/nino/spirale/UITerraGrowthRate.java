@@ -8,7 +8,7 @@ import android.util.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
 
-public class UIRNought extends UI implements IRegisterOnStack {
+public class UITerraGrowthRate extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -18,11 +18,11 @@ public class UIRNought extends UI implements IRegisterOnStack {
   private String country = null;
   private MetaField metaField = null;
   private Integer today = 0;
-  private Integer yesterday = 0;
-  private Double rNought = 0.0;
+  private Integer previous = 0;
+  private Double growthRate = 0.0;
 
-  public UIRNought(Context context, int regionId, int countryId) {
-	super(context, Constants.UIRNought);
+  public UITerraGrowthRate(Context context, int regionId, int countryId) {
+	super(context, Constants.UITerraGrowthRate);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -33,7 +33,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
   }
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIRNought);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraGrowthRate);
 	MainActivity.stack.add(uiHistory);
   }
   private void uiHandler() {
@@ -49,11 +49,9 @@ public class UIRNought extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, NewCases, Detail.Region, Detail.Country from Detail join Overview on Overview.Country = Detail.Country where FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select distinct Date, sum(NewCases) as NewCases from Detail group by date order by date desc";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
-	region = cDetail.getString(cDetail.getColumnIndex("Region"));
-	country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	cDetail.moveToNext();
 	do {
@@ -65,18 +63,29 @@ public class UIRNought extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  yesterday = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	  rNought = 1 - Math.log(today/(double)yesterday);
-	  
-	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
+	  previous = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
+	  if(previous > today) {
+		growthRate = previous/(double)today;
+	  } else if(today > previous) {
+		growthRate = today/(double)previous;
+	  } else if(today == previous) {
+		growthRate = 1.0;
+	  } else {
+		growthRate = 0.0;
+	  }
+
+	  if(Double.isInfinite(growthRate) || Double.isNaN(growthRate))
+		continue;
+
+
+	  metaField = new MetaField(regionId, countryId, Constants.UITerraGrowthRate);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(rNought));
+	  metaField.value = String.valueOf(formatter.format(Math.log(growthRate)));
 	  metaFields.add(metaField);
-	  
+
 	  today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	} while(cDetail.moveToNext());
-	Collections.reverse(metaFields);
     setTableLayout(populateTable(metaFields)); 
   }
-  
+
 }

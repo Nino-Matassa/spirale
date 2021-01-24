@@ -168,20 +168,31 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 	cRNought.moveToFirst();
 	int today = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
-	int yesterday = 0;
-	double rNought = 0.0;
+	int previous = 0;
+	double growthRate = 0.0;
 	if(cRNought.getCount() > 1)
 	{
 	  cRNought.moveToNext();
-	  yesterday = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
-	  rNought = 1 - Math.log(today/(double)yesterday);
+	  previous = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
+	  if(previous > today) {
+		growthRate = previous/(double)today;
+	  } else if(today > previous) {
+		growthRate = today/(double)previous;
+	  } else if(today == previous) {
+		growthRate = 1.0;
+	  } else {
+		growthRate = 0.0;
+	  }
+
+	  if(Double.isInfinite(growthRate) || Double.isNaN(growthRate))
+		growthRate = 0.0;
 	} else {
-	  rNought = Math.log(today);
+	  growthRate = 0.0;
 	}
 	
-	metaField = new MetaField(regionId, countryId, Constants.UIRNought);
-	metaField.key = "R Nought";
-	metaField.value = String.valueOf(formatter.format(rNought));
+	metaField = new MetaField(regionId, countryId, Constants.UIGrowthRate);
+	metaField.key = "Growth Rate*";
+	metaField.value = String.valueOf(formatter.format(Math.log(growthRate)));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	

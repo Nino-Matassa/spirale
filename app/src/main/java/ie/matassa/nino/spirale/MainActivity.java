@@ -34,24 +34,6 @@ public class MainActivity extends Activity {
   }
 
   @Override
-  protected void onRestart() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onRestart();
-  }
-
-  @Override
-  protected void onResume() {
-	// TODO: Implement this method
-	super.onResume();
-  }
-
-  @Override
-  protected void onStart() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onStart();
-  }
-  
-  @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
 	  super.onBackPressed();
