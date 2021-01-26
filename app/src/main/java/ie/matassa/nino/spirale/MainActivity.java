@@ -21,6 +21,19 @@ public class MainActivity extends Activity {
 
 	activity = this;
 
+//	Handler handler = new Handler();
+//	handler.postDelayed(new Runnable() {
+//		public void run() {
+//		  try {
+//			new UITerra(MainActivity.this);
+//		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
+//		}
+//	  }, 500);
+  }
+
+  @Override
+  protected void onResume() {
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -29,12 +42,6 @@ public class MainActivity extends Activity {
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 500);
-  }
-
-  @Override
-  protected void onResume() {
-	if (stack.size() == 0)
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	super.onResume();
   }
 
