@@ -8,7 +8,7 @@ import android.util.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
 
-public class UIGrowthRate extends UI implements IRegisterOnStack {
+public class UIRNought extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -21,8 +21,8 @@ public class UIGrowthRate extends UI implements IRegisterOnStack {
   private Integer previous = 0;
   private Double growthRate = 0.0;
 
-  public UIGrowthRate(Context context, int regionId, int countryId) {
-	super(context, Constants.UIGrowthRate);
+  public UIRNought(Context context, int regionId, int countryId) {
+	super(context, Constants.UIRNought);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -33,7 +33,7 @@ public class UIGrowthRate extends UI implements IRegisterOnStack {
   }
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIGrowthRate);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIRNought);
 	MainActivity.stack.add(uiHistory);
   }
   private void uiHandler() {
@@ -80,7 +80,7 @@ public class UIGrowthRate extends UI implements IRegisterOnStack {
 		continue;
 	  	
 	  
-	  metaField = new MetaField(regionId, countryId, Constants.UIGrowthRate);
+	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
 	  metaField.key = date;
 	  metaField.value = String.valueOf(formatter.format(Math.log(growthRate)));
 	  metaFields.add(metaField);

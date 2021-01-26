@@ -79,11 +79,11 @@ public class UI {
 	  case Constants.UITerraInfectionsCurve:
 		MainActivity.activity.setTitle("Spirale - Terra Infections Curve");
 		break;
-	  case Constants.UIGrowthRate:
-		MainActivity.activity.setTitle("Spirale - Growth Rate*");
+	  case Constants.UIRNought:
+		MainActivity.activity.setTitle("Spirale - RNought*");
 		break;
-	  case Constants.UITerraGrowthRate:
-		MainActivity.activity.setTitle("Spirale - Terra Growth Rate*");
+	  case Constants.UITerraRNought:
+		MainActivity.activity.setTitle("Spirale - Terra RNought*");
 	}
   }
 
@@ -129,11 +129,11 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraInfectionsCurve)) {
 				new UITerraInfectionsCurve(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UIGrowthRate)) {
-				new UIGrowthRate(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UIRNought)) {
+				new UIRNought(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraGrowthRate)) {
-				new UITerraGrowthRate(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UITerraRNought)) {
+				new UITerraRNought(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }
