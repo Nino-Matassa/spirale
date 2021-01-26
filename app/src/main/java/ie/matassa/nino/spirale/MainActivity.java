@@ -21,19 +21,6 @@ public class MainActivity extends Activity {
 
 	activity = this;
 
-//	Handler handler = new Handler();
-//	handler.postDelayed(new Runnable() {
-//		public void run() {
-//		  try {
-//			new UITerra(MainActivity.this);
-//		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
-//		}
-//	  }, 500);
-  }
-
-  @Override
-  protected void onResume() {
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -42,6 +29,15 @@ public class MainActivity extends Activity {
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 500);
+  }
+
+  @Override
+  protected void onResume() {
+	if(stack.size() == 0) { // 0 = called from onCreate no stack yet
+	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	} else {
+	  UIMessage.notificationMessage(MainActivity.this, "Hit the grey area to continue when screen is available.");
+	}
 	super.onResume();
   }
 
