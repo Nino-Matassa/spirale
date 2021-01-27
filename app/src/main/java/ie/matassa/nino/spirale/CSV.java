@@ -1,4 +1,5 @@
 package ie.matassa.nino.spirale;
+import android.app.*;
 import android.content.*;
 import android.database.sqlite.*;
 import android.util.*;
@@ -8,9 +9,6 @@ import java.nio.channels.*;
 import java.sql.*;
 import java.util.*;
 
-import java.util.Date;
-import android.widget.*;
-
 
 public class CSV {
   private Context context = null;
@@ -18,6 +16,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
+	UIMessage.notificationMessage(((Activity)context), "Checking " + Constants.DataSource);
   }
 
   private List readCSV(String filePath) {

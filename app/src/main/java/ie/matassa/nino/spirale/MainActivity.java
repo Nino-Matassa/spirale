@@ -11,16 +11,12 @@ import android.view.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
-  public static Activity activity = null;
-
-
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 
-	activity = this;
-	
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 
 	Handler handler = new Handler();

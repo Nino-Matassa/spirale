@@ -53,37 +53,37 @@ public class UI {
   private void setTitlebar() {
 	switch (UIX) {
 	  case Constants.UITerra:
-		MainActivity.activity.setTitle("Spirale - Terra");
+		((Activity)context).setTitle("Spirale - Terra");
 		break;
 	  case Constants.UIRegion:
-		MainActivity.activity.setTitle("Spirale - Regions");
+		((Activity)context).setTitle("Spirale - Regions");
 		break;
 	  case Constants.UICountryByRegion:
-		MainActivity.activity.setTitle("Spirale - Country by Region");
+		((Activity)context).setTitle("Spirale - Country by Region");
 		break;
 	  case Constants.UICountry:
-		MainActivity.activity.setTitle("Spirale - Country");
+		((Activity)context).setTitle("Spirale - Country");
 		break;
 	  case Constants.UICase24Hour:
-		MainActivity.activity.setTitle("Spirale - Cases 24 Hours");
+		((Activity)context).setTitle("Spirale - Cases 24 Hours");
 		break;
 	  case Constants.UIDeath24Hour:
-		MainActivity.activity.setTitle("Spirale - Deaths 24 Hours");
+		((Activity)context).setTitle("Spirale - Deaths 24 Hours");
 		break;
 	  case Constants.UITotalPrecentInfected:
-		MainActivity.activity.setTitle("Spirale - Precentage Infected");
+		((Activity)context).setTitle("Spirale - Precentage Infected");
 		break;
 	  case Constants.UIInfectionsCurve:
-		MainActivity.activity.setTitle("Spirale - Infections Curve");
+		((Activity)context).setTitle("Spirale - Infections Curve");
 		break;
 	  case Constants.UITerraInfectionsCurve:
-		MainActivity.activity.setTitle("Spirale - Terra Infections Curve");
+		((Activity)context).setTitle("Spirale - Terra Infections Curve");
 		break;
 	  case Constants.UIRNought:
-		MainActivity.activity.setTitle("Spirale - rNought");
+		((Activity)context).setTitle("Spirale - rNought");
 		break;
 	  case Constants.UITerraRNought:
-		MainActivity.activity.setTitle("Spirale - Terra rNought");
+		((Activity)context).setTitle("Spirale - Terra rNought");
 	}
   }
 

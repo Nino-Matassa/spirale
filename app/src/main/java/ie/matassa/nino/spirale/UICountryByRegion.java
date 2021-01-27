@@ -5,6 +5,7 @@ import android.os.*;
 import java.util.*;
 import android.database.*;
 import android.util.*;
+import android.app.*;
 
 public class UICountryByRegion extends UI implements IRegisterOnStack {
   private Context context = null;
@@ -32,7 +33,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateRegion();
 		  setHeader(Region, "Infections Curve");
-		  MainActivity.activity.setTitle("Spirale - " + Region);
+		  ((Activity)context).setTitle("Spirale - " + Region);
 		  registerOnStack();
         }
       });
