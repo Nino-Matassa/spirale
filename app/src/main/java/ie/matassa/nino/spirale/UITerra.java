@@ -154,25 +154,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	{
 	  cRNought.moveToNext();
 	  previous = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
-	  if(previous > today) {
-		rNought = previous/(double)today;
-	  } else if(today > previous) {
-		rNought = today/(double)previous;
-	  } else if(today == previous) {
-		rNought = 1.0;
-	  } else {
-		rNought = 0.0;
-	  }
-
-	  if(Double.isInfinite(rNought) || Double.isNaN(rNought))
-		rNought = 0.0;
+	  rNought = new RNoughtCalculation(today, previous).calculate();
 	} else {
 	  rNought = 0.0;
 	}
 
 	metaField = new MetaField(0, 0, Constants.UITerraRNought);
-	metaField.key = "RNought*";
-	metaField.value = String.valueOf(formatter.format(Math.log(rNought)));
+	metaField.key = "rNought";
+	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();

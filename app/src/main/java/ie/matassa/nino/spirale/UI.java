@@ -80,10 +80,10 @@ public class UI {
 		MainActivity.activity.setTitle("Spirale - Terra Infections Curve");
 		break;
 	  case Constants.UIRNought:
-		MainActivity.activity.setTitle("Spirale - RNought*");
+		MainActivity.activity.setTitle("Spirale - rNought");
 		break;
 	  case Constants.UITerraRNought:
-		MainActivity.activity.setTitle("Spirale - Terra RNought*");
+		MainActivity.activity.setTitle("Spirale - Terra rNought");
 	}
   }
 

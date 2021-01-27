@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 
 	activity = this;
+	
+	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
@@ -33,11 +35,9 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onResume() {
-	if(stack.size() == 0) { // 0 = called from onCreate no stack yet
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	} else {
-	  UIMessage.notificationMessage(MainActivity.this, "Hit the grey area to continue when screen is available.");
-	}
+//	if(stack.size() == 0) { // 0 = called from onCreate no stack yet
+//	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+//	}
 	super.onResume();
   }
 

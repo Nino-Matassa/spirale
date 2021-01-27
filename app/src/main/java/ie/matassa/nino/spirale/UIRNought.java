@@ -19,7 +19,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
   private Integer today = 0;
   private Integer previous = 0;
-  private Double growthRate = 0.0;
+  private Double rNought = 0.0;
 
   public UIRNought(Context context, int regionId, int countryId) {
 	super(context, Constants.UIRNought);
@@ -66,28 +66,17 @@ public class UIRNought extends UI implements IRegisterOnStack {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
 	  previous = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	  if(previous > today) {
-		growthRate = previous/(double)today;
-	  } else if(today > previous) {
-		growthRate = today/(double)previous;
-	  } else if(today == previous) {
-		growthRate = 1.0;
-	  } else {
-		growthRate = 0.0;
-	  }
 	  
-	  if(Double.isInfinite(growthRate) || Double.isNaN(growthRate))
-		continue;
-	  	
-	  
+	  rNought = new RNoughtCalculation(today, previous).calculate();
+
 	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(Math.log(growthRate)));
+	  metaField.value = String.valueOf(formatter.format(rNought));
 	  metaFields.add(metaField);
-	  
+
 	  today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	} while(cDetail.moveToNext());
     setTableLayout(populateTable(metaFields)); 
   }
-  
+
 }
