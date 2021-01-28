@@ -154,7 +154,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	{
 	  cRNought.moveToNext();
 	  previous = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
-	  rNought = new RNoughtCalculation(today, previous).calculate();
+	  rNought = new RNoughtCalculation().calculate(today, previous);
 	} else {
 	  rNought = 0.0;
 	}

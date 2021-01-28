@@ -14,6 +14,10 @@ public class Constants {
 
   public static final int dbVersion = 1;
   public static final int oneMillion = 1000000;
+  public static final int seven = 7;
+  public static final int fourteen = 14;
+  
+  
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";
   public static final String UICountry = "UICountry";

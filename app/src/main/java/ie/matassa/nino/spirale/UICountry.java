@@ -164,7 +164,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	String sqlRNought = "select NewCases from Detail Where FK_Country = " + countryId + " order by Date desc limit 2";
+	String sqlRNought = "select Date, NewCases from Detail Where FK_Country = " + countryId + " order by Date desc";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 	cRNought.moveToFirst();
 	int today = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
@@ -174,7 +174,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	{
 	  cRNought.moveToNext();
 	  previous = cRNought.getInt(cRNought.getColumnIndex("NewCases"));
-	  rNought = new RNoughtCalculation(today, previous).calculate();
+	  rNought = new RNoughtCalculation().calculate(today, previous);
 	} else {
 	  rNought = 0.0;
 	}
@@ -183,6 +183,22 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.key = "rNought";
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	
+	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+	Double rNought7 = rNoughtAverage7.get(0).average;
+	metaField = new MetaField(regionId, countryId, Constants.UIRNought);
+	metaField.key = "rNought/7day";
+	metaField.value = String.valueOf(formatter.format(rNought7));
+	metaField.underlineKey = false;
+	metaFields.add(metaField);
+	
+	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
+	Double rNought14 = rNoughtAverage14.get(0).average;
+	metaField = new MetaField(regionId, countryId, Constants.UIRNought);
+	metaField.key = "rNought/14day";
+	metaField.value = String.valueOf(formatter.format(rNought14));
+	metaField.underlineKey = false;
 	metaFields.add(metaField);
 	
     setTableLayout(populateTable(metaFields)); 

@@ -67,7 +67,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
 	  }
 	  previous = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	  
-	  rNought = new RNoughtCalculation(today, previous).calculate();
+	  rNought = new RNoughtCalculation().calculate(today, previous);
 
 	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
 	  metaField.key = date;
