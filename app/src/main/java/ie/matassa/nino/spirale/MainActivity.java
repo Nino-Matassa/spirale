@@ -11,7 +11,7 @@ import android.view.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
-  
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -30,11 +30,11 @@ public class MainActivity extends Activity {
   }
 
   @Override
-  protected void onResume() {
-//	if(stack.size() == 0) { // 0 = called from onCreate no stack yet
-//	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-//	}
-	super.onResume();
+  protected void onRestart() {
+	if (stack.size() == 0 || !Database.databaseExists()) { // 0 = called from onCreate no stack yet
+	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	}
+	super.onRestart();
   }
 
   @Override

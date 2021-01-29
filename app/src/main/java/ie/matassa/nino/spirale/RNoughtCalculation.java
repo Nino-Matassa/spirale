@@ -2,6 +2,8 @@ package ie.matassa.nino.spirale;
 
 import android.database.*;
 import java.util.*;
+import android.icu.text.*;
+import android.util.*;
 
 public class RNoughtCalculation {
 
@@ -28,27 +30,35 @@ public class RNoughtCalculation {
 	cursor.moveToFirst();
 	do {
 	  RNoughtAverage value = new RNoughtAverage();
-	  value.date = cursor.getString(cursor.getColumnIndex("Date"));
+	  String date = cursor.getString(cursor.getColumnIndex("Date"));
+	  try {
+		date = new SimpleDateFormat("yyyy-MM-dd").parse(date).toString();
+		String[] arrDate = date.split(" ");
+		date = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
+	  } catch (Exception e) {
+		Log.d(Constants.UICase24Hour, e.toString());
+	  }
+	  value.date = date;
 	  value.newCases = cursor.getInt(cursor.getColumnIndex("NewCases"));
 	  listRNought.add(value);
 	} while(cursor.moveToNext());
 
 	// Populate listRNought rNought values
-	for (int outer = 0; outer < listRNought.size()-1; outer++) {
+	for (int outer = 0; outer < listRNought.size() - 1; outer++) {
 	  int current = listRNought.get(outer).newCases;
-	  int previous = listRNought.get(outer+1).newCases;
+	  int previous = listRNought.get(outer + 1).newCases;
 	  listRNought.get(outer).rNought = calculate(current, previous);
 	}
-	
+
 	// Populate listRNought average values
-	for (int outer = 0; outer < listRNought.size()-1; outer++) {
+	for (int outer = 0; outer < listRNought.size() - 1; outer++) {
 	  double rNought = 0.0;
-	  for(int inner = 0; inner < length; inner++) {
-		if(outer + length > listRNought.size())
+	  for (int inner = 0; inner < length; inner++) {
+		if (outer + length > listRNought.size())
 		  break;
 		rNought += listRNought.get(outer + inner).rNought;
 	  }
-	  listRNought.get(outer).average = rNought/length;
+	  listRNought.get(outer).average = rNought / length;
 	}
 	return listRNought;
   }

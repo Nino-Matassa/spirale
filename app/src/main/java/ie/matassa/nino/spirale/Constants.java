@@ -29,5 +29,9 @@ public class Constants {
   public static final String UITerraInfectionsCurve = "UITerraInfectionsCurve";
   public static final String UIRNought = "UIRNought";
   public static final String UITerraRNought = "UITerraRNought";
+  public static final String UIRNought7 = "UIRNought7";
+  public static final String UIRNought14 = "UIRNought14";
+  public static final String UITerraRNought7 = "UITerraRNought7";
+  public static final String UITerraRNought14 = "UITerraRNought14";
 }
 

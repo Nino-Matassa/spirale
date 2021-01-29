@@ -17,9 +17,6 @@ public class UIRNought extends UI implements IRegisterOnStack {
   private String region = null;
   private String country = null;
   private MetaField metaField = null;
-  private Integer today = 0;
-  private Integer previous = 0;
-  private Double rNought = 0.0;
 
   public UIRNought(Context context, int regionId, int countryId) {
 	super(context, Constants.UIRNought);
@@ -50,33 +47,18 @@ public class UIRNought extends UI implements IRegisterOnStack {
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
 	String sqlDetail = "select distinct Date, NewCases, Detail.Region, Detail.Country from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
-	Cursor cDetail = db.rawQuery(sqlDetail, null);
-    cDetail.moveToFirst();
-	region = cDetail.getString(cDetail.getColumnIndex("Region"));
-	country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	cDetail.moveToNext();
-	do {
-	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
-	  try {
-		date = new SimpleDateFormat("yyyy-MM-dd").parse(date).toString();
-		String[] arrDate = date.split(" ");
-		date = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
-	  } catch (Exception e) {
-		Log.d(Constants.UICase24Hour, e.toString());
-	  }
-	  previous = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	  
-	  rNought = new RNoughtCalculation().calculate(today, previous);
+	Cursor cRNought = db.rawQuery(sqlDetail, null);
+	cRNought.moveToFirst();
+	region = cRNought.getString(cRNought.getColumnIndex("Region"));
+	country = cRNought.getString(cRNought.getColumnIndex("Country"));
 
+	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+	for (RNoughtAverage values: rNoughtAverage) {
 	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
-	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(rNought));
+	  metaField.key = values.date;
+	  metaField.value = String.valueOf(formatter.format(values.rNought));
 	  metaFields.add(metaField);
-
-	  today = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
-	} while(cDetail.moveToNext());
+	}
     setTableLayout(populateTable(metaFields)); 
   }
-
 }

@@ -8,7 +8,7 @@ import android.util.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
 
-public class UITerraRNought extends UI implements IRegisterOnStack {
+public class UITerraRNought14 extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -16,8 +16,8 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraRNought(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraRNought);
+  public UITerraRNought14(Context context, int regionId, int countryId) {
+	super(context, Constants.UITerraRNought14);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -28,33 +28,33 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
   }
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraRNought);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraRNought14);
 	MainActivity.stack.add(uiHistory);
   }
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+	handler.post(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader("Date", "Terra");
-        }
-      });
+		}
+	  });
   }
 
   private void populateTable() {
-    ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
+	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
 	String sqlDetail = "select distinct Date, sum(NewCases) as NewCases from Detail group by date order by date desc";
 	Cursor cRNought = db.rawQuery(sqlDetail, null);
-	
-	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+
+	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
 	for (RNoughtAverage values: rNoughtAverage) {
-	  metaField = new MetaField(regionId, countryId, Constants.UITerraRNought);
+	  metaField = new MetaField(regionId, countryId, Constants.UITerraRNought14);
 	  metaField.key = values.date;
-	  metaField.value = String.valueOf(formatter.format(values.rNought));
+	  metaField.value = String.valueOf(formatter.format(values.average));
 	  metaFields.add(metaField);
 	}
-    setTableLayout(populateTable(metaFields)); 
+	setTableLayout(populateTable(metaFields)); 
   }
 
 }
