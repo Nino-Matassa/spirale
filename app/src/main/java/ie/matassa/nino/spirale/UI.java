@@ -117,7 +117,6 @@ public class UI {
 		  @Override
 		  public void onClick(View view) {
 			if (metaField.underlineKey) {
-			  //UIMessage.notificationMessage(context, "Busy");
 			  if (metaField.UI.equals(Constants.UIRegion)) {
 				new UIRegion(context, metaField.regionId, metaField.countryId);
 			  }

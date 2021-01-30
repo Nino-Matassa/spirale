@@ -29,18 +29,23 @@ public class MainActivity extends Activity {
 	  }, 500);
   }
 
-  @Override
-  protected void onRestart() {
-	if (stack.size() == 0 || !Database.databaseExists()) { // 0 = called from onCreate no stack yet
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	}
-	super.onRestart();
-  }
-
+//  @Override
+//  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+//	super.onRestoreInstanceState(savedInstanceState);
+//  }
+//
+//  @Override
+//  public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+//	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+//	super.onRestoreInstanceState(savedInstanceState, persistentState);
+//  }
+  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-	  super.onBackPressed();
+	  //super.onBackPressed();
+	  UIMessage.toast(MainActivity.this, "Press Home to Exit", Toast.LENGTH_LONG);
 	} else {
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
