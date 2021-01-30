@@ -2,11 +2,11 @@
 Spirale is named after the French drama Spirale.
 
 The app collates WHO data for COVID-19 globally.
-hich is available from:
+wich is available from: 
 
-https://covid19.who.int/info
+https://covid19.who.int/info 
 This page contains two CSV files:
-https://covid19.who.int/WHO-COVID-19-global-data.csv
+https://covid19.who.int/WHO-COVID-19-global-data.csv and 
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv
 
 The files are downloaded either on the first run when they aren't there or if they've been updated. An in memory database is then created for the app to use.
