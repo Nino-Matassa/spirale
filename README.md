@@ -19,7 +19,7 @@ Primairaly I wrote the app for my own use so if you play with it a little you'll
 Android application, and my inexperience with the platform has it's effect. The app is generally stable... Relaunching it from the background causes it to
 appear to hang, this is notable when it downloads new data with the database rebuild taking time. Other than that it works just fine and presents the data as is.
 
-The primary reason for developing the app was to keep informed of world widt COVID trends but also to be able to see which countries benifit from the vaccine
+The primary reason for developing the app was to keep informed of world wide COVID trends but also to be able to see which countries benifit from the vaccine
 and where the virus is most prevelant etc.
 
 I'll update the readme as I go along. If you want to contact me, nino.matassa@gmail.com.
