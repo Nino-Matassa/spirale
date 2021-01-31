@@ -16,9 +16,9 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-
+	
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-
+	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -29,18 +29,6 @@ public class MainActivity extends Activity {
 	  }, 500);
   }
 
-//  @Override
-//  protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-//	super.onRestoreInstanceState(savedInstanceState);
-//  }
-//
-//  @Override
-//  public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-//	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-//	super.onRestoreInstanceState(savedInstanceState, persistentState);
-//  }
-  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {

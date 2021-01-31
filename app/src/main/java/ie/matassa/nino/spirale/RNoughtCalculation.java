@@ -9,7 +9,7 @@ public class RNoughtCalculation {
 
   public RNoughtCalculation() {}
 
-  public Double calculate(int current, int previous) {
+  private Double calculate(int current, int previous) {
 	Double rNought = 0.0;
 
 	if (current > 0 && previous > 0) {

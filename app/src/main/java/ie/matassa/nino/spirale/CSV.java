@@ -16,7 +16,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
-	UIMessage.notificationMessage(((Activity)context), "Checking " + Constants.DataSource);
+	//UIMessage.notificationMessage(((Activity)context), "Checking " + Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
