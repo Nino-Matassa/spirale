@@ -64,6 +64,9 @@ public class MainActivity extends Activity {
 		case Constants.UITerraTotalCases:
 		  new UITerraTotalCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
+		case Constants.UITerraTotalDeaths:
+		  new UITerraTotalDeaths(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
 		default:
 	  }
 	}

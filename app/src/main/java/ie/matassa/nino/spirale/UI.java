@@ -100,6 +100,9 @@ public class UI {
 	  case Constants.UITerraTotalCases:
 		((Activity)context).setTitle("Spirale - Terra Total Cases");
 		break;
+	  case Constants.UITerraTotalDeaths:
+		((Activity)context).setTitle("Spirale - Terra Total Deaths");
+		break;
 	}
   }
 
@@ -164,6 +167,9 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraTotalCases)) {
 				new UITerraTotalCases(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraTotalDeaths)) {
+				new UITerraTotalDeaths(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }
