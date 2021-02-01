@@ -97,6 +97,9 @@ public class UI {
 	  case Constants.UITerraRNought14:
 		((Activity)context).setTitle("Spirale - Terra rNought/14");
 		break;
+	  case Constants.UITerraTotalCases:
+		((Activity)context).setTitle("Spirale - Terra Total Cases");
+		break;
 	}
   }
 
@@ -158,6 +161,9 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraRNought14)) {
 				new UITerraRNought14(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraTotalCases)) {
+				new UITerraTotalCases(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

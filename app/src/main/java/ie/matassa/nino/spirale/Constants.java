@@ -33,5 +33,6 @@ public class Constants {
   public static final String UIRNought14 = "UIRNought14";
   public static final String UITerraRNought7 = "UITerraRNought7";
   public static final String UITerraRNought14 = "UITerraRNought14";
+  public static final String UITerraTotalCases = "UITerraTotalCases";
 }
 

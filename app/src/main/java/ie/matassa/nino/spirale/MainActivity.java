@@ -61,6 +61,9 @@ public class MainActivity extends Activity {
 		case Constants.UITerraInfectionsCurve:
 		  new UITerraInfectionsCurve(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
+		case Constants.UITerraTotalCases:
+		  new UITerraTotalCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
 		default:
 	  }
 	}

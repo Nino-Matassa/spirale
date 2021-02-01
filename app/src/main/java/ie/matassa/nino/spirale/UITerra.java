@@ -87,59 +87,57 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaField.UI = Constants.UIRegion;
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField(0, 0, Constants.UITerraTotalCases);
 	metaField.key = "Total Cases";
 	metaField.value = String.valueOf(formatter.format(totalCases));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
+	
 	metaField = new MetaField();
-
 	metaField.key = "Case/Million";
 	metaField.value = String.valueOf(formatter.format(casePerMillion));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Case/24";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Case/7D";
 	metaField.value = String.valueOf(formatter.format(case7Day));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Total Deaths";
 	metaField.value = String.valueOf(formatter.format(totalDeath));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Death/Million";
 	metaField.value = String.valueOf(formatter.format(deathPerMillion));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Death/24";
 	metaField.value = String.valueOf(formatter.format(death24Hour));
 	metaFields.add(metaField);
-	metaField = new MetaField();
 
+	metaField = new MetaField();
 	metaField.key = "Death/7D";
 	metaField.value = String.valueOf(formatter.format(death7Day));
 	metaFields.add(metaField);
+
 	metaField = new MetaField();
-	
 	metaField.key = "Total Infected";
 	metaField.value = String.valueOf(formatter.format(precentInfected)) + "%";
 	metaFields.add(metaField);
-	metaField = new MetaField();
-	
+
+	metaField = new MetaField(0, 0, Constants.UITerraInfectionsCurve);
 	metaField.key = "Infections Curve";
 	metaField.value = String.valueOf(formatter.format(infectionsCurve));
-	metaField.regionId = 0;
-	metaField.countryId = 0;
 	metaField.underlineKey = true;
-	metaField.UI = Constants.UITerraInfectionsCurve;
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
@@ -178,32 +176,32 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
-	metaField.key = "Country";
-	metaField.value = "Infections Curve";
-	metaFields.add(metaField);
-	metaField = new MetaField();
-	
-	int index = 0;
-	sql = "select Country.Id, Country.FK_Region, Detail.Country, NewCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country order by NewCases desc";
-	cTerra = db.rawQuery(sql, null);
-	cTerra.moveToFirst();
-	do {
-	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
-	  int newCases = cTerra.getInt(cTerra.getColumnIndex("NewCases"));
-	  double log = newCases == 0 ? 0:Math.log(newCases);
-	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
-	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
-	  
-	  metaField.key = "(" + String.valueOf(++index) + ") " + country;
-	  metaField.value = String.valueOf(formatter.format(log));
-	  metaField.regionId = regionId;
-	  metaField.countryId = countryId;
-	  metaField.underlineKey = true;
-	  metaField.UI = Constants.UICountry;
-	  metaFields.add(metaField);
-	  metaField = new MetaField();
-	  
-	} while(cTerra.moveToNext());
+//	metaField.key = "Country";
+//	metaField.value = "Infections Curve";
+//	metaFields.add(metaField);
+//	metaField = new MetaField();
+//	
+//	int index = 0;
+//	sql = "select Country.Id, Country.FK_Region, Detail.Country, NewCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country order by NewCases desc";
+//	cTerra = db.rawQuery(sql, null);
+//	cTerra.moveToFirst();
+//	do {
+//	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
+//	  int newCases = cTerra.getInt(cTerra.getColumnIndex("NewCases"));
+//	  double log = newCases == 0 ? 0:Math.log(newCases);
+//	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
+//	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
+//	  
+//	  metaField.key = "(" + String.valueOf(++index) + ") " + country;
+//	  metaField.value = String.valueOf(formatter.format(log));
+//	  metaField.regionId = regionId;
+//	  metaField.countryId = countryId;
+//	  metaField.underlineKey = true;
+//	  metaField.UI = Constants.UICountry;
+//	  metaFields.add(metaField);
+//	  metaField = new MetaField();
+//	  
+//	} while(cTerra.moveToNext());
 	
 	setTableLayout(populateTable(metaFields));
   }
