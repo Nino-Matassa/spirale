@@ -47,10 +47,9 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
+	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
-	  int totalCases = cTerra.getInt(cTerra.getColumnIndex("TotalCases"));
-	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
-	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
+	  metaField.key = country;
 	  
 	  country = country.replace("'", "''");
 
@@ -59,8 +58,6 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
 	  cDeathPerMillion.moveToFirst();
 	  Double deathPerMillion = cDeathPerMillion.getDouble(cDeathPerMillion.getColumnIndex("DeathPerMillion"));
 
-	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
-	  metaField.key = country;
 	  metaField.value = String.valueOf(formatter.format(deathPerMillion));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
