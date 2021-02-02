@@ -47,6 +47,8 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
+	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
+	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
 	  metaField.key = country;
