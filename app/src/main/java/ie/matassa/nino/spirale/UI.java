@@ -109,6 +109,12 @@ public class UI {
 	  case Constants.UITerraDeathPerMillion:
 		((Activity)context).setTitle("Spirale - Terra Death/Million");
 		break;
+	  case Constants.UITerraCase24H:
+		((Activity)context).setTitle("Spirale - Terra Case/24H");
+		break;
+	  case Constants.UITerraCase7D:
+		((Activity)context).setTitle("Spirale - Terra Case/7D");
+		break;
 	}
   }
 
@@ -182,6 +188,12 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraDeathPerMillion)) {
 				new UITerraDeathPerMillion(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraCase24H)) {
+				new UITerraCase24H(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraCase7D)) {
+				new UITerraCase7D(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

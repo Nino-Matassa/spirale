@@ -31,16 +31,17 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onResume() {
-	if(!Database.databaseExists())
+	if(!Database.databaseExists()) {
 	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+	}	  
 	super.onResume();
   }
   
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
+	  stack.clear();
 	  super.onBackPressed();
-	  //UIMessage.toast(MainActivity.this, "Press Home to Exit", Toast.LENGTH_LONG);
 	} else {
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
@@ -79,7 +80,13 @@ public class MainActivity extends Activity {
 		  break;
 		case Constants.UITerraDeathPerMillion:
 		  new UITerraDeathPerMillion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;		  
+		  break;
+		case Constants.UITerraCase24H:
+		  new UITerraCase24H(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;	
+		case Constants.UITerraCase7D:
+		  new UITerraCase7D(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;	
 		default:
 	  }
 	}

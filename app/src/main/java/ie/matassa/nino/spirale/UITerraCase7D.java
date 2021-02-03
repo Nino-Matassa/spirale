@@ -1,12 +1,11 @@
 package ie.matassa.nino.spirale;
-
 import android.content.*;
-import android.database.*;
 import android.icu.text.*;
 import android.os.*;
 import java.util.*;
+import android.database.*;
 
-public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
+public class UITerraCase7D extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -14,8 +13,8 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraCasePerMillion(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraCasePerMillion);
+  public UITerraCase7D(Context context, int regionId, int countryId) {
+	super(context, Constants.UITerraCase24H);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -26,7 +25,7 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraCasePerMillion);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraCase7D);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -36,14 +35,14 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case/Million");
+		  setHeader("Country", "Case/7D");
         }
       });
   }
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Detail.Country, sum(NewCases) as TotalCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	String sql = "select distinct Country.Id, Country.FK_Region, Country.Country, Overview.Case7Day from Country join Overview on Country.Country = Overview.Country order by Overview.Case7Day desc";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
@@ -51,32 +50,27 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
 	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
-	  metaField.key = country;
-	  
-	  country = country.replace("'", "''");
-	  
-	  String sCasePerMillion = "select max(CasePerMillion) as CasePerMillion from Overview where Country = '#1'".replace("#1", country);
-	  Cursor cCasePerMillion = db.rawQuery(sCasePerMillion, null);
-	  cCasePerMillion.moveToFirst();
-	  Double casePerMillion = cCasePerMillion.getDouble(cCasePerMillion.getColumnIndex("CasePerMillion"));
 
-	  metaField.value = String.valueOf(formatter.format(casePerMillion));
+	  country = country.replace("'", "''");
+
+	  int case7Day = cTerra.getInt(cTerra.getColumnIndex("Case7Day"));
+	  metaField.key = country;
+	  metaField.value = String.valueOf(formatter.format(case7Day));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 
 
 	} while(cTerra.moveToNext());
 
-	metaFields.sort(new sortStats());
+	//metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
-  class sortStats implements Comparator<MetaField>
-  {
+  class sortStats implements Comparator<MetaField> {
     @Override
     public int compare(MetaField mfA, MetaField mfB) {
-      Double dA = Double.parseDouble(mfA.value.replace(",", ""));
-      Double dB = Double.parseDouble(mfB.value.replace(",", ""));
-      return dB.compareTo(dA);
+	  Integer iA = Integer.parseInt(mfA.value.replace(",", ""));
+      Integer iB = Integer.parseInt(mfB.value.replace(",", ""));
+      return iB.compareTo(iA);
 	}
   }
 }
