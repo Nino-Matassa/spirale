@@ -124,19 +124,22 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField();
+	metaField = new MetaField(0, 0, Constants.UITerraDeath24H);
 	metaField.key = "Death/24";
 	metaField.value = String.valueOf(formatter.format(death24Hour));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField();
+	metaField = new MetaField(0, 0, Constants.UITerraDeath7D);
 	metaField.key = "Death/7D";
 	metaField.value = String.valueOf(formatter.format(death7Day));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField();
+	metaField = new MetaField(0, 0, Constants.UITerraTotalInfected);
 	metaField.key = "Total Infected";
 	metaField.value = String.valueOf(formatter.format(precentInfected)) + "%";
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraInfectionsCurve);

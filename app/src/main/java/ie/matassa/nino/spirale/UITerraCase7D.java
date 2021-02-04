@@ -14,7 +14,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UITerraCase7D(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraCase24H);
+	super(context, Constants.UITerraCase7D);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;

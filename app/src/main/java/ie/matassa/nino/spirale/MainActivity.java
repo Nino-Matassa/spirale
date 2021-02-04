@@ -40,8 +40,9 @@ public class MainActivity extends Activity {
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-	  stack.clear();
-	  super.onBackPressed();
+//	  stack.clear();
+//	  super.onBackPressed();
+	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
 	  stack.pop();
 	  UIHistory uiHistory = stack.pop();
@@ -86,7 +87,16 @@ public class MainActivity extends Activity {
 		  break;	
 		case Constants.UITerraCase7D:
 		  new UITerraCase7D(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UITerraDeath24H:
+		  new UITerraDeath24H(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;	
+		case Constants.UITerraDeath7D:
+		  new UITerraDeath7D(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UITerraTotalInfected:
+		  new UITerraTotalInfected(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
 		default:
 	  }
 	}
