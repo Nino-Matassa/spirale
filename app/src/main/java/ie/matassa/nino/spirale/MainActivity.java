@@ -7,6 +7,8 @@ import java.util.*;
 import android.widget.*;
 import android.content.*;
 import android.view.*;
+import android.database.*;
+import android.database.sqlite.*;
 
 public class MainActivity extends Activity {
 
@@ -31,9 +33,16 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onResume() {
-	if(!Database.databaseExists()) {
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	}	  
+//	try {
+//	  String sql = "select CasePerMillion from Overview where country = 'Ireland' limit 1";
+//	  SQLiteDatabase db = Database.getInstance(MainActivity.this);
+//	  Cursor tCursor = db.rawQuery(sql, null);
+//	  int casePerMillion = tCursor.getInt(tCursor.getColumnIndex("CasePerMillion"));
+//	} catch(Exception e) {
+//	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+//	} finally {
+//	  super.onResume();
+//	}
 	super.onResume();
   }
   

@@ -31,6 +31,11 @@ public class Constants {
   public static final String UITerraRNought = "UITerraRNought";
   public static final String UIRNought7 = "UIRNought7";
   public static final String UIRNought14 = "UIRNought14";
+  public static final String UITotalCase = "UITotalCase";
+  public static final String UITotalDeath = "UITotalDeath";
+  public static final String UICasePerMillion = "UICasePerMillion";
+  public static final String UIDeathPerMillion = "UIDeathPerMillion";
+    
   public static final String UITerraRNought7 = "UITerraRNought7";
   public static final String UITerraRNought14 = "UITerraRNought14";
   public static final String UITerraTotalCases = "UITerraTotalCases";

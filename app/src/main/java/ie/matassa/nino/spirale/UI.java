@@ -124,6 +124,18 @@ public class UI {
 	  case Constants.UITerraTotalInfected:
 		((Activity)context).setTitle("Spirale - Terra Total Infected");
 		break;
+	  case Constants.UITotalCase:
+		((Activity)context).setTitle("Spirale - Total Cases");
+		break;
+	  case Constants.UITotalDeath:
+		((Activity)context).setTitle("Spirale - Total Deaths");
+		break;
+	  case Constants.UICasePerMillion:
+		((Activity)context).setTitle("Spirale - Case/Million");
+		break;
+	  case Constants.UIDeathPerMillion:
+		((Activity)context).setTitle("Spirale - Death/Million");
+		break;
 	}
   }
 
@@ -212,6 +224,18 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraTotalInfected)) {
 				new UITerraTotalInfected(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITotalCase)) {
+				new UITotalCase(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITotalDeath)) {
+				new UITotalDeath(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UICasePerMillion)) {
+				new UICasePerMillion(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UIDeathPerMillion)) {
+				new UIDeathPerMillion(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

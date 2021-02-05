@@ -105,14 +105,16 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(population));
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
 	metaField.key = "Total Cases";
 	metaField.value = String.valueOf(formatter.format(totalCases));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UICasePerMillion);
 	metaField.key = "Case/Million";
 	metaField.value = String.valueOf(formatter.format(casePerMillion));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
@@ -126,14 +128,16 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UITotalDeath);
 	metaField.key = "Total Deaths";
 	metaField.value = String.valueOf(formatter.format(totalDeath));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UIDeathPerMillion);
 	metaField.key = "Death/Million";
 	metaField.value = String.valueOf(formatter.format(deathPerMillion));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
