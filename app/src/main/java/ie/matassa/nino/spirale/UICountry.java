@@ -117,9 +117,10 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UICase7Day);
 	metaField.key = "Case7Day";
 	metaField.value = String.valueOf(formatter.format(case7Day));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
@@ -140,9 +141,10 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	metaField = new MetaField(regionId, countryId, Constants.UIDeath7Day);
 	metaField.key = "Death7Day";
 	metaField.value = String.valueOf(formatter.format(death7Day));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeath24Hour);

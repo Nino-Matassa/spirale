@@ -35,7 +35,8 @@ public class Constants {
   public static final String UITotalDeath = "UITotalDeath";
   public static final String UICasePerMillion = "UICasePerMillion";
   public static final String UIDeathPerMillion = "UIDeathPerMillion";
-    
+  public static final String UICase7Day = "UICase7Day";
+  public static final String UIDeath7Day = "UIDeath7Day";
   public static final String UITerraRNought7 = "UITerraRNought7";
   public static final String UITerraRNought14 = "UITerraRNought14";
   public static final String UITerraTotalCases = "UITerraTotalCases";

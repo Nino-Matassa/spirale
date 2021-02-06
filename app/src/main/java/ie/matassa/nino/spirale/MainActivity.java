@@ -13,11 +13,13 @@ import android.database.sqlite.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
+  private boolean bOnResume = true;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	bOnResume = false;
 	
 	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	
@@ -33,23 +35,14 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onResume() {
-//	try {
-//	  String sql = "select CasePerMillion from Overview where country = 'Ireland' limit 1";
-//	  SQLiteDatabase db = Database.getInstance(MainActivity.this);
-//	  Cursor tCursor = db.rawQuery(sql, null);
-//	  int casePerMillion = tCursor.getInt(tCursor.getColumnIndex("CasePerMillion"));
-//	} catch(Exception e) {
-//	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-//	} finally {
-//	  super.onResume();
-//	}
+	if(bOnResume)
+		UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	super.onResume();
   }
   
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-//	  stack.clear();
 //	  super.onBackPressed();
 	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
@@ -116,7 +109,6 @@ public class MainActivity extends Activity {
 	int action = event.getAction();//MotionEventCompat.getActionMasked(event);
     if (action == MotionEvent.ACTION_DOWN) {
 	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	  stack.clear();
 	  Handler handler = new Handler();
 	  handler.postDelayed(new Runnable() {
 		  public void run() {

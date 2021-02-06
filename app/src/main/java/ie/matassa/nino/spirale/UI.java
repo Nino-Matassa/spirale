@@ -29,6 +29,7 @@ public class UI {
 
 	setTitlebar();
 	if (UIX.equals(Constants.UITerra)) {
+	  MainActivity.stack.clear();
 	  new CSV(context).getDataFiles();
 	}
 
@@ -136,6 +137,12 @@ public class UI {
 	  case Constants.UIDeathPerMillion:
 		((Activity)context).setTitle("Spirale - Death/Million");
 		break;
+	  case Constants.UICase7Day:
+		((Activity)context).setTitle("Spirale - Case 7Day");
+		break;
+	  case Constants.UIDeath7Day:
+		((Activity)context).setTitle("Spirale - Death 7Day");
+		break;
 	}
   }
 
@@ -236,6 +243,12 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UIDeathPerMillion)) {
 				new UIDeathPerMillion(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UICase7Day)) {
+				new UICase7Day(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UIDeath7Day)) {
+				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }
