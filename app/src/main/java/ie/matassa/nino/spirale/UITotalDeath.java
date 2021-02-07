@@ -39,7 +39,7 @@ public class UITotalDeath extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Total Deaths");
+		  setHeader(region, country);
 		}
 	  });
   }

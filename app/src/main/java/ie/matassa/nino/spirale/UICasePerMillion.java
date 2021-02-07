@@ -39,7 +39,7 @@ public class UICasePerMillion extends UI implements IRegisterOnStack {
 		  @Override
 		  public void run() {
 			populateTable();
-			setHeader("Country", "Case/Million");
+			setHeader(region, country);
 		  }
 		});
 	}

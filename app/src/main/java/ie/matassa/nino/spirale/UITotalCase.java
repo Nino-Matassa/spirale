@@ -39,7 +39,7 @@ public class UITotalCase extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Total Cases");
+		  setHeader(region, country);
 		}
 	  });
   }

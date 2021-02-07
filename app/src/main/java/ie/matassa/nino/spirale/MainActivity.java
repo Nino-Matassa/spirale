@@ -33,12 +33,14 @@ public class MainActivity extends Activity {
 	  }, 500);
   }
 
-  @Override
-  protected void onResume() {
-	if(bOnResume)
-		UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	super.onResume();
-  }
+//  @Override
+//  protected void onResume() {
+//	if(bOnResume)
+//		UIMessage.notificationMessage(MainActivity.this, "Hit The Grey Area To Continue");
+//	else
+//	  bOnResume = true;
+//	super.onResume();
+//  }
   
   @Override
   public void onBackPressed() {
@@ -108,6 +110,7 @@ public class MainActivity extends Activity {
 	// Touching the header or footer
 	int action = event.getAction();//MotionEventCompat.getActionMasked(event);
     if (action == MotionEvent.ACTION_DOWN) {
+	  this.stack.clear();
 	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	  Handler handler = new Handler();
 	  handler.postDelayed(new Runnable() {
