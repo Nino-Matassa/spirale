@@ -28,10 +28,10 @@ public class UI {
 	this.UIX = UIX;
 
 	setTitlebar();
-	if (UIX.equals(Constants.UITerra)) {
-	  MainActivity.stack.clear();
-	  new CSV(context).getDataFiles();
-	}
+//	if (UIX.equals(Constants.UITerra)) {
+//	  MainActivity.stack.clear();
+//	  new CSV(context).getDataFiles();
+//	}
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);

@@ -13,35 +13,29 @@ import android.database.sqlite.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
-  private boolean bOnResume = true;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	bOnResume = false;
-	
-	UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-	
+  }
+
+  @Override
+  protected void onResume() {
+	stack.clear();
+	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
+			new CSV(MainActivity.this).getDataFiles();
 			new UITerra(MainActivity.this);
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 500);
+	super.onResume();
   }
 
-//  @Override
-//  protected void onResume() {
-//	if(bOnResume)
-//		UIMessage.notificationMessage(MainActivity.this, "Hit The Grey Area To Continue");
-//	else
-//	  bOnResume = true;
-//	super.onResume();
-//  }
-  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
@@ -52,7 +46,7 @@ public class MainActivity extends Activity {
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
-		  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
+		  UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
 		  Handler handler = new Handler();
 		  handler.postDelayed(new Runnable() {
 			  public void run() {
@@ -111,7 +105,6 @@ public class MainActivity extends Activity {
 	int action = event.getAction();//MotionEventCompat.getActionMasked(event);
     if (action == MotionEvent.ACTION_DOWN) {
 	  this.stack.clear();
-	  UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
 	  Handler handler = new Handler();
 	  handler.postDelayed(new Runnable() {
 		  public void run() {
