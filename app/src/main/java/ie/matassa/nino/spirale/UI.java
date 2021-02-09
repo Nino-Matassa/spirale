@@ -28,10 +28,9 @@ public class UI {
 	this.UIX = UIX;
 
 	setTitlebar();
-//	if (UIX.equals(Constants.UITerra)) {
-//	  MainActivity.stack.clear();
-//	  new CSV(context).getDataFiles();
-//	}
+	if (UIX.equals(Constants.UITerra)) {
+	  MainActivity.stack.clear();
+	}
 
 	vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
     vibrator.vibrate(80);
@@ -143,6 +142,12 @@ public class UI {
 	  case Constants.UIDeath7Day:
 		((Activity)context).setTitle("Spirale - Death 7Day");
 		break;
+	  case Constants.UITerraCase24PerMillion:
+		((Activity)context).setTitle("Spirale - Case24/Million");
+		break;
+	  case Constants.UITerraDeath24PerMillion:
+		((Activity)context).setTitle("Spirale - Death24/Million");
+		break;
 	}
   }
 
@@ -249,6 +254,12 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UIDeath7Day)) {
 				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraCase24PerMillion)) {
+				new UITerraCase24PerMillion(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraDeath24PerMillion)) {
+				new UITerraDeath24PerMillion(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

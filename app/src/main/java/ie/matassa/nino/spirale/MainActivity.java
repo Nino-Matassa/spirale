@@ -46,15 +46,7 @@ public class MainActivity extends Activity {
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
-		  UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
-		  Handler handler = new Handler();
-		  handler.postDelayed(new Runnable() {
-			  public void run() {
-				try {
-				  new UITerra(MainActivity.this);
-				} catch (Exception e) { Log.d("MainActivity.onBackPressed", e.toString()); }
-			  }
-			}, 500);
+		  new UITerra(MainActivity.this);
 		  break;
 		case Constants.UIRegion:
 		  new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
@@ -95,24 +87,21 @@ public class MainActivity extends Activity {
 		case Constants.UITerraTotalInfected:
 		  new UITerraTotalInfected(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
+		case Constants.UITerraCase24PerMillion:
+		  new UITerraCase24PerMillion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UITerraDeath24PerMillion:
+		  new UITerraDeath24PerMillion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
 		default:
 	  }
 	}
   }
 
   public boolean onTouchEvent(MotionEvent event) {
-	// Touching the header or footer
-	int action = event.getAction();//MotionEventCompat.getActionMasked(event);
+	int action = event.getAction();
     if (action == MotionEvent.ACTION_DOWN) {
-	  this.stack.clear();
-	  Handler handler = new Handler();
-	  handler.postDelayed(new Runnable() {
-		  public void run() {
-			try {
-			  new UITerra(MainActivity.this);
-			} catch (Exception e) { Log.d("MainActivity.onTouchEvent", e.toString()); }
-		  }
-		}, 500);
+	  new UITerra(MainActivity.this);
 	}
 	return super.onTouchEvent(event);
   }

@@ -94,6 +94,15 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
+	metaField = new MetaField(0, 0, Constants.UITerraCase24PerMillion);
+	metaField.key = "Case24/Million";
+	double case24PerMillion = 0.0;//casePerMillion/population*Constants.oneMillion;
+	if(population > 0)
+	  case24PerMillion = casePerMillion/population*Constants.oneMillion;
+	metaField.value = String.valueOf(formatter.format(case24PerMillion));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	
 	metaField = new MetaField(0, 0, Constants.UITerraCasePerMillion);
 	metaField.key = "Case/Million";
 	metaField.value = String.valueOf(formatter.format(casePerMillion));
@@ -118,6 +127,15 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
+	metaField = new MetaField(0, 0, Constants.UITerraDeath24PerMillion);
+	metaField.key = "Death24/Million";
+	double death24PerMillion = 0.0;//deathPerMillion/population*Constants.oneMillion;
+	if(population > 0)
+	  death24PerMillion = deathPerMillion/population*Constants.oneMillion;
+	metaField.value = String.valueOf(formatter.format(death24PerMillion));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+	
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPerMillion);
 	metaField.key = "Death/Million";
 	metaField.value = String.valueOf(formatter.format(deathPerMillion));
