@@ -173,7 +173,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
 	Double rNought = rNoughtAverage.get(0).rNought;
 	metaField = new MetaField(0, 0, Constants.UITerraRNought);
-	metaField.key = "rNought";
+	metaField.key = "Ro";
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -182,7 +182,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
 	Double rNought7 = rNoughtAverage7.get(0).average;
 	metaField = new MetaField(0, 0, Constants.UITerraRNought7);
-	metaField.key = "rNought/7";
+	metaField.key = "Ro/7";
 	metaField.value = String.valueOf(formatter.format(rNought7));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -191,7 +191,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
 	Double rNought14 = rNoughtAverage14.get(0).average;
 	metaField = new MetaField(0, 0, Constants.UITerraRNought14);
-	metaField.key = "rNought/14";
+	metaField.key = "Ro/14";
 	metaField.value = String.valueOf(formatter.format(rNought14));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);

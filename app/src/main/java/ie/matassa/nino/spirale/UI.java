@@ -80,22 +80,22 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Terra Infections Curve");
 		break;
 	  case Constants.UIRNought:
-		((Activity)context).setTitle("Spirale - rNought");
+		((Activity)context).setTitle("Spirale - Ro");
 		break;
 	  case Constants.UIRNought7:
-		((Activity)context).setTitle("Spirale - rNought/7");
+		((Activity)context).setTitle("Spirale - Ro/7");
 		break;
 	  case Constants.UIRNought14:
-		((Activity)context).setTitle("Spirale - rNought/14");
+		((Activity)context).setTitle("Spirale - Ro/14");
 		break;
 	  case Constants.UITerraRNought:
-		((Activity)context).setTitle("Spirale - Terra rNought");
+		((Activity)context).setTitle("Spirale - Terra Ro");
 		break;
 	  case Constants.UITerraRNought7:
-		((Activity)context).setTitle("Spirale - Terra rNought/7");
+		((Activity)context).setTitle("Spirale - Terra Ro/7");
 		break;
 	  case Constants.UITerraRNought14:
-		((Activity)context).setTitle("Spirale - Terra rNought/14");
+		((Activity)context).setTitle("Spirale - Terra Ro/14");
 		break;
 	  case Constants.UITerraTotalCases:
 		((Activity)context).setTitle("Spirale - Terra Total Cases");

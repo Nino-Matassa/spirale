@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.widget.*;
+import android.view.*;
 
 public class UIMessage {
   public static void toast(final Context context, final String text, final int length) {
@@ -38,6 +39,11 @@ public class UIMessage {
 		  if (builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
+//			LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+//			final View dialogView = inflater.inflate(R.layout.spinner, null);
+//			builder.setView(dialogView);
+
+			//Spinner checkInProviders = (Spinner) dialogView .findViewById(R.id.spinner);
 		  }
 		  alertDialog.setMessage(msg);
 		  alertDialog.show();
