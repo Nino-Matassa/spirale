@@ -11,8 +11,7 @@ Implementing foreign key for data. The need to be populated before they can be i
 https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
 ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not working...
 
-UIMessage.notificationMessage(MainActivity.this, "Checking " + Constants.DataSource);
-UIMessage.notificationMessage(context, "Busy");
-UIMessage.notificationMessage(context, null);
+Overview has two new fields added which are currently being ignored for now, also either I misread it or
+per million has been changed to per 100000.
 */
 

@@ -68,10 +68,12 @@ public class CSV {
 		TotalCase = Integer.parseInt(row[index++]);
 		CasePerMillion = Double.parseDouble(row[index++]);
 		Case7Day = Integer.parseInt(row[index++]);
+		index++; // New field added to csv
 		Case24Hour = Integer.parseInt(row[index++]);
 		TotalDeath = Integer.parseInt(row[index++]);
 		DeathPerMillion = Double.parseDouble(row[index++]);
 		Death7Day = Integer.parseInt(row[index++]);
+		index++; // New field added to csv
 		Death24Hour = Integer.parseInt(row[index++]);
 		Source = null;
 		if (secondRowRead) Source = row[index];

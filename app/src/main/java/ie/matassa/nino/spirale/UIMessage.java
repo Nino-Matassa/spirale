@@ -16,15 +16,6 @@ public class UIMessage {
 	  });
   }
   
-  public static void toast(final Context context, final String text) {
-	new Handler(Looper.getMainLooper()).post(new Runnable() {
-		@Override
-		public void run() {
-		  Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-		}
-	  });
-  }
-
   private static AlertDialog.Builder builder = null;
   private static AlertDialog alertDialog = null;
 
@@ -39,11 +30,6 @@ public class UIMessage {
 		  if (builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
-//			LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-//			final View dialogView = inflater.inflate(R.layout.spinner, null);
-//			builder.setView(dialogView);
-
-			//Spinner checkInProviders = (Spinner) dialogView .findViewById(R.id.spinner);
 		  }
 		  alertDialog.setMessage(msg);
 		  alertDialog.show();
