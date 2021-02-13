@@ -13,7 +13,7 @@ public class Constants {
   public static final String[] Names = {csvOverviewName, csvDetailsName };
 
   public static final int dbVersion = 1;
-  public static final int oneMillion = 1000000;
+  public static final int _C = 100000; // _C == 100,000, well overscore C
   public static final int seven = 7;
   public static final int fourteen = 14;
   

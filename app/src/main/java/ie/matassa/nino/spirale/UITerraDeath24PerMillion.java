@@ -37,7 +37,7 @@ public class UITerraDeath24PerMillion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Death24/Million");
+		  setHeader("Country", "Death24/Hundred Thousand");
         }
       });
   }
@@ -59,7 +59,7 @@ public class UITerraDeath24PerMillion extends UI implements IRegisterOnStack {
 	  int deathPerMillion = cOverview.getInt(cOverview.getColumnIndex("DeathPerMillion"));
 	  double population = 0.0;
 	  if(totalDeaths > 0 && deathPerMillion > 0)
-		population = totalDeaths/deathPerMillion*Constants.oneMillion;
+		population = totalDeaths/deathPerMillion*Constants._C;
 	  
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cDetail.getString(cDetail.getColumnIndex("Country"));
@@ -69,7 +69,7 @@ public class UITerraDeath24PerMillion extends UI implements IRegisterOnStack {
 	  int newDeaths = cDetail.getInt(cDetail.getColumnIndex("NewDeaths"));
 	  double newDeathPerMillion = 0.0;
 	  if(population > 0.0)
-	  	newDeathPerMillion = newDeaths/population*Constants.oneMillion;
+	  	newDeathPerMillion = newDeaths/population*Constants._C;
 	  metaField.key = country;
 	  metaField.value = String.valueOf(formatter.format(newDeathPerMillion));
 	  metaField.underlineKey = true;

@@ -61,7 +61,7 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePerMillion"));
 	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-	population = totalCases / casePerMillion * Constants.oneMillion;
+	population = totalCases / casePerMillion * Constants._C;
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
 	  try {

@@ -36,7 +36,7 @@ public class UITerraCasePerMillion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case/Million");
+		  setHeader("Country", "Case/Hundred Thousand");
         }
       });
   }

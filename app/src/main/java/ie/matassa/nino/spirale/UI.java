@@ -104,10 +104,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Terra Total Deaths");
 		break;
 	  case Constants.UITerraCasePerMillion:
-		((Activity)context).setTitle("Spirale - Terra Case/Million");
+		((Activity)context).setTitle("Spirale - Terra Case/Hundred Thousand");
 		break;
 	  case Constants.UITerraDeathPerMillion:
-		((Activity)context).setTitle("Spirale - Terra Death/Million");
+		((Activity)context).setTitle("Spirale - Terra Death/Hundred Thousand");
 		break;
 	  case Constants.UITerraCase24H:
 		((Activity)context).setTitle("Spirale - Terra Case/24H");
@@ -131,10 +131,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Total Deaths");
 		break;
 	  case Constants.UICasePerMillion:
-		((Activity)context).setTitle("Spirale - Case/Million");
+		((Activity)context).setTitle("Spirale - Case/Hundred Thousand");
 		break;
 	  case Constants.UIDeathPerMillion:
-		((Activity)context).setTitle("Spirale - Death/Million");
+		((Activity)context).setTitle("Spirale - Death/Hundred Thousand");
 		break;
 	  case Constants.UICase7Day:
 		((Activity)context).setTitle("Spirale - Case 7Day");
@@ -143,10 +143,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Death 7Day");
 		break;
 	  case Constants.UITerraCase24PerMillion:
-		((Activity)context).setTitle("Spirale - Case24/Million");
+		((Activity)context).setTitle("Spirale - Case24/Hundred Thousand");
 		break;
 	  case Constants.UITerraDeath24PerMillion:
-		((Activity)context).setTitle("Spirale - Death24/Million");
+		((Activity)context).setTitle("Spirale - Death24/Hundred Thousand");
 		break;
 	}
   }

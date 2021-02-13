@@ -91,7 +91,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
 	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	population = totalCases / casePerMillion * Constants.oneMillion;
+	population = totalCases / casePerMillion * Constants._C;
 	precentInfected = totalCases == 0 ? 0:totalCases/population*100;
 	infectionsCurve = totalCases == 0 ? 0:Math.log((double)case24Hour);
 
@@ -112,7 +112,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(regionId, countryId, Constants.UICasePerMillion);
-	metaField.key = "Case/Million";
+	metaField.key = "Case/Hundred Thousand";
 	metaField.value = String.valueOf(formatter.format(casePerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -136,7 +136,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeathPerMillion);
-	metaField.key = "Death/Million";
+	metaField.key = "Death/Hundred Thousand";
 	metaField.value = String.valueOf(formatter.format(deathPerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);

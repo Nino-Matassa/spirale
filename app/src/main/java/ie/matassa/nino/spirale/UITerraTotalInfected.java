@@ -53,7 +53,7 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
 	  int totalCases = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
 	  int casePerMillion = cTerra.getInt(cTerra.getColumnIndex("CasePerMillion"));
-	  Double population = totalCases/(double)casePerMillion*Constants.oneMillion;
+	  Double population = totalCases/(double)casePerMillion*Constants._C;
 	  Double percentInfected = totalCases/population*100;
 	  
 	  if(percentInfected.isNaN())

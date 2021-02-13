@@ -60,7 +60,7 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
 	  cCPM.moveToFirst();
 	  deathPerMillion = cCPM.getDouble(cCPM.getColumnIndex("DeathPerMillion"));
 	  int totalDeath = cCPM.getInt(cCPM.getColumnIndex("TotalDeath"));
-	  population = totalDeath/(double)deathPerMillion*Constants.oneMillion;
+	  population = totalDeath/(double)deathPerMillion*Constants._C;
 	}
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -73,7 +73,7 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
 	  }
 
 	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeaths"));
-	  deathPerMillion = totalDeaths/population*Constants.oneMillion;
+	  deathPerMillion = totalDeaths/population*Constants._C;
 
 	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPerMillion);
 	  metaField.key = date;

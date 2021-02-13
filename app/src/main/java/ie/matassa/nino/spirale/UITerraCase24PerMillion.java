@@ -38,7 +38,7 @@ public class UITerraCase24PerMillion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case24/Million");
+		  setHeader("Country", "Case24/Hundred Thousand");
         }
       });
   }
@@ -60,7 +60,7 @@ public class UITerraCase24PerMillion extends UI implements IRegisterOnStack {
 	  int casePerMillion = cOverview.getInt(cOverview.getColumnIndex("CasePerMillion"));
 	  double population = 0.0;
 	  if (totalCases > 0 && casePerMillion > 0)
-		population = totalCases / casePerMillion * Constants.oneMillion;
+		population = totalCases / casePerMillion * Constants._C;
 
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cDetail.getString(cDetail.getColumnIndex("Country"));
@@ -70,7 +70,7 @@ public class UITerraCase24PerMillion extends UI implements IRegisterOnStack {
 	  int newCases = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
 	  double newCasePerMillion = 0.0;
 	  if (population > 0.0)
-		newCasePerMillion = newCases / population * Constants.oneMillion;
+		newCasePerMillion = newCases / population * Constants._C;
 	  metaField.key = country;
 	  metaField.value = String.valueOf(formatter.format(newCasePerMillion));
 	  metaField.underlineKey = true;

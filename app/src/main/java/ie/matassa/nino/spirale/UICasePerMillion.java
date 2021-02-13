@@ -60,7 +60,7 @@ public class UICasePerMillion extends UI implements IRegisterOnStack {
 		cCPM.moveToFirst();
 		casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePerMillion"));
 		int totalCase = cCPM.getInt(cCPM.getColumnIndex("TotalCase"));
-		population = totalCase/(double)casePerMillion*Constants.oneMillion;
+		population = totalCase/(double)casePerMillion*Constants._C;
 	  }
 	  do {
 		String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -73,7 +73,7 @@ public class UICasePerMillion extends UI implements IRegisterOnStack {
 		}
 		
 		int totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCases"));
-		casePerMillion = totalCases/population*Constants.oneMillion;
+		casePerMillion = totalCases/population*Constants._C;
 
 		metaField = new MetaField(regionId, countryId, Constants.UICasePerMillion);
 		metaField.key = date;
