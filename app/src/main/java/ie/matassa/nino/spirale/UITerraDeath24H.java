@@ -43,7 +43,7 @@ public class UITerraDeath24H extends UI implements IRegisterOnStack {
 
 	private void populateTable() {
 	  ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	  String sql = "select Country.Id, Country.FK_Region, Detail.Country, NewDeaths from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	  String sql = "select Country.Id, Country.FK_Region, Detail.Country, NewDeath from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
 	  Cursor cTerra = db.rawQuery(sql, null);
 	  cTerra.moveToFirst();
 	  do {
@@ -54,9 +54,9 @@ public class UITerraDeath24H extends UI implements IRegisterOnStack {
 
 		country = country.replace("'", "''");
 
-		int newDeaths = cTerra.getInt(cTerra.getColumnIndex("NewDeaths"));
+		int newDeath = cTerra.getInt(cTerra.getColumnIndex("NewDeath"));
 		metaField.key = country;
-		metaField.value = String.valueOf(formatter.format(newDeaths));
+		metaField.value = String.valueOf(formatter.format(newDeath));
 		metaField.underlineKey = true;
 		metaFields.add(metaField);
 

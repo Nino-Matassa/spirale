@@ -44,7 +44,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, sum(NewCases) as NewCases from Detail group by date order by date desc";
+	String sqlDetail = "select distinct Date, sum(NewCase) as NewCase from Detail group by date order by date desc";
 	Cursor cRNought = db.rawQuery(sqlDetail, null);
 	
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);

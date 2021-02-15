@@ -40,11 +40,11 @@ public class CSV {
 	String Region = null;
 	String Country = null;
 	Integer TotalCase = 0;
-	Double CasePerMillion = 0.0;
+	Double CasePer_C = 0.0;
 	Integer Case7Day = 0;
 	Integer Case24Hour = 0;
 	Integer TotalDeath = 0;
-	Double DeathPerMillion = 0.0;
+	Double DeathPer_C = 0.0;
 	Integer Death7Day = 0;
 	Integer Death24Hour = 0;
 	String Source = null;
@@ -66,12 +66,12 @@ public class CSV {
 		Region = row[index++];
 		if (Region.equals("Other")) continue;
 		TotalCase = Integer.parseInt(row[index++]);
-		CasePerMillion = Double.parseDouble(row[index++]);
+		CasePer_C = Double.parseDouble(row[index++]);
 		Case7Day = Integer.parseInt(row[index++]);
 		index++; // New field added to csv
 		Case24Hour = Integer.parseInt(row[index++]);
 		TotalDeath = Integer.parseInt(row[index++]);
-		DeathPerMillion = Double.parseDouble(row[index++]);
+		DeathPer_C = Double.parseDouble(row[index++]);
 		Death7Day = Integer.parseInt(row[index++]);
 		index++; // New field added to csv
 		Death24Hour = Integer.parseInt(row[index++]);
@@ -87,11 +87,11 @@ public class CSV {
 		values.put("Country", Country);
 		values.put("Region", Region);
 		values.put("TotalCase", TotalCase);
-		values.put("CasePerMillion", CasePerMillion);
+		values.put("CasePer_C", CasePer_C);
 		values.put("Case7Day", Case7Day);
 		values.put("Case24Hour", Case24Hour);
 		values.put("TotalDeath", TotalDeath);
-		values.put("DeathPerMillion", DeathPerMillion);
+		values.put("DeathPer_C", DeathPer_C);
 		values.put("Death7Day", Death7Day);
 		values.put("Death24Hour", Death24Hour);
 		values.put("Source", Source);
@@ -110,10 +110,10 @@ public class CSV {
 	String Code = null;
 	String Country = null;
 	String Region = null;
-	Integer NewCases = 0;
-	Integer TotalCases = 0;
-	Integer NewDeaths = 0;
-	Integer TotalDeaths = 0;
+	Integer NewCase = 0;
+	Integer TotalCase = 0;
+	Integer NewDeath = 0;
+	Integer TotalDeath = 0;
 	List rows = null;
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
@@ -133,19 +133,19 @@ public class CSV {
 		if (Country.indexOf("\"") > -1)
 		  Country += ", " + row[index++];
 		Region = row[index++];
-		NewCases = Integer.parseInt(row[index++]);
-		TotalCases = Integer.parseInt(row[index++]);
-		NewDeaths = Integer.parseInt(row[index++]);
-		TotalDeaths = Integer.parseInt(row[index++]);
+		NewCase = Integer.parseInt(row[index++]);
+		TotalCase = Integer.parseInt(row[index++]);
+		NewDeath = Integer.parseInt(row[index++]);
+		TotalDeath = Integer.parseInt(row[index++]);
 		ContentValues values = new ContentValues();
 		values.put("Date", Date);
 		values.put("Code", Code);
 		values.put("Country", Country);
 		values.put("Region", Region);
-		values.put("NewCases", NewCases);
-		values.put("TotalCases", TotalCases);
-		values.put("NewDeaths", NewDeaths);
-		values.put("TotalDeaths", TotalDeaths);
+		values.put("NewCase", NewCase);
+		values.put("TotalCase", TotalCase);
+		values.put("NewDeath", NewDeath);
+		values.put("TotalDeath", TotalDeath);
 		Long Id = db.insert("Detail", null, values);
 	  }
 	} catch (NumberFormatException e) {

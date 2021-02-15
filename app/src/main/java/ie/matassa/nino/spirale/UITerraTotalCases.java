@@ -43,18 +43,18 @@ public class UITerraTotalCases extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Detail.Country, sum(NewCases) as TotalCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	String sql = "select Country.Id, Country.FK_Region, Detail.Country, sum(NewCase) as TotalCase from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
-	  int totalCases = cTerra.getInt(cTerra.getColumnIndex("TotalCases"));
+	  int totalCase = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
 	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
 	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
 
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  metaField.key = country;
-	  metaField.value = String.valueOf(formatter.format(totalCases));
+	  metaField.value = String.valueOf(formatter.format(totalCase));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 	  

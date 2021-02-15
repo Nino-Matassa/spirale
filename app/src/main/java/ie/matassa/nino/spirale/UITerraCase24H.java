@@ -43,7 +43,7 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Detail.Country, NewCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	String sql = "select Country.Id, Country.FK_Region, Detail.Country, NewCase from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
@@ -54,9 +54,9 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 	  
 	  country = country.replace("'", "''");
 
-	  int newCases = cTerra.getInt(cTerra.getColumnIndex("NewCases"));
+	  int newCase = cTerra.getInt(cTerra.getColumnIndex("NewCase"));
 	  metaField.key = country;
-	  metaField.value = String.valueOf(formatter.format(newCases));
+	  metaField.value = String.valueOf(formatter.format(newCase));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 

@@ -39,11 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	+ "Region TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
 	+ "TotalCase INT NOT NULL, "
-	+ "CasePerMillion DECIMAL(10, 5) NOT NULL, "
+	+ "CasePer_C DECIMAL(10, 5) NOT NULL, " // _C = 100,000
 	+ "Case7Day INT NOT NULL, "
 	+ "Case24Hour INT NOT NULL, "
 	+ "TotalDeath INT NOT NULL, "
-	+ "DeathPerMillion DECIMAL(10, 5) NOT NULL, "
+	+ "DeathPer_C DECIMAL(10, 5) NOT NULL, " // _C = 100,000
 	+ "Death7Day INT NOT NULL, "
 	+ "Death24Hour INT NOT NULL, "
 	+ "Source TEXT NOT NULL"
@@ -64,10 +64,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	+ "Code TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
 	+ "Region TEXT NOT NULL, "
-	+ "NewCases INT NOT NULL, "
-	+ "TotalCases INT NOT NULL, "
-	+ "NewDeaths INT NOT NULL, "
-	+ "TotalDeaths INT NOT NULL"
+	+ "NewCase INT NOT NULL, "
+	+ "TotalCase INT NOT NULL, "
+	+ "NewDeath INT NOT NULL, "
+	+ "TotalDeath INT NOT NULL"
 	//+ "FOREIGN KEY (FK_Country) REFERENCES Country(Id)"
 	+ ");";
 }

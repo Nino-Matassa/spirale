@@ -7,7 +7,7 @@ import android.os.*;
 import java.util.*;
 import android.util.*;
 
-public class UIDeathPerMillion extends UI implements IRegisterOnStack {
+public class UIDeathPer_C extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -17,8 +17,8 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
   private String region = null;
   private String country = null;
 
-  public UIDeathPerMillion(Context context, int regionId, int countryId) {
-	super(context, Constants.UIDeathPerMillion);
+  public UIDeathPer_C(Context context, int regionId, int countryId) {
+	super(context, Constants.UIDeathPer_C);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -29,7 +29,7 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIDeathPerMillion);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIDeathPer_C);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -46,21 +46,21 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
 
   private void populateTable() {
 	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	Double deathPerMillion = 0.0;
+	Double deathPer_C = 0.0;
 	Double population = 0.0;
-	String sqlDetail = "select Date, Country, Region, TotalDeaths from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, Country, Region, TotalDeath from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
 	cDetail.moveToFirst();
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	{ // Get population from Overview table
-	  String sqlCPM = "select DeathPerMillion, TotalDeath from Overview where country = '#1' limit 1";
+	  String sqlCPM = "select DeathPer_C, TotalDeath from Overview where country = '#1' limit 1";
 	  sqlCPM = sqlCPM.replace("#1", country.replace("'", "''"));
 	  Cursor cCPM = db.rawQuery(sqlCPM, null);
 	  cCPM.moveToFirst();
-	  deathPerMillion = cCPM.getDouble(cCPM.getColumnIndex("DeathPerMillion"));
+	  deathPer_C = cCPM.getDouble(cCPM.getColumnIndex("DeathPer_C"));
 	  int totalDeath = cCPM.getInt(cCPM.getColumnIndex("TotalDeath"));
-	  population = totalDeath/(double)deathPerMillion*Constants._C;
+	  population = totalDeath/(double)deathPer_C*Constants._C;
 	}
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -72,12 +72,12 @@ public class UIDeathPerMillion extends UI implements IRegisterOnStack {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
 
-	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeaths"));
-	  deathPerMillion = totalDeaths/population*Constants._C;
+	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeath"));
+	  deathPer_C = totalDeaths/population*Constants._C;
 
-	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPerMillion);
+	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPer_C);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(deathPerMillion));
+	  metaField.value = String.valueOf(formatter.format(deathPer_C));
 	  metaFields.add(metaField);
 	} while(cDetail.moveToNext());
 	setTableLayout(populateTable(metaFields)); 

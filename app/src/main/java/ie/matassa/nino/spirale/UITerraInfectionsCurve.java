@@ -53,12 +53,12 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, sum(NewCases) as NewCases, Detail.Region, Detail.Country, CasePerMillion, TotalCase from Detail join Overview on Overview.Country = Detail.Country group by date order by date asc";
+	String sqlDetail = "select distinct Date, sum(NewCase) as NewCase, Detail.Region, Detail.Country, CasePer_C, Overview.TotalCase from Detail join Overview on Overview.Country = Detail.Country group by date order by date asc";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePerMillion"));
+	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePer_C"));
 	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
 	population = totalCases / casePerMillion * Constants._C;
 	do {
@@ -70,7 +70,7 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  case24 = cDetail.getInt(cDetail.getColumnIndex("NewCases"));
+	  case24 = cDetail.getInt(cDetail.getColumnIndex("NewCase"));
 	  infectionsCurve = Math.log((double)case24);
 
 	  if(!(case24 > 0)) continue;

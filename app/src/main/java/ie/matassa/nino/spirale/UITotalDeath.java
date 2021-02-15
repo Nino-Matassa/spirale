@@ -46,7 +46,7 @@ public class UITotalDeath extends UI implements IRegisterOnStack {
 
   private void populateTable() {
 	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, Country, Region, TotalDeaths from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, Country, Region, TotalDeath from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
@@ -60,7 +60,7 @@ public class UITotalDeath extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeaths"));
+	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeath"));
 
 	  metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
 	  metaField.key = date;

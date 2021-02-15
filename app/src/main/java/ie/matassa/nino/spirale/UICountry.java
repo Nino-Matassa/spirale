@@ -20,11 +20,11 @@ public class UICountry extends UI implements IRegisterOnStack {
   private String lastUpdated = null;
   private double population = 0.0;
   private int totalCases = 0;
-  private double casePerMillion = 0.0;
+  private double casePer_C = 0.0;
   private int case7Day = 0;
   private int case24Hour = 0;
   private int totalDeath = 0;
-  private double deathPerMillion = 0.0;
+  private double deathPer_C = 0.0;
   private int death7Day = 0;
   private int death24Hour = 0;
   private String source = null;
@@ -77,21 +77,21 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
 
 
-	String sqlOverview = "select Region, Country, TotalCase, max(CasePerMillion) as CasePerMillion, Case7Day, Case24Hour, TotalDeath, DeathPerMillion, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
+	String sqlOverview = "select Region, Country, TotalCase, max(CasePer_C) as CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
 	
 	region = cOverview.getString(cOverview.getColumnIndex("Region"));
 	totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
-	casePerMillion = cOverview.getDouble(cOverview.getColumnIndex("CasePerMillion"));
+	casePer_C = cOverview.getDouble(cOverview.getColumnIndex("CasePer_C"));
 	case7Day = cOverview.getInt(cOverview.getColumnIndex("Case7Day"));
 	case24Hour = cOverview.getInt(cOverview.getColumnIndex("Case24Hour"));
 	totalDeath = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
-	deathPerMillion = cOverview.getDouble(cOverview.getColumnIndex("DeathPerMillion"));
+	deathPer_C = cOverview.getDouble(cOverview.getColumnIndex("DeathPer_C"));
 	death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
 	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	population = totalCases / casePerMillion * Constants._C;
+	population = totalCases / casePer_C * Constants._C;
 	precentInfected = totalCases == 0 ? 0:totalCases/population*100;
 	infectionsCurve = totalCases == 0 ? 0:Math.log((double)case24Hour);
 
@@ -111,9 +111,9 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	metaField = new MetaField(regionId, countryId, Constants.UICasePerMillion);
-	metaField.key = "Case/Hundred Thousand";
-	metaField.value = String.valueOf(formatter.format(casePerMillion));
+	metaField = new MetaField(regionId, countryId, Constants.UICasePer_C);
+	metaField.key = "Case/100,000";
+	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
@@ -135,9 +135,9 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField(regionId, countryId, Constants.UIDeathPerMillion);
-	metaField.key = "Death/Hundred Thousand";
-	metaField.value = String.valueOf(formatter.format(deathPerMillion));
+	metaField = new MetaField(regionId, countryId, Constants.UIDeathPer_C);
+	metaField.key = "Death/100,000";
+	metaField.value = String.valueOf(formatter.format(deathPer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
@@ -170,7 +170,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-	String sqlRNought = "select Date, NewCases from Detail Where FK_Country = " + countryId + " order by Date desc";
+	String sqlRNought = "select Date, NewCase from Detail Where FK_Country = " + countryId + " order by Date desc";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);

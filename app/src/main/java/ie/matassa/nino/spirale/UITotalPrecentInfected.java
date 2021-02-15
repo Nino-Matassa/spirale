@@ -54,12 +54,12 @@ public class UITotalPrecentInfected extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, NewCases, Detail.Region, Detail.Country, CasePerMillion, TotalCase from Detail join Overview on Overview.Country = Detail.Country where FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, NewCase, Detail.Region, Detail.Country, CasePer_C, Overview.TotalCase from Detail join Overview on Overview.Country = Detail.Country where FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	Region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePerMillion"));
+	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePer_C"));
 	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
 	population = totalCases / casePerMillion * Constants._C;
 	do {
@@ -71,7 +71,7 @@ public class UITotalPrecentInfected extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  case24 += cDetail.getInt(cDetail.getColumnIndex("NewCases"));
+	  case24 += cDetail.getInt(cDetail.getColumnIndex("NewCase"));
 	  percentInfected = case24 / population * 100;
 
 	  metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);

@@ -39,14 +39,14 @@ public class RNoughtCalculation {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
 	  value.date = date;
-	  value.newCases = cursor.getInt(cursor.getColumnIndex("NewCases"));
+	  value.newCase = cursor.getInt(cursor.getColumnIndex("NewCase"));
 	  listRNought.add(value);
 	} while(cursor.moveToNext());
 
 	// Populate listRNought rNought values
 	for (int outer = 0; outer < listRNought.size() - 1; outer++) {
-	  int current = listRNought.get(outer).newCases;
-	  int previous = listRNought.get(outer + 1).newCases;
+	  int current = listRNought.get(outer).newCase;
+	  int previous = listRNought.get(outer + 1).newCase;
 	  listRNought.get(outer).rNought = calculate(current, previous);
 	}
 

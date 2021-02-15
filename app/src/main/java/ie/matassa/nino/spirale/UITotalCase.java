@@ -46,7 +46,7 @@ public class UITotalCase extends UI implements IRegisterOnStack {
 
   private void populateTable() {
 	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, Country, Region, TotalCases from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, Country, Region, TotalCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
@@ -60,11 +60,11 @@ public class UITotalCase extends UI implements IRegisterOnStack {
 	  } catch (Exception e) {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
-	  int totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCases"));
+	  int totalCase = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
 
 	  metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(totalCases));
+	  metaField.value = String.valueOf(formatter.format(totalCase));
 	  metaFields.add(metaField);
 	} while(cDetail.moveToNext());
     setTableLayout(populateTable(metaFields)); 

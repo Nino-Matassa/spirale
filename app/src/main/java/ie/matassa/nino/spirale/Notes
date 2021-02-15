@@ -11,7 +11,16 @@ Implementing foreign key for data. The need to be populated before they can be i
 https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
 ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not working...
 
-Overview has two new fields added which are currently being ignored for now, also either I misread it or
-per million has been changed to per 100000.
+Overview has two new fields added which are currently being ignored for now & the million rate has been
+changed to one hundered thousand rate in general in Overview.
+
+1) Table Detail: Change all headers to singular, eg, TotalCases becomes TotalCase. This change propatates from
+the initial create database statements.
+
+2) Add the 2 new Overview fields
+
+3) Add FK_Region to Detail
+4) Add FK_Country to Overview
+
 */
 

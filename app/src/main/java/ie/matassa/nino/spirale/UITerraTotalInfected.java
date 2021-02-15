@@ -43,7 +43,7 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
   
   public void populateTable() {
 	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Country.Country, TotalCase, CasePerMillion from Overview join Country on Overview.Country = Country.Country group by Country.Country";
+	String sql = "select Country.Id, Country.FK_Region, Country.Country, TotalCase, CasePer_C from Overview join Country on Overview.Country = Country.Country group by Country.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
@@ -52,8 +52,8 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
 	  int totalCases = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
-	  int casePerMillion = cTerra.getInt(cTerra.getColumnIndex("CasePerMillion"));
-	  Double population = totalCases/(double)casePerMillion*Constants._C;
+	  int casePer_C = cTerra.getInt(cTerra.getColumnIndex("CasePer_C"));
+	  Double population = totalCases/(double)casePer_C*Constants._C;
 	  Double percentInfected = totalCases/population*100;
 	  
 	  if(percentInfected.isNaN())

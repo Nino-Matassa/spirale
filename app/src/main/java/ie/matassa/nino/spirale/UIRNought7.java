@@ -46,7 +46,7 @@ public class UIRNought7 extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, NewCases, Detail.Region, Detail.Country from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select distinct Date, NewCase, Detail.Region, Detail.Country from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cRNought = db.rawQuery(sqlDetail, null);
 	cRNought.moveToFirst();
 	region = cRNought.getString(cRNought.getColumnIndex("Region"));

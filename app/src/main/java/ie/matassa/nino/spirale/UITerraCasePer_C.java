@@ -6,7 +6,7 @@ import android.icu.text.*;
 import android.os.*;
 import java.util.*;
 
-public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
+public class UITerraCasePer_C extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -14,8 +14,8 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraDeathPerMillion(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraDeathPerMillion);
+  public UITerraCasePer_C(Context context, int regionId, int countryId) {
+	super(context, Constants.UITerraCasePer_C);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -26,7 +26,7 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraDeathPerMillion);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraCasePer_C);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -36,14 +36,14 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Death/Hundred Thousand");
+		  setHeader("Country", "Case/100,000");
         }
       });
   }
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Detail.Country, sum(NewCases) as TotalCases from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	String sql = "select Country.Id, Country.FK_Region, Detail.Country from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
@@ -54,13 +54,13 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
 	  metaField.key = country;
 	  
 	  country = country.replace("'", "''");
+	  
+	  String sCasePerMillion = "select max(CasePer_C) as CasePer_C from Overview where Country = '#1'".replace("#1", country);
+	  Cursor cCasePerMillion = db.rawQuery(sCasePerMillion, null);
+	  cCasePerMillion.moveToFirst();
+	  Double casePer_C = cCasePerMillion.getDouble(cCasePerMillion.getColumnIndex("CasePer_C"));
 
-	  String sDeathPerMillion = "select max(DeathPerMillion) as DeathPerMillion from Overview where Country = '#1'".replace("#1", country);
-	  Cursor cDeathPerMillion = db.rawQuery(sDeathPerMillion, null);
-	  cDeathPerMillion.moveToFirst();
-	  Double deathPerMillion = cDeathPerMillion.getDouble(cDeathPerMillion.getColumnIndex("DeathPerMillion"));
-
-	  metaField.value = String.valueOf(formatter.format(deathPerMillion));
+	  metaField.value = String.valueOf(formatter.format(casePer_C));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 
@@ -74,7 +74,6 @@ public class UITerraDeathPerMillion extends UI implements IRegisterOnStack {
   {
     @Override
     public int compare(MetaField mfA, MetaField mfB) {
-      // TODO: Implement this method
       Double dA = Double.parseDouble(mfA.value.replace(",", ""));
       Double dB = Double.parseDouble(mfB.value.replace(",", ""));
       return dB.compareTo(dA);

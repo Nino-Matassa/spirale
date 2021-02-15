@@ -5,7 +5,7 @@ public class Constants {
   public static final String DataSource = "WHO (https://covid19.who.int/info)";
   public static final String CsvDetailsURL = "https://covid19.who.int/WHO-COVID-19-global-data.csv";
   public static final String CsvOverviewURL = "https://covid19.who.int/WHO-COVID-19-global-table-data.csv";
-  public static final String dbName = null;
+  public static final String dbName = null;//"dbSpiral";
   public static final String csvDetailsName = "DetailsTable.csv";
   public static final String csvOverviewName = "OverviewTable.csv";
 
@@ -33,22 +33,22 @@ public class Constants {
   public static final String UIRNought14 = "UIRNought14";
   public static final String UITotalCase = "UITotalCase";
   public static final String UITotalDeath = "UITotalDeath";
-  public static final String UICasePerMillion = "UICasePerMillion";
-  public static final String UIDeathPerMillion = "UIDeathPerMillion";
+  public static final String UICasePer_C = "UICasePer_C";
+  public static final String UIDeathPer_C = "UIDeathPer_C";
   public static final String UICase7Day = "UICase7Day";
   public static final String UIDeath7Day = "UIDeath7Day";
   public static final String UITerraRNought7 = "UITerraRNought7";
   public static final String UITerraRNought14 = "UITerraRNought14";
   public static final String UITerraTotalCases = "UITerraTotalCases";
-  public static final String UITerraCasePerMillion = "UITerraCasePerMillion";
+  public static final String UITerraCasePer_C = "UITerraCasePer_C";
   public static final String UITerraTotalDeaths = "UITerraTotalDeaths";
-  public static final String UITerraDeathPerMillion = "UITerraDeathCasePerMillion";
+  public static final String UITerraDeathPer_C = "UITerraDeathCasePer_C";
   public static final String UITerraCase24H = "UITerraCase24H";
   public static final String UITerraCase7D = "UITerraCase7D";
   public static final String UITerraDeath24H = "UITerraDeath24H";
   public static final String UITerraDeath7D = "UITerraDeath7D";
   public static final String UITerraTotalInfected = "UITerraTotalInfected";
-  public static final String UITerraCase24PerMillion = "UITerraCase24PerMillion";
-  public static final String UITerraDeath24PerMillion = "UITerraDeath24PerMillion";
+  public static final String UITerraCase24Per_C = "UITerraCase24Per_C";
+  public static final String UITerraDeath24Per_C = "UITerraDeath24Per_C";
 }
 

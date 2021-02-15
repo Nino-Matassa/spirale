@@ -103,10 +103,10 @@ public class UI {
 	  case Constants.UITerraTotalDeaths:
 		((Activity)context).setTitle("Spirale - Terra Total Deaths");
 		break;
-	  case Constants.UITerraCasePerMillion:
+	  case Constants.UITerraCasePer_C:
 		((Activity)context).setTitle("Spirale - Terra Case/Hundred Thousand");
 		break;
-	  case Constants.UITerraDeathPerMillion:
+	  case Constants.UITerraDeathPer_C:
 		((Activity)context).setTitle("Spirale - Terra Death/Hundred Thousand");
 		break;
 	  case Constants.UITerraCase24H:
@@ -130,10 +130,10 @@ public class UI {
 	  case Constants.UITotalDeath:
 		((Activity)context).setTitle("Spirale - Total Deaths");
 		break;
-	  case Constants.UICasePerMillion:
+	  case Constants.UICasePer_C:
 		((Activity)context).setTitle("Spirale - Case/Hundred Thousand");
 		break;
-	  case Constants.UIDeathPerMillion:
+	  case Constants.UIDeathPer_C:
 		((Activity)context).setTitle("Spirale - Death/Hundred Thousand");
 		break;
 	  case Constants.UICase7Day:
@@ -142,10 +142,10 @@ public class UI {
 	  case Constants.UIDeath7Day:
 		((Activity)context).setTitle("Spirale - Death 7Day");
 		break;
-	  case Constants.UITerraCase24PerMillion:
+	  case Constants.UITerraCase24Per_C:
 		((Activity)context).setTitle("Spirale - Case24/Hundred Thousand");
 		break;
-	  case Constants.UITerraDeath24PerMillion:
+	  case Constants.UITerraDeath24Per_C:
 		((Activity)context).setTitle("Spirale - Death24/Hundred Thousand");
 		break;
 	}
@@ -216,11 +216,11 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraTotalDeaths)) {
 				new UITerraTotalDeaths(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraCasePerMillion)) {
-				new UITerraCasePerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UITerraCasePer_C)) {
+				new UITerraCasePer_C(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraDeathPerMillion)) {
-				new UITerraDeathPerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UITerraDeathPer_C)) {
+				new UITerraDeathPer_C(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraCase24H)) {
 				new UITerraCase24H(context, metaField.regionId, metaField.countryId);
@@ -243,11 +243,11 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITotalDeath)) {
 				new UITotalDeath(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UICasePerMillion)) {
-				new UICasePerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UICasePer_C)) {
+				new UICasePer_C(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UIDeathPerMillion)) {
-				new UIDeathPerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UIDeathPer_C)) {
+				new UIDeathPer_C(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UICase7Day)) {
 				new UICase7Day(context, metaField.regionId, metaField.countryId);
@@ -255,11 +255,11 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UIDeath7Day)) {
 				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraCase24PerMillion)) {
-				new UITerraCase24PerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UITerraCase24Per_C)) {
+				new UITerraCase24Per_C(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraDeath24PerMillion)) {
-				new UITerraDeath24PerMillion(context, metaField.regionId, metaField.countryId);
+			  if (metaField.UI.equals(Constants.UITerraDeath24Per_C)) {
+				new UITerraDeath24Per_C(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }
