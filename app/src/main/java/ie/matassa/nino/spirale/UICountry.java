@@ -73,14 +73,14 @@ public class UICountry extends UI implements IRegisterOnStack {
 	} catch (Exception e) {
       Log.d(Constants.UICountry, e.toString());
 	}
-	
+
 	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
 
 
 	String sqlOverview = "select Region, Country, TotalCase, max(CasePer_C) as CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
-	
+
 	region = cOverview.getString(cOverview.getColumnIndex("Region"));
 	totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
 	casePer_C = cOverview.getDouble(cOverview.getColumnIndex("CasePer_C"));
@@ -92,43 +92,53 @@ public class UICountry extends UI implements IRegisterOnStack {
 	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	source = cOverview.getString(cOverview.getColumnIndex("Source"));
 	population = totalCases / casePer_C * Constants._C;
-	precentInfected = totalCases == 0 ? 0:totalCases/population*100;
-	infectionsCurve = totalCases == 0 ? 0:Math.log((double)case24Hour);
+	precentInfected = totalCases == 0 ? 0: totalCases / population * 100;
+	infectionsCurve = totalCases == 0 ? 0: Math.log((double)case24Hour);
 
 	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
 	metaField.value = lastUpdated;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Population";
 	metaField.value = String.valueOf(formatter.format(population));
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
 	metaField.key = "Total Cases";
 	metaField.value = String.valueOf(formatter.format(totalCases));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
+	metaField = new MetaField(regionId, countryId, Constants.UIActiveCases);
+	metaField.key = "Active Cases";
+	String sqlActiveCases = "select distinct Date, Country, Region, NewCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	Cursor cActiveCases = db.rawQuery(sqlActiveCases, null);
+	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cActiveCases, Constants.twentyEight);
+	int activeCases = fieldTotals.get(0).total;
+	metaField.value = String.valueOf(formatter.format(activeCases));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+
 	metaField = new MetaField(regionId, countryId, Constants.UICasePer_C);
 	metaField.key = "Case/100,000";
 	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UICase7Day);
 	metaField.key = "Case7Day";
 	metaField.value = String.valueOf(formatter.format(case7Day));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
 	metaField.key = "Case24Hour";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UITotalDeath);
 	metaField.key = "Total Deaths";
 	metaField.value = String.valueOf(formatter.format(totalDeath));
@@ -152,24 +162,24 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(death24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Source";
 	metaField.value = source;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UITotalPrecentInfected);
 	metaField.key = "Total Infected";
 	metaField.value = String.valueOf(formatter.format(precentInfected)) + "%";
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(regionId, countryId, Constants.UIInfectionsCurve);
 	metaField.key = "Infections Curve";
 	metaField.value = String.valueOf(formatter.format(infectionsCurve));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	String sqlRNought = "select Date, NewCase from Detail Where FK_Country = " + countryId + " order by Date desc";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
@@ -180,7 +190,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
 	Double rNought7 = rNoughtAverage7.get(0).average;
 	metaField = new MetaField(regionId, countryId, Constants.UIRNought7);
@@ -188,7 +198,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(rNought7));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
 	Double rNought14 = rNoughtAverage14.get(0).average;
 	metaField = new MetaField(regionId, countryId, Constants.UIRNought14);
@@ -196,7 +206,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(rNought14));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
     setTableLayout(populateTable(metaFields)); 
   }
 }

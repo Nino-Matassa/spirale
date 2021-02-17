@@ -148,6 +148,12 @@ public class UI {
 	  case Constants.UITerraDeath24Per_C:
 		((Activity)context).setTitle("Spirale - Death24/Hundred Thousand");
 		break;
+	  case Constants.UITerraActiveCases:
+		((Activity)context).setTitle("Spirale - Active Cases");
+		break;
+	  case Constants.UIActiveCases:
+		((Activity)context).setTitle("Spirale - Active Cases");
+		break;
 	}
   }
 
@@ -260,6 +266,12 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraDeath24Per_C)) {
 				new UITerraDeath24Per_C(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
+				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UIActiveCases)) {
+				new UIActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
 			}
           }

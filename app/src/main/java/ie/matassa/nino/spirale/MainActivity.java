@@ -95,6 +95,12 @@ public class MainActivity extends Activity {
 		case Constants.UITerraDeath24Per_C:
 		  new UITerraDeath24Per_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
+		case Constants.UITerraActiveCases:
+		  new UITerraActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
+		case Constants.UIActiveCases:
+		  new UIActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  break;
 		default:
 	  }
 	}

@@ -61,16 +61,6 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 
 
 	} while(cTerra.moveToNext());
-
-	//metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
-  }
-  class sortStats implements Comparator<MetaField> {
-    @Override
-    public int compare(MetaField mfA, MetaField mfB) {
-	  Integer iA = Integer.parseInt(mfA.value.replace(",", ""));
-      Integer iB = Integer.parseInt(mfB.value.replace(",", ""));
-      return iB.compareTo(iA);
-	}
   }
 }

@@ -94,6 +94,20 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
+//	metaField = new MetaField(0, 0, Constants.UITerraActiveCases);
+//	metaField.key = "Active Cases";
+//	String sqlDetail = "select Date, Country, Region, NewCase from Detail order by date desc";
+//	Cursor cDetail = db.rawQuery(sqlDetail, null);
+//    cDetail.moveToFirst();
+//	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.twentyEight);
+//	int activeCases = 0;
+//	for(CaseRangeTotal fieldTotal: fieldTotals) {
+//	  activeCases += fieldTotal.total;
+//	}
+//	metaField.value = String.valueOf(formatter.format(activeCases));
+//	metaField.underlineKey = true;
+//	metaFields.add(metaField);
+	
 	metaField = new MetaField(0, 0, Constants.UITerraCase24Per_C);
 	metaField.key = "Case24/100,000";
 	double case24PerMillion = casePer_C/population*Constants._C;

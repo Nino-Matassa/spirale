@@ -16,7 +16,7 @@ public class Constants {
   public static final int _C = 100000; // _C == 100,000, well overscore C
   public static final int seven = 7;
   public static final int fourteen = 14;
-  
+  public static final int twentyEight = 28;
   
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";
@@ -50,5 +50,7 @@ public class Constants {
   public static final String UITerraTotalInfected = "UITerraTotalInfected";
   public static final String UITerraCase24Per_C = "UITerraCase24Per_C";
   public static final String UITerraDeath24Per_C = "UITerraDeath24Per_C";
+  public static final String UITerraActiveCases = "UITerraActiveCases";
+  public static final String UIActiveCases = "UIActiveCases";
 }
 
