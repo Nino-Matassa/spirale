@@ -18,6 +18,8 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	
+	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
   }
 
   @Override

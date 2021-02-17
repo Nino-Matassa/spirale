@@ -42,10 +42,12 @@ public class CSV {
 	Integer TotalCase = 0;
 	Double CasePer_C = 0.0;
 	Integer Case7Day = 0;
+	//Double Case7DayPer_C = 0.0; // Global
 	Integer Case24Hour = 0;
 	Integer TotalDeath = 0;
 	Double DeathPer_C = 0.0;
 	Integer Death7Day = 0;
+	//Double Death7DayPer_C = 0.0; // Global
 	Integer Death24Hour = 0;
 	String Source = null;
 	List rows = null;
@@ -68,12 +70,12 @@ public class CSV {
 		TotalCase = Integer.parseInt(row[index++]);
 		CasePer_C = Double.parseDouble(row[index++]);
 		Case7Day = Integer.parseInt(row[index++]);
-		index++; // New field added to csv
+		index++; // Case7DayPer_C, but for global record only
 		Case24Hour = Integer.parseInt(row[index++]);
 		TotalDeath = Integer.parseInt(row[index++]);
 		DeathPer_C = Double.parseDouble(row[index++]);
 		Death7Day = Integer.parseInt(row[index++]);
-		index++; // New field added to csv
+		index++; // Death7DayPer_C, but for global record only
 		Death24Hour = Integer.parseInt(row[index++]);
 		Source = null;
 		if (secondRowRead) Source = row[index];
