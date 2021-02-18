@@ -94,29 +94,25 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
-//	metaField = new MetaField(0, 0, Constants.UITerraActiveCases);
-//	metaField.key = "Active Cases";
-//	String sqlDetail = "select Date, Country, Region, NewCase from Detail order by date desc";
-//	Cursor cDetail = db.rawQuery(sqlDetail, null);
-//    cDetail.moveToFirst();
-//	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.twentyEight);
-//	int activeCases = 0;
-//	for(CaseRangeTotal fieldTotal: fieldTotals) {
-//	  activeCases += fieldTotal.total;
-//	}
-//	metaField.value = String.valueOf(formatter.format(activeCases));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
+	metaField = new MetaField(0, 0, Constants.UITerraActiveCases);
+	metaField.key = "Active Cases";
+	String sqlDetail = "select sum(NewCase) NewCase from detail where date >= date('now', '-28 days')";
+	Cursor cDetail = db.rawQuery(sqlDetail, null);
+    cDetail.moveToFirst();
+	int activeCases = cDetail.getInt(cDetail.getColumnIndex("NewCase"));
+	metaField.value = String.valueOf(formatter.format(activeCases));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraCase24Per_C);
-	metaField.key = "Case24/100,000";
+	metaField.key = "Case24/CM";
 	double case24PerMillion = casePer_C/population*Constants._C;
 	metaField.value = String.valueOf(formatter.format(case24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraCasePer_C);
-	metaField.key = "Case/100,000";
+	metaField.key = "Case/CM";
 	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -140,14 +136,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24Per_C);
-	metaField.key = "Death24/100,000";
+	metaField.key = "Death24/CM";
 	double death24PerMillion = deathPer_C/population*Constants._C;
 	metaField.value = String.valueOf(formatter.format(death24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPer_C);
-	metaField.key = "Death/100,000";
+	metaField.key = "Death/CM";
 	metaField.value = String.valueOf(formatter.format(deathPer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);

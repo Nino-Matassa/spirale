@@ -44,20 +44,27 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	//String sqlDetail = "select Date, Country, Region, NewCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
-	String sqlDetail = "select Date, Country, Region, NewCase from Detail order by date desc".replace("#1", String.valueOf(countryId));
-	Cursor cDetail = db.rawQuery(sqlDetail, null);
-    cDetail.moveToFirst();
-	region = cDetail.getString(cDetail.getColumnIndex("Region"));
-	country = cDetail.getString(cDetail.getColumnIndex("Country"));
+	String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.Country = Country.Country where date >= date('now', '-28 days') group by Country.Country order by NewCase desc";
+	Cursor cTerra = db.rawQuery(sql, null);
+	cTerra.moveToFirst();
+	do {
+	  int regionId = cTerra.getInt(cTerra.getColumnIndex("FK_Region"));
+	  int countryId = cTerra.getInt(cTerra.getColumnIndex("Id"));
+	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	  String country = cTerra.getString(cTerra.getColumnIndex("Country"));
 
-	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.seven);
-	for(CaseRangeTotal fieldTotal: fieldTotals) {
-	  metaField = new MetaField(regionId, countryId, Constants.UICase7Day);
-	  metaField.key = fieldTotal.date;
-	  metaField.value = String.valueOf(formatter.format(fieldTotal.total));
+	  country = country.replace("'", "''");
+
+	  int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
+	  metaField.key = country;
+	  metaField.value = String.valueOf(formatter.format(activeCase));
+	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
-	}
+
+
+	} while(cTerra.moveToNext());
+
+	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
 }
