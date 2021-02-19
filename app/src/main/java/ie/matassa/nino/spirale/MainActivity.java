@@ -20,21 +20,28 @@ public class MainActivity extends Activity {
 	setContentView(R.layout.main);
 	
 	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
-  }
-
-  @Override
-  protected void onResume() {
-	stack.clear();
-	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
 			new CSV(MainActivity.this).getDataFiles();
-			new UITerra(MainActivity.this);
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 500);
+  }
+
+  @Override
+  protected void onResume() {
+//	stack.clear();
+//	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
+//	Handler handler = new Handler();
+//	handler.postDelayed(new Runnable() {
+//		public void run() {
+//		  try {
+//			new CSV(MainActivity.this).getDataFiles();
+//		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
+//		}
+//	  }, 500);
 	super.onResume();
   }
 

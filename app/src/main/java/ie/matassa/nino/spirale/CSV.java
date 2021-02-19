@@ -9,6 +9,7 @@ import java.nio.channels.*;
 import java.sql.*;
 import java.util.*;
 import android.widget.*;
+import android.os.*;
 
 
 public class CSV {
@@ -202,20 +203,6 @@ public class CSV {
 	return false;
   }
 
-  private void generateDatabaseTable(String nameOfCsvFile) {
-	db = Database.getInstance(context);
-	switch (nameOfCsvFile) {
-	  case Constants.csvOverviewName:
-		populateTableOverview();
-		break;
-	  case Constants.csvDetailsName:
-		populateTableDetails(); // ignore for now takes too long
-		break;
-	  default:
-		break;
-	}
-  }
-  
   private static Thread thread = null;
   public void getDataFiles() {
 	thread = new Thread(new Runnable() {
@@ -225,19 +212,29 @@ public class CSV {
 			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 		  }
 		  if (!Database.databaseExists()) {
-			generateDatabaseTable(Constants.csvOverviewName); 
-			generateDatabaseTable(Constants.csvDetailsName);
+			UIMessage.notificationMessage(context, "Building Database");
+			db = Database.getInstance(context);
+			populateTableOverview();
+			populateTableDetails();
 			new GenerateTablesEtc(context);
 		  }
 		}
 	  });
 	thread.start();
 	try {
-	  thread.join(); 
-	} catch (InterruptedException e) {
+	  //thread.join(); 
+	} catch (Exception e) {
 	  Log.d("getDataFiles", e.toString());
 	} finally {
-	  UIMessage.notificationMessage(context, null);
+	  Handler handler = new Handler();
+	  handler.postDelayed(new Runnable() {
+		  public void run() {
+			try {
+			  new UITerra(context);
+			  UIMessage.notificationMessage(context, null);
+			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
+		  }
+		}, 10000);
 	}
   }
 }
