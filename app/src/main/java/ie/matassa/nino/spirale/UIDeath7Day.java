@@ -50,7 +50,7 @@ public class UIDeath7Day extends UI implements IRegisterOnStack {
 
 	private void populateTable() {
 	  ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	  String sqlDetail = "select Date, Country, Region, NewDeath as NewCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	  String sqlDetail = "select Date, Country, Region, NewDeath as CaseX from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	  Cursor cDetail = db.rawQuery(sqlDetail, null);
 	  cDetail.moveToFirst();
 	  Region = cDetail.getString(cDetail.getColumnIndex("Region"));

@@ -113,7 +113,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(regionId, countryId, Constants.UIActiveCases);
 	metaField.key = "Active Cases";
-	String sqlActiveCases = "select distinct Date, Country, Region, NewCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
+	String sqlActiveCases = "select distinct Date, Country, Region, NewCase as CaseX from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	Cursor cActiveCases = db.rawQuery(sqlActiveCases, null);
 	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cActiveCases, Constants.twentyEight);
 	int activeCases = fieldTotals.get(0).total;
@@ -180,7 +180,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	String sqlRNought = "select Date, NewCase from Detail Where FK_Country = " + countryId + " order by Date desc";
+	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " order by Date desc";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);

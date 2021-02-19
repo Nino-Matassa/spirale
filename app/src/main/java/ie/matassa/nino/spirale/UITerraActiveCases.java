@@ -12,8 +12,6 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
   private DecimalFormat formatter = null;
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
-  private String region = null;
-  private String country = null;
 
   public UITerraActiveCases(Context context, int regionId, int countryId) {
 	super(context, Constants.UITerraActiveCases);

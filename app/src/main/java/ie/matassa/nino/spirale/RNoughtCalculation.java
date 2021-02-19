@@ -39,7 +39,7 @@ public class RNoughtCalculation {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
 	  value.date = date;
-	  value.newCase = cursor.getInt(cursor.getColumnIndex("NewCase"));
+	  value.newCase = cursor.getInt(cursor.getColumnIndex("CaseX"));
 	  listRNought.add(value);
 	} while(cursor.moveToNext());
 

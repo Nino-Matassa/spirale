@@ -173,7 +173,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
-	String sqlRNought = "select Date, sum(NewCase) as NewCase from Detail group by Date order by Date desc";
+	String sqlRNought = "select Date, sum(NewCase) as CaseX from Detail group by Date order by Date desc";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);

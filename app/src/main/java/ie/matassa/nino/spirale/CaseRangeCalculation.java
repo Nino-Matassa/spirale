@@ -21,7 +21,7 @@ public class CaseRangeCalculation {
 		Log.d(Constants.UICase24Hour, e.toString());
 	  }
 	  value.date = date;
-	  value.value = cursor.getInt(cursor.getColumnIndex("NewCase"));
+	  value.value = cursor.getInt(cursor.getColumnIndex("CaseX"));
 	  listCaseTotal.add(value);
 	} while(cursor.moveToNext());
 
