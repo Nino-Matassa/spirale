@@ -14,9 +14,11 @@ public class GenerateTablesEtc {
 	generateCountry();
 	populateOverviewFK_Region();
 	populateDetailFK_Country();
+	UIMessage.notificationMessage(context, "Finishing...");
   }
 
   private void populateDetailFK_Country() {
+	UIMessage.notificationMessage(context, "Building Detail.FK_Country");
 	String sqlCountry = "select Id, Country from Country";
 	Cursor cCountry = db.rawQuery(sqlCountry, null);
 	cCountry.moveToFirst();
@@ -32,6 +34,7 @@ public class GenerateTablesEtc {
   }
 
   private void populateOverviewFK_Region() {
+	UIMessage.notificationMessage(context, "Building Overview.FK_Region");
 	String sqlRegion = "select Id, Region from Region";
 	Cursor cRegion = db.rawQuery(sqlRegion, null);
 	cRegion.moveToFirst();
@@ -46,11 +49,13 @@ public class GenerateTablesEtc {
   }
 
   private void generateCountry() {
+	UIMessage.notificationMessage(context, "Building Country");
 	String sql = "insert into Country(Country, FK_Region) select distinct Overview.Country, Region.Id from Overview join Detail on Overview.Country = Detail.Country join Region on Overview.Region = Region.Region";
 	db.execSQL(sql);
   }
 
   private void generateRegion() {
+	UIMessage.notificationMessage(context, "Building Region");
 	String sql = "insert into Region(Region) select distinct Region from Overview where Region != 'Terra'";
 	db.execSQL(sql);
   }

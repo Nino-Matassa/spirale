@@ -32,16 +32,10 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onResume() {
-//	stack.clear();
-//	UIMessage.notificationMessage(MainActivity.this, Constants.DataSource);
-//	Handler handler = new Handler();
-//	handler.postDelayed(new Runnable() {
-//		public void run() {
-//		  try {
-//			new CSV(MainActivity.this).getDataFiles();
-//		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
-//		}
-//	  }, 500);
+	if(Database.databaseExists()) {
+	  stack.clear();
+	  new UITerra(MainActivity.this);
+	}
 	super.onResume();
   }
 

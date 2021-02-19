@@ -55,6 +55,8 @@ public class CSV {
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvOverviewName;
 	rows = readCSV(filePath);
+	UIMessage.notificationMessage(context, "Building Overview " + rows.size() + " rows");
+	int rowsbuilt = 0;
 	try {
 	  for (String[] row: rows) {
 		// Ignore the first row
@@ -99,6 +101,7 @@ public class CSV {
 		values.put("Death24Hour", Death24Hour);
 		values.put("Source", Source);
 		Long Id = db.insert("Overview", null, values);
+		UIMessage.notificationMessage(context, "Building Overview " + rowsbuilt++ + " of " + rows.size() + " built");
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableOverview", e.toString());
@@ -121,6 +124,8 @@ public class CSV {
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
 	rows = readCSV(filePath);
+	UIMessage.notificationMessage(context, "Building Detail " + rows.size() + " rows");
+	int rowsbuilt = 0;
 
 	try {
 	  for (String[] row: rows) {
@@ -150,6 +155,7 @@ public class CSV {
 		values.put("NewDeath", NewDeath);
 		values.put("TotalDeath", TotalDeath);
 		Long Id = db.insert("Detail", null, values);
+		UIMessage.notificationMessage(context, "Building Detail " + rowsbuilt++ + " of " + rows.size() + " built");
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableDetails", e.toString());
@@ -212,7 +218,6 @@ public class CSV {
 			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 		  }
 		  if (!Database.databaseExists()) {
-			UIMessage.notificationMessage(context, "Building Database");
 			db = Database.getInstance(context);
 			populateTableOverview();
 			populateTableDetails();
@@ -234,7 +239,7 @@ public class CSV {
 			  UIMessage.notificationMessage(context, null);
 			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		  }
-		}, 10000);
+		}, 45000);
 	}
   }
 }
