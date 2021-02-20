@@ -18,6 +18,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
+	UIMessage.notificationMessage(context, Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -218,6 +219,7 @@ public class CSV {
 			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 		  }
 		  if (!Database.databaseExists()) {
+			MainActivity.stack.clear();
 			db = Database.getInstance(context);
 			populateTableOverview();
 			populateTableDetails();
@@ -235,7 +237,7 @@ public class CSV {
 	  handler.postDelayed(new Runnable() {
 		  public void run() {
 			try {
-			  new UITerra(context);
+			  //new UITerra(context);
 			  UIMessage.notificationMessage(context, null);
 			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		  }

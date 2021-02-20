@@ -14,7 +14,6 @@ public class GenerateTablesEtc {
 	generateCountry();
 	populateOverviewFK_Region();
 	populateDetailFK_Country();
-	UIMessage.notificationMessage(context, "Finishing...");
   }
 
   private void populateDetailFK_Country() {

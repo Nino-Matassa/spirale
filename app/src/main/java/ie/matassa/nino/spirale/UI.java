@@ -48,6 +48,7 @@ public class UI {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 	setFooter(lastUpdated);
+	UIMessage.notificationMessage(context, null);
   }
 
   private void setTitlebar() {
