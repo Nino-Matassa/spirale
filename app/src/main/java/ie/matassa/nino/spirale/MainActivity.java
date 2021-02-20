@@ -13,6 +13,7 @@ import android.database.sqlite.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
+  private boolean maitainCurrentUI = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,15 @@ public class MainActivity extends Activity {
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
-			interrogateStack();
+			interrogateStack(true);
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 10000);
-	if (!Database.databaseExists())
+	if (!Database.databaseExists()) {
 	  new CSV(MainActivity.this).getDataFiles();
+	} else {
+	  UIMessage.notificationMessage(MainActivity.this, "Initialising...");
+	}
 	super.onResume();
   }
 
@@ -41,16 +45,17 @@ public class MainActivity extends Activity {
 //	  super.onBackPressed();
 	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
-	  interrogateStack();
+	  interrogateStack(false);
 	}
   }
 
-  private void interrogateStack() {
+  private void interrogateStack(boolean maintainCurrentUI) {
 	if (stack.isEmpty() || stack.size() == 1) {
 	  new UITerra(MainActivity.this);
 	  return;
 	}
-	stack.pop();
+	if (!maintainCurrentUI)
+	  stack.pop();
 	UIHistory uiHistory = stack.pop();
 	switch (uiHistory.getUIX()) {
 	  case Constants.UITerra:
