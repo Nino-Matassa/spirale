@@ -30,6 +30,7 @@ public class GenerateTablesEtc {
 	  sqlUpdate = sqlUpdate.replace("#2", Country);
 	  db.execSQL(sqlUpdate);
 	} while(cCountry.moveToNext());
+	UIMessage.notificationMessage(context, null);
   }
 
   private void populateOverviewFK_Region() {

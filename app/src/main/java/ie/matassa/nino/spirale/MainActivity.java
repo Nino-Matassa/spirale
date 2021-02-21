@@ -13,30 +13,21 @@ import android.database.sqlite.*;
 public class MainActivity extends Activity {
 
   public static Stack<UIHistory> stack = new Stack<UIHistory>();
-  private boolean maitainCurrentUI = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-  }
-
-  @Override
-  protected void onResume() {
+	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
 		  try {
-			interrogateStack(true);
+			interrogateStack(false);
 		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
 		}
 	  }, 10000);
-	if (!Database.databaseExists()) {
-	  new CSV(MainActivity.this).getDataFiles();
-	} else {
-	  UIMessage.notificationMessage(MainActivity.this, "Initialising...");
-	}
-	super.onResume();
+	new CSV(MainActivity.this).getDataFiles();
   }
 
   @Override
@@ -45,17 +36,17 @@ public class MainActivity extends Activity {
 //	  super.onBackPressed();
 	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
-	  interrogateStack(false);
+	  interrogateStack(true);
 	}
   }
 
-  private void interrogateStack(boolean maintainCurrentUI) {
+  private void interrogateStack(boolean bBackPressed) {
 	if (stack.isEmpty() || stack.size() == 1) {
 	  new UITerra(MainActivity.this);
 	  return;
 	}
-	if (!maintainCurrentUI)
-	  stack.pop();
+	if(bBackPressed)
+		stack.pop();
 	UIHistory uiHistory = stack.pop();
 	switch (uiHistory.getUIX()) {
 	  case Constants.UITerra:
@@ -119,7 +110,16 @@ public class MainActivity extends Activity {
   public boolean onTouchEvent(MotionEvent event) {
 	int action = event.getAction();
     if (action == MotionEvent.ACTION_DOWN) {
-	  new UITerra(MainActivity.this);
+	  stack.clear();
+	  Handler handler = new Handler();
+	  handler.postDelayed(new Runnable() {
+		  public void run() {
+			try {
+			  interrogateStack(false);
+			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
+		  }
+		}, 10000);
+	  new CSV(MainActivity.this).getDataFiles();
 	}
 	return super.onTouchEvent(event);
   }

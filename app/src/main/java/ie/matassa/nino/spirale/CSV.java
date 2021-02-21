@@ -18,7 +18,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
-	UIMessage.notificationMessage(context, Constants.DataSource);
+	UIMessage.notificationMessage(context, "Checking... " + Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -199,7 +199,7 @@ public class CSV {
 
 	  Timestamp urlTimeStamp = new Timestamp(httpCon.getLastModified());
 	  Timestamp csvTimeStamp = new Timestamp(csv.lastModified());
-	  
+
 	  if (urlTimeStamp.after(csvTimeStamp)) {
 		Database.deleteDatabase();
 		return true;
@@ -228,20 +228,5 @@ public class CSV {
 		}
 	  });
 	thread.start();
-	try {
-	  //thread.join(); 
-	} catch (Exception e) {
-	  Log.d("getDataFiles", e.toString());
-	} finally {
-	  Handler handler = new Handler();
-	  handler.postDelayed(new Runnable() {
-		  public void run() {
-			try {
-			  //new UITerra(context);
-			  UIMessage.notificationMessage(context, null);
-			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
-		  }
-		}, 45000);
-	}
   }
 }
