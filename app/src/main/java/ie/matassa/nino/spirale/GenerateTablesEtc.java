@@ -29,7 +29,10 @@ public class GenerateTablesEtc {
 	  sqlUpdate = sqlUpdate.replace("#1", String.valueOf(Id));
 	  sqlUpdate = sqlUpdate.replace("#2", Country);
 	  db.execSQL(sqlUpdate);
-	  UIMessage.notificationMessage(context, "Initialising table Detail " + Country);
+	  String country = Country;
+	  if(country.length() > 15)
+		country = country.substring(0, 10) + "...";
+	  UIMessage.notificationMessage(context, "Initialising table Detail " + country);
 	} while(cCountry.moveToNext());
 	UIMessage.notificationMessage(context, null);
   }

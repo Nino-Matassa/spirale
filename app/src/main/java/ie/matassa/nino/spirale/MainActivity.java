@@ -18,7 +18,6 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	UIMessage.notificationMessage(MainActivity.this, "Waiting... ");
 	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
@@ -34,8 +33,8 @@ public class MainActivity extends Activity {
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-	  super.onBackPressed();
-	  //UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
+	  //super.onBackPressed();
+	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
 	  interrogateStack(true);
 	}
