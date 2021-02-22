@@ -10,7 +10,7 @@ https://covid19.who.int/WHO-COVID-19-global-data.csv and
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv
 
 The files are downloaded either on the first run when they aren't there or if they've been updated. An in memory database is then created for the app to use.
-The database is held in memory because the WHO sometimes retrospectively update some of the data contained in them. So the initialisation time can take a minute
+The database is held in memory because the WHO sometimes retrospectively updates some of the data contained in them. So the initialisation time can take a minute
 or so depending on the device being used. In my case a Samsung J5.
 
 The intent behind the application is to present unadulterated WHO data. To that end it is WHO data.

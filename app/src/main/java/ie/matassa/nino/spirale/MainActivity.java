@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	UIMessage.notificationMessage(MainActivity.this, "Waiting... ");
 	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
@@ -33,8 +34,8 @@ public class MainActivity extends Activity {
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-//	  super.onBackPressed();
-	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
+	  super.onBackPressed();
+	  //UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
 	  interrogateStack(true);
 	}
@@ -111,14 +112,7 @@ public class MainActivity extends Activity {
 	int action = event.getAction();
     if (action == MotionEvent.ACTION_DOWN) {
 	  stack.clear();
-	  Handler handler = new Handler();
-	  handler.postDelayed(new Runnable() {
-		  public void run() {
-			try {
-			  interrogateStack(false);
-			} catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
-		  }
-		}, 10000);
+	  interrogateStack(false);
 	  new CSV(MainActivity.this).getDataFiles();
 	}
 	return super.onTouchEvent(event);

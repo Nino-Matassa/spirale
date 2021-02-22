@@ -18,7 +18,6 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
-	UIMessage.notificationMessage(context, "Checking... " + Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -169,6 +168,8 @@ public class CSV {
 
 	if (!csvIsUpdated(url, name)) 
 	  return false;
+	  
+	UIMessage.notificationMessage(context, "Downloading... " + url + "/" + name);
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);

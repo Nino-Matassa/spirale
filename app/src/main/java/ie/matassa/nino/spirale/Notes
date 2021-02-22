@@ -9,13 +9,7 @@ https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overv
 
 Implementing foreign key for data. The need to be populated before they can be implemented. And that may not work.
 https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
-ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not working...
-
-Seperate download section from CSV and convert it to a service so everything else can be run on the main 
-thread?
-
-Allow the service to rebuild the database if the application doesn't have focus so the build is
-always in the background?
+ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not available in SQLite
 
 If the CSV format is changed, warn and keep the working CSV files?
 
