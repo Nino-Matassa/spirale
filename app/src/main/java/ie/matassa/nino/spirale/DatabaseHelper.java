@@ -36,6 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	"create table Overview ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
 	+ "FK_Region INT NOT NULL DEFAULT 0, "
+	+ "FK_Country INT NOT NULL DEFAULT 0, "
 	+ "Region TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
 	+ "TotalCase INT NOT NULL, "
@@ -49,14 +50,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	+ "Death7DayPer_C DECIMAL(10, 5), " // Global, not per country
 	+ "Death24Hour INT NOT NULL, "
 	+ "Source TEXT NOT NULL"
+	//+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id), "
+	//+ "FOREIGN KEY (FK_Country) REFERENCES Country(Id)"
 	+ ");";
 	private String sqlTableCountry =
 	"create table Country ("
 	+ "Id INTEGER PRIMARY KEY AUTOINCREMENT, "
 	+ "FK_Region INT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
-	+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id), "
-	+ "FOREIGN KEY (Country) REFERENCES Detail(Country)"
+	+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id)"
 	+ ");";
 	private String sqlTableDetail =
 	"create table Detail ("
@@ -70,5 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	+ "TotalCase INT NOT NULL, "
 	+ "NewDeath INT NOT NULL, "
 	+ "TotalDeath INT NOT NULL"
+	//+ "FOREIGN KEY (FK_Country) REFERENCES Country(Id)"
 	+ ");";
 }

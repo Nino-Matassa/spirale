@@ -10,8 +10,8 @@ public class GenerateTablesEtc {
   public GenerateTablesEtc(Context context) {
 	this.context = context;
 	db = Database.getInstance(context);
-	generateRegion();
-	generateCountry();
+	//generateRegion();
+	//generateCountry();
 	populateOverviewFK_Region();
 	populateDetailFK_Country();
   }
@@ -30,9 +30,9 @@ public class GenerateTablesEtc {
 	  sqlUpdate = sqlUpdate.replace("#2", Country);
 	  db.execSQL(sqlUpdate);
 	  String country = Country;
-	  if(country.length() > 15)
-		country = country.substring(0, 10) + "...";
-	  UIMessage.notificationMessage(context, "Initialising table Detail " + country);
+	  if(country.length() > 30)
+		country = country.substring(0, 27) + "...";
+	  UIMessage.notificationMessage(context, country);
 	} while(cCountry.moveToNext());
 	UIMessage.notificationMessage(context, null);
   }
@@ -52,17 +52,17 @@ public class GenerateTablesEtc {
 	} while(cRegion.moveToNext());
   }
 
-  private void generateCountry() {
-	UIMessage.notificationMessage(context, "Initialising Country");
-	String sql = "insert into Country(Country, FK_Region) select distinct Overview.Country, Region.Id from Overview join Detail on Overview.Country = Detail.Country join Region on Overview.Region = Region.Region";
-	db.execSQL(sql);
-  }
+//  private void generateCountry() {
+//	UIMessage.notificationMessage(context, "Initialising Country");
+//	String sql = "insert into Country(Country, FK_Region) select distinct Overview.Country, Region.Id from Overview join Detail on Overview.Country = Detail.Country join Region on Overview.Region = Region.Region";
+//	db.execSQL(sql);
+//  }
 
-  private void generateRegion() {
-	UIMessage.notificationMessage(context, "Initialising Region");
-	String sql = "insert into Region(Region) select distinct Region from Overview where Region != 'Terra'";
-	db.execSQL(sql);
-  }
+//  private void generateRegion() {
+//	UIMessage.notificationMessage(context, "Initialising Region");
+//	String sql = "insert into Region(Region) select distinct Region from Overview where Region != 'Terra'";
+//	db.execSQL(sql);
+//  }
 }
 
 

@@ -11,7 +11,12 @@ Implementing foreign key for data. The need to be populated before they can be i
 https://stackoverflow.com/questions/1884818/how-do-i-add-a-foreign-key-to-an-existing-sqlite-table
 ALTER TABLE Overview FOREIGN KEY (FK_Region) REFERENCES Region(Id) ... not available in SQLite
 
-If the CSV format is changed, warn and keep the working CSV files?
+CSV changes,
+
+1) Build list of Region, Country/Region first, then create Region, Country tables first, this way the
+foreign key for both overview and detail work.
+
+2) Add FK_Country to Overview...
 
 */
 

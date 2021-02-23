@@ -19,6 +19,8 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	
+	UIMessage.notificationMessage(MainActivity.this, "Initialising...");
+	
 	Handler handler = new Handler();
 	handler.postDelayed(new Runnable() {
 		public void run() {
@@ -34,6 +36,7 @@ public class MainActivity extends Activity {
   public void onBackPressed() {
 	if (stack.size() == 1) {
 	  //super.onBackPressed();
+	  this.moveTaskToBack(true);
 	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
 	} else {
 	  interrogateStack(true);
