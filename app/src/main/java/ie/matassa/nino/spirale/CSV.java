@@ -17,6 +17,8 @@ public class CSV {
   private Context context = null;
   private SQLiteDatabase db = null;
   private ArrayList<ORC> orcList = null;
+  private HashMap<String, Long> hmRegionList = null;
+  private HashMap<String, Long> hmCountryList = null;
 
   public CSV(Context context) {
 	this.context = context;
@@ -93,6 +95,12 @@ public class CSV {
 		ContentValues values = new ContentValues();
 		values.put("Country", Country);
 		values.put("Region", Region);
+		Long FK_Country = hmCountryList.get(Country);
+		Long FK_Region = hmRegionList.get(Region);
+		if (FK_Region != null) {
+		  values.put("FK_Country", FK_Country);
+		  values.put("FK_Region", FK_Region);
+		}
 		values.put("TotalCase", TotalCase);
 		values.put("CasePer_C", CasePer_C);
 		values.put("Case7Day", Case7Day);
@@ -156,6 +164,11 @@ public class CSV {
 		values.put("TotalCase", TotalCase);
 		values.put("NewDeath", NewDeath);
 		values.put("TotalDeath", TotalDeath);
+		//
+//		Long FK_Country = hmCountryList.get(Country);
+//		Long FK_Region = hmRegionList.get(Region);
+//		values.put("FK_Country", FK_Country);
+//		values.put("FK_Region", FK_Region);
 		Long Id = db.insert("Detail", null, values);
 		UIMessage.notificationMessage(context, "Building Detail " + rowsbuilt++ + " of " + rows.size() + " built");
 	  }
@@ -242,10 +255,9 @@ public class CSV {
 	List rows = null;
 
 	orcList = new ArrayList<ORC>();
-	//https://www.w3schools.com/java/java_hashmap.asp
-	HashMap<String, Long> hmRegionList = new HashMap<String, Long>();
-	HashMap<String, Long> hmCountryList = new HashMap<String, Long>();
-	
+	hmRegionList = new HashMap<String, Long>();
+	hmCountryList = new HashMap<String, Long>();
+
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvOverviewName;
 	rows = readCSV(filePath);
@@ -291,7 +303,7 @@ public class CSV {
 	  hmRegionList.put(region, Id);
 	}
 	// populate table Country
-	for(ORC orc: orcList) {
+	for (ORC orc: orcList) {
 	  ContentValues values = new ContentValues();
 	  values.put("Country", orc.Country);
 	  Long FK_Region = hmRegionList.get(orc.Region);
@@ -301,7 +313,7 @@ public class CSV {
 	}
 	return true;
   }
-  
+
 }
 
 class ORC { //Overview: Region & Country

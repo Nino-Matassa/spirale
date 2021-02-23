@@ -12,7 +12,7 @@ public class GenerateTablesEtc {
 	db = Database.getInstance(context);
 	//generateRegion();
 	//generateCountry();
-	populateOverviewFK_Region();
+	//populateOverviewFK_Region();
 	populateDetailFK_Country();
   }
 
@@ -37,20 +37,20 @@ public class GenerateTablesEtc {
 	UIMessage.notificationMessage(context, null);
   }
 
-  private void populateOverviewFK_Region() {
-	UIMessage.notificationMessage(context, "Initialising table Overview");
-	String sqlRegion = "select Id, Region from Region";
-	Cursor cRegion = db.rawQuery(sqlRegion, null);
-	cRegion.moveToFirst();
-	do {
-	  int Id = cRegion.getInt(cRegion.getColumnIndex("Id"));
-	  String Region = cRegion.getString(cRegion.getColumnIndex("Region"));
-	  String sqlUpdate = "update Overview set FK_Region = #1 where Region = '#2'";
-	  sqlUpdate = sqlUpdate.replace("#1", String.valueOf(Id));
-	  sqlUpdate = sqlUpdate.replace("#2", Region);
-	  db.execSQL(sqlUpdate);
-	} while(cRegion.moveToNext());
-  }
+//  private void populateOverviewFK_Region() {
+//	UIMessage.notificationMessage(context, "Initialising table Overview");
+//	String sqlRegion = "select Id, Region from Region";
+//	Cursor cRegion = db.rawQuery(sqlRegion, null);
+//	cRegion.moveToFirst();
+//	do {
+//	  int Id = cRegion.getInt(cRegion.getColumnIndex("Id"));
+//	  String Region = cRegion.getString(cRegion.getColumnIndex("Region"));
+//	  String sqlUpdate = "update Overview set FK_Region = #1 where Region = '#2'";
+//	  sqlUpdate = sqlUpdate.replace("#1", String.valueOf(Id));
+//	  sqlUpdate = sqlUpdate.replace("#2", Region);
+//	  db.execSQL(sqlUpdate);
+//	} while(cRegion.moveToNext());
+//  }
 
 //  private void generateCountry() {
 //	UIMessage.notificationMessage(context, "Initialising Country");
