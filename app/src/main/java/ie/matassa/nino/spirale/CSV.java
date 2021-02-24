@@ -16,7 +16,6 @@ import java.util.stream.*;
 public class CSV {
   private Context context = null;
   private SQLiteDatabase db = null;
-  private ArrayList<ORC> orcList = null;
   private HashMap<String, Long> hmRegionList = null;
   private HashMap<String, Long> hmCountryList = null;
 
@@ -164,11 +163,8 @@ public class CSV {
 		values.put("TotalCase", TotalCase);
 		values.put("NewDeath", NewDeath);
 		values.put("TotalDeath", TotalDeath);
-		//
-//		Long FK_Country = hmCountryList.get(Country);
-//		Long FK_Region = hmRegionList.get(Region);
-//		values.put("FK_Country", FK_Country);
-//		values.put("FK_Region", FK_Region);
+		Long FK_Country = hmCountryList.get(Country);
+		values.put("FK_Country", FK_Country);
 		Long Id = db.insert("Detail", null, values);
 		UIMessage.notificationMessage(context, "Building Detail " + rowsbuilt++ + " of " + rows.size() + " built");
 	  }
@@ -237,27 +233,29 @@ public class CSV {
 		  if (!Database.databaseExists()) {
 			MainActivity.stack.clear();
 			db = Database.getInstance(context);
-			populateOrcList();
+			populateRegionAndCountry();
 			populateTableOverview();
 			populateTableDetails();
-			new GenerateTablesEtc(context);
+			andFinally();
 		  }
+		}
+		private void andFinally() {
+		  UIMessage.notificationMessage(context, null);
 		}
 	  });
 	thread.start();
   }
 
-  private boolean populateOrcList() {
+  private boolean populateRegionAndCountry() {
 	boolean firstRowRead = false;
 	boolean secondRowRead = false;
 	String Region = null;
 	String Country = null;
 	List rows = null;
 
-	orcList = new ArrayList<ORC>();
+	ArrayList<ORC> orcList = new ArrayList<ORC>();
 	hmRegionList = new HashMap<String, Long>();
 	hmCountryList = new HashMap<String, Long>();
-
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvOverviewName;
 	rows = readCSV(filePath);
@@ -281,6 +279,7 @@ public class CSV {
 		secondRowRead = true;
 		Region = "Terra";
 	  }
+	  if (Country.equals("Global")) continue;
 	  ORC orc = new ORC();
 	  orc.Region = Region;
 	  orc.Country = Country;
@@ -313,12 +312,11 @@ public class CSV {
 	}
 	return true;
   }
-
+  class ORC { //Overview: Region & Country
+	public String Region = null;
+	public String Country = null;
+  }  
 }
 
-class ORC { //Overview: Region & Country
-  public String Region = null;
-  public String Country = null;
-}
 
 
