@@ -110,7 +110,7 @@ public class CSV {
 		values.put("Death24Hour", Death24Hour);
 		values.put("Source", Source);
 		Long Id = db.insert("Overview", null, values);
-		UIMessage.notificationMessage(context, "Building Overview " + rowsbuilt++ + " of " + rows.size() + " built");
+		UIMessage.notificationMessage(context, "Building Overview " + rowsbuilt++ + " of " + rows.size());
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableOverview", e.toString());
@@ -166,7 +166,7 @@ public class CSV {
 		Long FK_Country = hmCountryList.get(Country);
 		values.put("FK_Country", FK_Country);
 		Long Id = db.insert("Detail", null, values);
-		UIMessage.notificationMessage(context, "Building Detail " + rowsbuilt++ + " of " + rows.size() + " built");
+		UIMessage.notificationMessage(context, "Building Detail " + rowsbuilt++ + " of " + rows.size());
 	  }
 	} catch (NumberFormatException e) {
 	  Log.d("populateTableDetails", e.toString());
@@ -181,6 +181,7 @@ public class CSV {
 	  return false;
 
 	UIMessage.notificationMessage(context, "Downloading... " + url + "/" + name);
+	UIMessage.toast(context,  "Downloading... " + url + "/" + name, Toast.LENGTH_SHORT);
 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
 	File file = new File(filePath);

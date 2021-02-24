@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 	if (stack.size() == 1) {
 	  //super.onBackPressed();
 	  this.moveTaskToBack(true);
-	  UIMessage.toast(MainActivity.this, "Press Home To Hide In Background", Toast.LENGTH_LONG);
+	  UIMessage.toast(MainActivity.this, "Spirale - Moved to Background", Toast.LENGTH_LONG);
 	} else {
 	  interrogateStack(true);
 	}
