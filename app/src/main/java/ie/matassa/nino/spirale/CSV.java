@@ -224,38 +224,31 @@ public class CSV {
 	return false;
   }
 
-  public interface WHOListener { public void WHOThreadFinished(); }
-  private WHOListener whoListener = new WHOListener() {
+  public interface ThreadListener { public void threadListener(); }
+  private ThreadListener dbCompleted = new ThreadListener() {
 	@Override
-	public void WHOThreadFinished() {
-	  WHOthread = null;
+	public void threadListener() {
 	  UIMessage.notificationMessage(context, null);
 	}
   };
-  
-  private static Thread WHOthread = null;
+
   public void getDataFiles() {
-	if(WHOthread == null) {
-	  WHOthread = new Thread(new Runnable() {
-		  @Override 
-		  public void run() {
-			for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			  downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
-			}
-			if (!Database.databaseExists()) {
-			  MainActivity.stack.clear();
-			  db = Database.getInstance(context);
-			  populateTablesRegionAndCountry();
-			  populateTableOverview();
-			  populateTableDetails();
-			  whoListener.WHOThreadFinished();
-			}
+	new Thread(new Runnable() {
+		@Override 
+		public void run() {
+		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
+			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
 		  }
-		});
-	  WHOthread.start();
-	} else {
-	  new UITerra(context);
-	}
+		  if (!Database.databaseExists()) {
+			MainActivity.stack.clear();
+			db = Database.getInstance(context);
+			populateTablesRegionAndCountry();
+			populateTableOverview();
+			populateTableDetails();
+			dbCompleted.threadListener();
+		  }
+		}
+	  }).start();
   }
 
   private boolean populateTablesRegionAndCountry() {
@@ -303,9 +296,18 @@ public class CSV {
 	  String region = orc.Region;
 	  if (region.equals("Terra"))
 		continue;
-	  if (!regionList.contains(region))
+	  if (!regionList.contains(region)) 
 		regionList.add(region);
 	}
+//	// List of countries
+//	ArrayList<String> countryList = new ArrayList<String>();
+//	for(ORC orc: orcList) {
+//	  String country = orc.Country;
+//	  if(country.equals("Global"))
+//		continue;
+//		if(!countryList.contains(orc.Country))
+//		  countryList.add(country);
+//	}
 	// populate table Region
 	for (String region: regionList) {
 	  ContentValues values = new ContentValues();
