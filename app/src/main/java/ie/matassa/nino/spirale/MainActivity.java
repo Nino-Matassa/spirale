@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 	}
   }
 
-  public void interrogateStack(boolean bBackPressed) {
+  private void interrogateStack(boolean bBackPressed) {
 	if (stack.isEmpty() || stack.size() == 1) {
 	  new UITerra(MainActivity.this);
 	  return;
