@@ -31,11 +31,10 @@ public class MainActivity extends Activity {
 	  }, 10000);
 	new CSV(MainActivity.this).getDataFiles();
   }
-
+  
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
-	  //super.onBackPressed();
 	  this.moveTaskToBack(true);
 	  UIMessage.toast(MainActivity.this, "Spirale - Moved to Background", Toast.LENGTH_LONG);
 	} else {
@@ -43,7 +42,7 @@ public class MainActivity extends Activity {
 	}
   }
 
-  private void interrogateStack(boolean bBackPressed) {
+  public void interrogateStack(boolean bBackPressed) {
 	if (stack.isEmpty() || stack.size() == 1) {
 	  new UITerra(MainActivity.this);
 	  return;
@@ -54,6 +53,7 @@ public class MainActivity extends Activity {
 	switch (uiHistory.getUIX()) {
 	  case Constants.UITerra:
 		new UITerra(MainActivity.this);
+		new CSV(MainActivity.this).getDataFiles();
 		break;
 	  case Constants.UIRegion:
 		new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
@@ -120,4 +120,5 @@ public class MainActivity extends Activity {
 	return super.onTouchEvent(event);
   }
 }
+
 

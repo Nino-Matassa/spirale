@@ -21,6 +21,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
+	UIMessage.notificationMessage(context, Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -223,31 +224,41 @@ public class CSV {
 	return false;
   }
 
-  private static Thread thread = null;
+  public interface WHOListener { public void WHOThreadFinished(); }
+  private WHOListener whoListener = new WHOListener() {
+	@Override
+	public void WHOThreadFinished() {
+	  WHOthread = null;
+	  UIMessage.notificationMessage(context, null);
+	}
+  };
+  
+  private static Thread WHOthread = null;
   public void getDataFiles() {
-	thread = new Thread(new Runnable() {
-		@Override 
-		public void run() {
-		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+	if(WHOthread == null) {
+	  WHOthread = new Thread(new Runnable() {
+		  @Override 
+		  public void run() {
+			for (int queue = 0; queue < Constants.Urls.length; queue++) {
+			  downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+			}
+			if (!Database.databaseExists()) {
+			  MainActivity.stack.clear();
+			  db = Database.getInstance(context);
+			  populateTablesRegionAndCountry();
+			  populateTableOverview();
+			  populateTableDetails();
+			  whoListener.WHOThreadFinished();
+			}
 		  }
-		  if (!Database.databaseExists()) {
-			MainActivity.stack.clear();
-			db = Database.getInstance(context);
-			populateRegionAndCountry();
-			populateTableOverview();
-			populateTableDetails();
-			andFinally();
-		  }
-		}
-		private void andFinally() {
-		  UIMessage.notificationMessage(context, null);
-		}
-	  });
-	thread.start();
+		});
+	  WHOthread.start();
+	} else {
+	  new UITerra(context);
+	}
   }
 
-  private boolean populateRegionAndCountry() {
+  private boolean populateTablesRegionAndCountry() {
 	boolean firstRowRead = false;
 	boolean secondRowRead = false;
 	String Region = null;
