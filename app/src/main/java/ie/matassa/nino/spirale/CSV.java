@@ -21,7 +21,6 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
-	UIMessage.notificationMessage(context, Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -288,7 +287,8 @@ public class CSV {
 	  ORC orc = new ORC();
 	  orc.Region = Region;
 	  orc.Country = Country;
-	  orcList.add(orc);
+	  if(!orcList.contains(orc))
+	  	orcList.add(orc);
 	}
 	// List of regions....
 	ArrayList<String> regionList = new ArrayList<String>();
@@ -299,15 +299,6 @@ public class CSV {
 	  if (!regionList.contains(region)) 
 		regionList.add(region);
 	}
-//	// List of countries
-//	ArrayList<String> countryList = new ArrayList<String>();
-//	for(ORC orc: orcList) {
-//	  String country = orc.Country;
-//	  if(country.equals("Global"))
-//		continue;
-//		if(!countryList.contains(orc.Country))
-//		  countryList.add(country);
-//	}
 	// populate table Region
 	for (String region: regionList) {
 	  ContentValues values = new ContentValues();
