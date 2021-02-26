@@ -287,7 +287,7 @@ public class CSV {
 	  ORC orc = new ORC();
 	  orc.Region = Region;
 	  orc.Country = Country;
-	  if(!orcList.contains(orc))
+	  if (!orcList.contains(orc))
 	  	orcList.add(orc);
 	}
 	// List of regions....

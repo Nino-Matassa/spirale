@@ -19,19 +19,20 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	
-	UIMessage.notificationMessage(MainActivity.this, "Initialising...");
-	
-	Handler handler = new Handler();
-	handler.postDelayed(new Runnable() {
-		public void run() {
-		  try {
-			interrogateStack(false);
-		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
-		}
-	  }, 10000);
+//	UIMessage.notificationMessage(MainActivity.this, "Initialising...");
+//	
+//	Handler handler = new Handler();
+//	handler.postDelayed(new Runnable() {
+//		public void run() {
+//		  try {
+//			interrogateStack(false);
+//		  } catch (Exception e) { Log.d("MainActivity.onCreate", e.toString()); }
+//		}
+//	  }, 10000);
 	new CSV(MainActivity.this).getDataFiles();
+	//interrogateStack(false);
   }
-  
+
   @Override
   public void onBackPressed() {
 	if (stack.size() == 1) {
