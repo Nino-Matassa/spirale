@@ -27,7 +27,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraActiveCases);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIActiveCases);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -52,7 +52,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 
 	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.twentyEight);
 	for(CaseRangeTotal fieldTotal: fieldTotals) {
-	  metaField = new MetaField(regionId, countryId, Constants.UICase7Day);
+	  metaField = new MetaField(regionId, countryId, Constants.UIActiveCases);
 	  metaField.key = fieldTotal.date;
 	  metaField.value = String.valueOf(formatter.format(fieldTotal.total));
 	  metaFields.add(metaField);

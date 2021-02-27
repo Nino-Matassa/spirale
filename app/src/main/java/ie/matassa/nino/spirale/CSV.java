@@ -266,54 +266,59 @@ public class CSV {
 	UIMessage.notificationMessage(context, "Building Overview " + rows.size() + " rows");
 	int rowsbuilt = 0;
 
-	for (String[] row: rows) {
-	  // Ignore the first row
-	  if (!firstRowRead) {
-		firstRowRead = true;
-		continue;
+	try {
+	  for (String[] row: rows) {
+		// Ignore the first row
+		if (!firstRowRead) {
+		  firstRowRead = true;
+		  continue;
+		}
+		int index = 0;
+		Country = row[index++];
+		if (Country.indexOf("\"") > -1)
+		  Country += ", " + row[index++];
+		Region = row[index++];
+		if (Region.equals("Other")) continue;
+		// 2nd row populate country as Terra
+		if (!secondRowRead && firstRowRead) {
+		  secondRowRead = true;
+		  Region = "Terra";
+		}
+		if (Country.equals("Global")) continue;
+		ORC orc = new ORC();
+		orc.Region = Region;
+		orc.Country = Country;
+		if (!orcList.contains(orc))
+		  orcList.add(orc);
 	  }
-	  int index = 0;
-	  Country = row[index++];
-	  if (Country.indexOf("\"") > -1)
-		Country += ", " + row[index++];
-	  Region = row[index++];
-	  if (Region.equals("Other")) continue;
-	  // 2nd row populate country as Terra
-	  if (!secondRowRead && firstRowRead) {
-		secondRowRead = true;
-		Region = "Terra";
+	  // List of regions....
+	  ArrayList<String> regionList = new ArrayList<String>();
+	  for (ORC orc: orcList) {
+		String region = orc.Region;
+		if (region.equals("Terra"))
+		  continue;
+		if (!regionList.contains(region)) 
+		  regionList.add(region);
 	  }
-	  if (Country.equals("Global")) continue;
-	  ORC orc = new ORC();
-	  orc.Region = Region;
-	  orc.Country = Country;
-	  if (!orcList.contains(orc))
-	  	orcList.add(orc);
-	}
-	// List of regions....
-	ArrayList<String> regionList = new ArrayList<String>();
-	for (ORC orc: orcList) {
-	  String region = orc.Region;
-	  if (region.equals("Terra"))
-		continue;
-	  if (!regionList.contains(region)) 
-		regionList.add(region);
-	}
-	// populate table Region
-	for (String region: regionList) {
-	  ContentValues values = new ContentValues();
-	  values.put("Region", region);
-	  Long Id = db.insert("Region", null, values);
-	  hmRegionList.put(region, Id);
-	}
-	// populate table Country
-	for (ORC orc: orcList) {
-	  ContentValues values = new ContentValues();
-	  values.put("Country", orc.Country);
-	  Long FK_Region = hmRegionList.get(orc.Region);
-	  values.put("FK_Region", FK_Region);
-	  Long Id = db.insert("Country", null, values);
-	  hmCountryList.put(orc.Country, Id);
+	  // populate table Region
+	  for (String region: regionList) {
+		ContentValues values = new ContentValues();
+		values.put("Region", region);
+		Long Id = db.insert("Region", null, values);
+		hmRegionList.put(region, Id);
+	  }
+	  // populate table Country
+	  for (ORC orc: orcList) {
+		ContentValues values = new ContentValues();
+		values.put("Country", orc.Country);
+		Long FK_Region = hmRegionList.get(orc.Region);
+		values.put("FK_Region", FK_Region);
+		Long Id = db.insert("Country", null, values);
+		hmCountryList.put(orc.Country, Id);
+	  }
+	} catch(Exception e) {
+	  Log.d("ORCList", e.toString());
+	  UIMessage.notificationMessage(context, e.toString());
 	}
 	return true;
   }
