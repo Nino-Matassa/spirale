@@ -15,9 +15,6 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
   private DecimalFormat formatter = null;
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
-  private Double casePerMillion = 0.0;
-  private Integer totalCases = 0;
-  private Double population = 0.0;
   private Integer case24 = 0;
   private Double infectionsCurve = 0.0;
 
@@ -44,37 +41,31 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Date", "Terra");
-		  //UIMessage.notificationMessage(context, null);
         }
       });
   }
-
+  
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, sum(NewCase) as NewCase from Detail join Overview on Overview.FK_Country = Detail.FK_Country group by date order by date asc";
+	String sqlDetail = "select distinct Date, NewCase, Country.Country, Country.FK_Region, Country.Id from Detail join Country on Detail.FK_Country = Country.Id group by Country.Country order by Date, NewCase desc";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
-	population = totalCases / casePerMillion * Constants._C;
 	do {
-	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
-	  try {
-		date = new SimpleDateFormat("yyyy-MM-dd").parse(date).toString();
-		String[] arrDate = date.split(" ");
-		date = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
-	  } catch (Exception e) {
-		Log.d(Constants.UICase24Hour, e.toString());
-	  }
 	  case24 = cDetail.getInt(cDetail.getColumnIndex("NewCase"));
 	  infectionsCurve = Math.log((double)case24);
+	  
+	  if(infectionsCurve.isNaN() || infectionsCurve.isInfinite())
+		infectionsCurve = 0.0;
+	  
+	  regionId = cDetail.getInt(cDetail.getColumnIndex("FK_Region"));
+	  countryId = cDetail.getInt(cDetail.getColumnIndex("Id"));
 
-	  if(!(case24 > 0)) continue;
-
-	  metaField = new MetaField(regionId, countryId, Constants.UITerraInfectionsCurve);
-	  metaField.key = date;
+	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	  metaField.key = cDetail.getString(cDetail.getColumnIndex("Country"));
 	  metaField.value = String.valueOf(formatter.format(infectionsCurve));
+	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 	} while(cDetail.moveToNext());
-	Collections.reverse(metaFields);
     setTableLayout(populateTable(metaFields)); 
   }
 }

@@ -7,7 +7,14 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
-*)Add new UI, ActiveCases/100,000 in both Terra & Country
+ToDo
+
+Changes these to country comparisons ordered as highest per country like Total Infected etc, * = done.
+Terra
+	*Infections Curve,
+	Ro,
+	Ro/7,
+	Ro/14,
 
 
 */
