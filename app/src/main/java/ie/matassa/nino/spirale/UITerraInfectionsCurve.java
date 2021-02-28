@@ -14,8 +14,6 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
   private int countryId = 0;
   private DecimalFormat formatter = null;
   private UIHistory uiHistory = null;
-  private String region = null;
-  private String country = null;
   private MetaField metaField = null;
   private Double casePerMillion = 0.0;
   private Integer totalCases = 0;
@@ -53,13 +51,9 @@ public class UITerraInfectionsCurve extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select distinct Date, sum(NewCase) as NewCase, Detail.Region, Detail.Country, CasePer_C, Overview.TotalCase from Detail join Overview on Overview.Country = Detail.Country group by date order by date asc";
+	String sqlDetail = "select distinct Date, sum(NewCase) as NewCase from Detail join Overview on Overview.FK_Country = Detail.FK_Country group by date order by date asc";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
-	region = cDetail.getString(cDetail.getColumnIndex("Region"));
-	country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePer_C"));
-	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
 	population = totalCases / casePerMillion * Constants._C;
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));

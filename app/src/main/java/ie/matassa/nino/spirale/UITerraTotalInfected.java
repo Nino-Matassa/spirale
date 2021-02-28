@@ -43,7 +43,7 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
   
   public void populateTable() {
 	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Country.Country, TotalCase, CasePer_C from Overview join Country on Overview.Country = Country.Country group by Country.Country";
+	String sql = "select Country.Id, Country.FK_Region, Country.Country, TotalCase, CasePer_C from Overview join Country on Overview.FK_Country = Country.Id group by Country.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {

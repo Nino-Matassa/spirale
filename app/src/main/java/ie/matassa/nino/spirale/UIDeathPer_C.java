@@ -54,8 +54,8 @@ public class UIDeathPer_C extends UI implements IRegisterOnStack {
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	{ // Get population from Overview table
-	  String sqlCPM = "select DeathPer_C, TotalDeath from Overview where country = '#1' limit 1";
-	  sqlCPM = sqlCPM.replace("#1", country.replace("'", "''"));
+	  String sqlCPM = "select DeathPer_C, TotalDeath from Overview where FK_Country = #1 limit 1";
+	  sqlCPM = sqlCPM.replace("#1", String.valueOf(countryId));
 	  Cursor cCPM = db.rawQuery(sqlCPM, null);
 	  cCPM.moveToFirst();
 	  deathPer_C = cCPM.getDouble(cCPM.getColumnIndex("DeathPer_C"));

@@ -42,7 +42,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select distinct Country.Id, Country.FK_Region, Country.Country, Overview.Case7Day from Country join Overview on Country.Country = Overview.Country order by Overview.Case7Day desc";
+	String sql = "select distinct Country.Id, Country.FK_Region, Country.Country, Overview.Case7Day from Country join Overview on Country.Id = Overview.FK_Country order by Overview.Case7Day desc";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {

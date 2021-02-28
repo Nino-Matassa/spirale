@@ -77,7 +77,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
 
 
-	String sqlOverview = "select Region, Country, TotalCase, max(CasePer_C) as CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from Overview where Country = '#1'".replace("#1", Country); // Ireland, FK_Region = 3, FK_Country = 76
+	String sqlOverview = "select Region, Country, TotalCase, max(CasePer_C) as CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from Overview where FK_Country = #1".replace("#1", String.valueOf(countryId));
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
 

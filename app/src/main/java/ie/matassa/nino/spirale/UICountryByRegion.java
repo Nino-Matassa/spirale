@@ -57,8 +57,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
     MetaField metaField = null;
 	try {
 	  do {
-		String sqlCPM = "select distinct Case24Hour from Overview where Country = '#1'";
-		sqlCPM = sqlCPM.replace("#1", cRegion.getString(cRegion.getColumnIndex("Country")).replace("'", "''"));
+		String sqlCPM = "select distinct Case24Hour from Overview where FK_Country = #1".replace("#1", String.valueOf(cRegion.getLong(cRegion.getColumnIndex("Id"))));
 		cCPM = db.rawQuery(sqlCPM, null);
 		cCPM.moveToFirst();
 		metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
