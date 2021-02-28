@@ -37,24 +37,45 @@
 		  @Override
 		  public void run() {
 			populateTable();
-			setHeader("Date", "Terra");
+			setHeader("Country", "Ro/7");
 		  }
 		});
 	}
 
-	private void populateTable() {
-	  ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	  String sqlDetail = "select distinct Date, sum(NewCase) as CaseX from Detail group by date order by date desc";
+  private void populateTable() {
+	ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
+	String sqlCountry = "select Id from Country";
+	Cursor cCountry = db.rawQuery(sqlCountry, null);
+	cCountry.moveToFirst();
+
+	do {
+	  countryId = cCountry.getInt(cCountry.getColumnIndex("Id"));
+	  String sqlDetail = "select Date, NewCase as CaseX, Country.Id, Country.FK_Region, Country.Country from Detail join Country on Detail.FK_Country = Country.Id where FK_Country = #1 order by Date desc limit 8".replace("#1", String.valueOf(countryId));
 	  Cursor cRNought = db.rawQuery(sqlDetail, null);
+	  cRNought.moveToFirst();
+	  regionId = cRNought.getInt(cRNought.getColumnIndex("FK_Region"));
+	  countryId = cRNought.getInt(cRNought.getColumnIndex("Id"));
+	  String country = cRNought.getString(cRNought.getColumnIndex("Country"));
 
 	  ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
 	  for (RNoughtAverage values: rNoughtAverage) {
-		metaField = new MetaField(regionId, countryId, Constants.UITerraRNought7);
-		metaField.key = values.date;
+		metaField = new MetaField(regionId, countryId, Constants.UICountry);
+		metaField.key = country;
 		metaField.value = String.valueOf(formatter.format(values.average));
+		metaField.underlineKey = true;
 		metaFields.add(metaField);
+		break;
 	  }
-	  setTableLayout(populateTable(metaFields)); 
-	}
-
+	} while(cCountry.moveToNext());
+	metaFields.sort(new sortStats());
+	setTableLayout(populateTable(metaFields)); 
   }
+  class sortStats implements Comparator<MetaField> {
+	@Override
+	public int compare(MetaField mfA, MetaField mfB) {
+	  Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	  Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	  return dB.compareTo(dA);
+	}
+  }
+}

@@ -14,6 +14,7 @@ public class Constants {
 
   public static final int dbVersion = 1;
   public static final int _C = 100000; // _C == 100,000, well, overscore C in Roman numerals
+  public static final int one = 1;
   public static final int seven = 7;
   public static final int fourteen = 14;
   public static final int twentyEight = 28;
