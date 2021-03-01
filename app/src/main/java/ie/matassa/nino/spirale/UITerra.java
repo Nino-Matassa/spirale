@@ -105,14 +105,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraCase24Per_C);
-	metaField.key = "Case24/100,000";
-	double case24PerMillion = casePer_C/population*Constants._C;
-	metaField.value = String.valueOf(formatter.format(case24PerMillion));
+	metaField.key = "Case24 " + Constants.proportional;
+	double case24_C = casePer_C/population*Constants._C;
+	metaField.value = String.valueOf(formatter.format(case24_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraCasePer_C);
-	metaField.key = "Case/100,000";
+	metaField.key = "Case " + Constants.proportional;
 	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -136,14 +136,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24Per_C);
-	metaField.key = "Death24/100,000";
+	metaField.key = "Death24 " + Constants.proportional;
 	double death24PerMillion = deathPer_C/population*Constants._C;
 	metaField.value = String.valueOf(formatter.format(death24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPer_C);
-	metaField.key = "Death/100,000";
+	metaField.key = "Death " + Constants.proportional;
 	metaField.value = String.valueOf(formatter.format(deathPer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -173,35 +173,35 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
-	String sqlRNought = "select Date, sum(NewCase) as CaseX from Detail group by Date order by Date desc";
+	String sqlRNought = "select Date, sum(NewCase) as CaseX from Detail group by Date order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
-	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.twentyEight);
 	Double rNought = rNoughtAverage.get(0).rNought;
 	metaField = new MetaField(0, 0, Constants.UITerraRNought);
-	metaField.key = "Ro";
+	metaField.key = Constants.rNought;
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
 	
-	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
-	Double rNought7 = rNoughtAverage7.get(0).average;
-	metaField = new MetaField(0, 0, Constants.UITerraRNought7);
-	metaField.key = "Ro/7";
-	metaField.value = String.valueOf(formatter.format(rNought7));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-	metaField = new MetaField();
-	
-	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
-	Double rNought14 = rNoughtAverage14.get(0).average;
-	metaField = new MetaField(0, 0, Constants.UITerraRNought14);
-	metaField.key = "Ro/14";
-	metaField.value = String.valueOf(formatter.format(rNought14));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-	metaField = new MetaField();
+//	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+//	Double rNought7 = rNoughtAverage7.get(0).average;
+//	metaField = new MetaField(0, 0, Constants.UITerraRNought7);
+//	metaField.key = "Ro/7";
+//	metaField.value = String.valueOf(formatter.format(rNought7));
+//	metaField.underlineKey = true;
+//	metaFields.add(metaField);
+//	metaField = new MetaField();
+//	
+//	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
+//	Double rNought14 = rNoughtAverage14.get(0).average;
+//	metaField = new MetaField(0, 0, Constants.UITerraRNought14);
+//	metaField.key = "Ro/14";
+//	metaField.value = String.valueOf(formatter.format(rNought14));
+//	metaField.underlineKey = true;
+//	metaFields.add(metaField);
+//	metaField = new MetaField();
 	
 	metaField.key = "";
 	metaField.value = "";

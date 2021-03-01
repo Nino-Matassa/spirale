@@ -7,7 +7,17 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
-ToDo
+Unicode for superscript & subscript:
+https://www.sololearn.com/Discuss/1623725/how-to-define-and-print-superscript-and-subscript-numbers-in-python
+"x\u00b2" = x²
+"x\u2080" = x₀
+
+Unicode Character “∝” (U+221D)
+
+
+ToDo:
+Consolidate Ro into one 28 day cycle in both Terra and Country.
+Add Active Cases/100,000 to Terra.
 
 */
 

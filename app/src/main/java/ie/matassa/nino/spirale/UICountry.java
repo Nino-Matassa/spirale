@@ -180,32 +180,32 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " order by Date desc";
+	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
-	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.seven);
-	Double rNought = rNoughtAverage.get(0).rNought;
+	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.twentyEight);
+	Double rNought = rNoughtAverage.get(0).average;
 	metaField = new MetaField(regionId, countryId, Constants.UIRNought);
-	metaField.key = "Ro";
+	metaField.key = Constants.rNought;
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
-	Double rNought7 = rNoughtAverage7.get(0).average;
-	metaField = new MetaField(regionId, countryId, Constants.UIRNought7);
-	metaField.key = "Ro/7day";
-	metaField.value = String.valueOf(formatter.format(rNought7));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-
-	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
-	Double rNought14 = rNoughtAverage14.get(0).average;
-	metaField = new MetaField(regionId, countryId, Constants.UIRNought14);
-	metaField.key = "Ro/14day";
-	metaField.value = String.valueOf(formatter.format(rNought14));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
+//	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
+//	Double rNought7 = rNoughtAverage7.get(0).average;
+//	metaField = new MetaField(regionId, countryId, Constants.UIRNought7);
+//	metaField.key = "Ro/7day";
+//	metaField.value = String.valueOf(formatter.format(rNought7));
+//	metaField.underlineKey = true;
+//	metaFields.add(metaField);
+//
+//	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
+//	Double rNought14 = rNoughtAverage14.get(0).average;
+//	metaField = new MetaField(regionId, countryId, Constants.UIRNought14);
+//	metaField.key = "Ro/14day";
+//	metaField.value = String.valueOf(formatter.format(rNought14));
+//	metaField.underlineKey = true;
+//	metaFields.add(metaField);
 
     setTableLayout(populateTable(metaFields)); 
   }

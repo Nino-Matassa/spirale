@@ -8,6 +8,9 @@ public class Constants {
   public static final String dbName = null; //"dbSpiral";
   public static final String csvDetailsName = "DetailsTable.csv";
   public static final String csvOverviewName = "OverviewTable.csv";
+  
+  public static final String rNought = "R\u2080";
+  public static final String proportional = "\u221D";
 
   public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
   public static final String[] Names = {csvOverviewName, csvDetailsName };

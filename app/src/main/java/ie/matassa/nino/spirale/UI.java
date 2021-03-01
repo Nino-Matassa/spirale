@@ -81,23 +81,23 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Terra Infections Curve");
 		break;
 	  case Constants.UIRNought:
-		((Activity)context).setTitle("Spirale - Ro");
+		((Activity)context).setTitle("Spirale - " + Constants.rNought);
 		break;
-	  case Constants.UIRNought7:
-		((Activity)context).setTitle("Spirale - Ro/7");
-		break;
-	  case Constants.UIRNought14:
-		((Activity)context).setTitle("Spirale - Ro/14");
-		break;
+//	  case Constants.UIRNought7:
+//		((Activity)context).setTitle("Spirale - Ro/7");
+//		break;
+//	  case Constants.UIRNought14:
+//		((Activity)context).setTitle("Spirale - Ro/14");
+//		break;
 	  case Constants.UITerraRNought:
-		((Activity)context).setTitle("Spirale - Terra Ro");
+		((Activity)context).setTitle("Spirale - Terra " + Constants.rNought);
 		break;
-	  case Constants.UITerraRNought7:
-		((Activity)context).setTitle("Spirale - Terra Ro/7");
-		break;
-	  case Constants.UITerraRNought14:
-		((Activity)context).setTitle("Spirale - Terra Ro/14");
-		break;
+//	  case Constants.UITerraRNought7:
+//		((Activity)context).setTitle("Spirale - Terra Ro/7");
+//		break;
+//	  case Constants.UITerraRNought14:
+//		((Activity)context).setTitle("Spirale - Terra Ro/14");
+//		break;
 	  case Constants.UITerraTotalCases:
 		((Activity)context).setTitle("Spirale - Terra Total Cases");
 		break;
@@ -202,21 +202,21 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UIRNought)) {
 				new UIRNought(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UIRNought7)) {
-				new UIRNought7(context, metaField.regionId, metaField.countryId);
-			  }
-			  if (metaField.UI.equals(Constants.UIRNought14)) {
-				new UIRNought14(context, metaField.regionId, metaField.countryId);
-			  }
+//			  if (metaField.UI.equals(Constants.UIRNought7)) {
+//				new UIRNought7(context, metaField.regionId, metaField.countryId);
+//			  }
+//			  if (metaField.UI.equals(Constants.UIRNought14)) {
+//				new UIRNought14(context, metaField.regionId, metaField.countryId);
+//			  }
 			  if (metaField.UI.equals(Constants.UITerraRNought)) {
 				new UITerraRNought(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraRNought7)) {
-				new UITerraRNought7(context, metaField.regionId, metaField.countryId);
-			  }
-			  if (metaField.UI.equals(Constants.UITerraRNought14)) {
-				new UITerraRNought14(context, metaField.regionId, metaField.countryId);
-			  }
+//			  if (metaField.UI.equals(Constants.UITerraRNought7)) {
+//				new UITerraRNought7(context, metaField.regionId, metaField.countryId);
+//			  }
+//			  if (metaField.UI.equals(Constants.UITerraRNought14)) {
+//				new UITerraRNought14(context, metaField.regionId, metaField.countryId);
+//			  }
 			  if (metaField.UI.equals(Constants.UITerraTotalCases)) {
 				new UITerraTotalCases(context, metaField.regionId, metaField.countryId);
 			  }
