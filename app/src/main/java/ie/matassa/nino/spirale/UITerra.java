@@ -28,8 +28,8 @@ public class UITerra extends UI implements IRegisterOnStack {
   private Double precentInfected = 0.0;
   private Double population = 0.0;
   private Double infectionsCurve = 0.0;
-  
-  
+
+
   ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
   public UITerra(Context context) {
 	super(context, Constants.UITerra);
@@ -77,8 +77,8 @@ public class UITerra extends UI implements IRegisterOnStack {
 	deathPer_C = cTerra.getDouble(cTerra.getColumnIndex("DeathPer_C"));
 	death7Day = cTerra.getInt(cTerra.getColumnIndex("Death7Day"));
 	death24Hour = cTerra.getInt(cTerra.getColumnIndex("Death24Hour"));
-	population = totalCase/casePer_C*Constants._C;
-	precentInfected = totalCase/population*100;
+	population = totalCase / casePer_C * Constants._C;
+	precentInfected = totalCase / population * 100;
 	infectionsCurve = Math.log((double)case24Hour);
 
 	MetaField metaField = new MetaField();
@@ -93,24 +93,31 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(totalCase));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCases);
 	metaField.key = "Active Cases";
-	String sqlDetail = "select sum(NewCase) NewCase from detail where date >= date('now', '-28 days')";
-	Cursor cDetail = db.rawQuery(sqlDetail, null);
-    cDetail.moveToFirst();
-	int activeCases = cDetail.getInt(cDetail.getColumnIndex("NewCase"));
+	String sqlActiveCases = "select sum(NewCase) NewCase from detail where date >= date('now', '-28 days')";
+	Cursor cActiveCases = db.rawQuery(sqlActiveCases, null);
+    cActiveCases.moveToFirst();
+	int activeCases = cActiveCases.getInt(cActiveCases.getColumnIndex("NewCase"));
 	metaField.value = String.valueOf(formatter.format(activeCases));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
+	metaField = new MetaField(0, 0, Constants.UITerraActiveCases_C);
+	metaField.key = "Active Cases " + Constants.proportional;
+	Double activeCases_C = activeCases/population*Constants._C;
+	metaField.value = String.valueOf(formatter.format(activeCases_C));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+
 	metaField = new MetaField(0, 0, Constants.UITerraCase24Per_C);
 	metaField.key = "Case24 " + Constants.proportional;
-	double case24_C = casePer_C/population*Constants._C;
+	double case24_C = casePer_C / population * Constants._C;
 	metaField.value = String.valueOf(formatter.format(case24_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(0, 0, Constants.UITerraCasePer_C);
 	metaField.key = "Case " + Constants.proportional;
 	metaField.value = String.valueOf(formatter.format(casePer_C));
@@ -137,11 +144,11 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24Per_C);
 	metaField.key = "Death24 " + Constants.proportional;
-	double death24PerMillion = deathPer_C/population*Constants._C;
+	double death24PerMillion = deathPer_C / population * Constants._C;
 	metaField.value = String.valueOf(formatter.format(death24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-	
+
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPer_C);
 	metaField.key = "Death " + Constants.proportional;
 	metaField.value = String.valueOf(formatter.format(deathPer_C));
@@ -172,7 +179,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
-	
+
 	String sqlRNought = "select Date, sum(NewCase) as CaseX from Detail group by Date order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
@@ -184,7 +191,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
-	
+
 //	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
 //	Double rNought7 = rNoughtAverage7.get(0).average;
 //	metaField = new MetaField(0, 0, Constants.UITerraRNought7);
@@ -202,12 +209,12 @@ public class UITerra extends UI implements IRegisterOnStack {
 //	metaField.underlineKey = true;
 //	metaFields.add(metaField);
 //	metaField = new MetaField();
-	
+
 	metaField.key = "";
 	metaField.value = "";
 	metaFields.add(metaField);
 	metaField = new MetaField();
-	
+
 	setTableLayout(populateTable(metaFields));
   }
 

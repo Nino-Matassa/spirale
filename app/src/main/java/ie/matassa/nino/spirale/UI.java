@@ -105,10 +105,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Terra Total Deaths");
 		break;
 	  case Constants.UITerraCasePer_C:
-		((Activity)context).setTitle("Spirale - Terra Case/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Terra Case/100,000");
 		break;
 	  case Constants.UITerraDeathPer_C:
-		((Activity)context).setTitle("Spirale - Terra Death/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Terra Death/100,000");
 		break;
 	  case Constants.UITerraCase24H:
 		((Activity)context).setTitle("Spirale - Terra Case/24H");
@@ -132,10 +132,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Total Deaths");
 		break;
 	  case Constants.UICasePer_C:
-		((Activity)context).setTitle("Spirale - Case/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Case/100,000");
 		break;
 	  case Constants.UIDeathPer_C:
-		((Activity)context).setTitle("Spirale - Death/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Death/100,000");
 		break;
 	  case Constants.UICase7Day:
 		((Activity)context).setTitle("Spirale - Case 7Day");
@@ -144,13 +144,16 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Death 7Day");
 		break;
 	  case Constants.UITerraCase24Per_C:
-		((Activity)context).setTitle("Spirale - Case24/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Case24/100,000");
 		break;
 	  case Constants.UITerraDeath24Per_C:
-		((Activity)context).setTitle("Spirale - Death24/Hundred Thousand");
+		((Activity)context).setTitle("Spirale - Death24/100,000");
 		break;
 	  case Constants.UITerraActiveCases:
-		((Activity)context).setTitle("Spirale - Active Cases");
+		((Activity)context).setTitle("Spirale - Terra Active Cases");
+		break;
+	  case Constants.UITerraActiveCases_C:
+		((Activity)context).setTitle("Spirale - Terra Active Cases/100,000");
 		break;
 	  case Constants.UIActiveCases:
 		((Activity)context).setTitle("Spirale - Active Cases");
@@ -270,6 +273,9 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCases_C)) {
+				new UITerraActiveCases_C(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UIActiveCases)) {
 				new UIActiveCases(context, metaField.regionId, metaField.countryId);

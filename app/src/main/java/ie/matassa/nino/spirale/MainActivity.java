@@ -107,6 +107,9 @@ public class MainActivity extends Activity {
 	  case Constants.UIActiveCases:
 		new UIActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		break;
+	  case Constants.UITerraActiveCases_C:
+		new UITerraActiveCases_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		break;
 //	  case Constants.UITerraRNought14:
 //		new UITerraRNought14(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 //		break;
