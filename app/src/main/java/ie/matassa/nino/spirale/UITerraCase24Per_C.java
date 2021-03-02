@@ -38,7 +38,7 @@ public class UITerraCase24Per_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case24/Hundred Thousand");
+		  setHeader("Country", "Case24 " + Constants.proportional);
         }
       });
   }

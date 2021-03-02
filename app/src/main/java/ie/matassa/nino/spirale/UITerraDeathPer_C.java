@@ -36,7 +36,7 @@ public class UITerraDeathPer_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Death/100,000");
+		  setHeader("Country", "Death " + Constants.proportional);
         }
       });
   }

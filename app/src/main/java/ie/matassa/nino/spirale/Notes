@@ -12,10 +12,11 @@ https://www.sololearn.com/Discuss/1623725/how-to-define-and-print-superscript-an
 "x\u00b2" = x²
 "x\u2080" = x₀
 
-Unicode Character “∝” (U+221D)
+Unicode Character “∝” (U+221D) -> "\u221D"
 
+Country.length() < Constants.abbreviate ? Country:Country.substring(0, 10) + "..."
+country.length() < Constants.abbreviate ? country:country.substring(0, 10) + "..."
 
-ToDo:
-
+UITerra called from UIMessage.notificationMessage at onCreate. Other minor fixes too.
 */
 

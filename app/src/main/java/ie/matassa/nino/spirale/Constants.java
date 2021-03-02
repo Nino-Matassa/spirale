@@ -11,6 +11,7 @@ public class Constants {
 
   public static final String rNought = "R\u2080";
   public static final String proportional = "\u221D";
+  public static final String forEach = "\u2200";
 
   public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
   public static final String[] Names = {csvOverviewName, csvDetailsName };
@@ -21,6 +22,7 @@ public class Constants {
   public static final int seven = 7;
 //  public static final int fourteen = 14;
   public static final int twentyEight = 28;
+  public static final int abbreviate = 13;
 
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";

@@ -7,6 +7,7 @@ import android.net.*;
 import android.os.*;
 import android.util.*;
 import java.util.*;
+import org.apache.commons.codec.binary.*;
 
 public class UICountry extends UI implements IRegisterOnStack {
 
@@ -54,8 +55,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateCountry();
-		  setHeader(region, Country);
-		  //UIMessage.notificationMessage(context, null);
+		  setHeader(region, Country.length() < Constants.abbreviate ? Country:Country.substring(0, 10) + "...");
         }
       });
   }

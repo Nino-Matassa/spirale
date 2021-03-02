@@ -14,7 +14,7 @@ public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UITerraActiveCases_C(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraActiveCases);
+	super(context, Constants.UITerraActiveCases_C);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;

@@ -25,6 +25,10 @@ public class UIMessage {
 		public void run() {
 		  if(msg == null) {
 			alertDialog.dismiss();
+			if(MainActivity.bCallUITerra) {
+			  MainActivity.bCallUITerra = false;
+			  new UITerra(context);
+			}
 			return;
 		  }
 		  if (builder == null) {
