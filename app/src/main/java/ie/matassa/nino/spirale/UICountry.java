@@ -55,7 +55,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateCountry();
-		  setHeader(region, Country.length() < Constants.abbreviate ? Country:Country.substring(0, 10) + "...");
+		  setHeader(region, UIMessage.abbreviate(Country, Constants.abbreviate));
         }
       });
   }

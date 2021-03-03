@@ -40,4 +40,8 @@ public class UIMessage {
         }
       });
   }
+  
+  public static String abbreviate(String text, int length) {
+	return text.length() < Constants.abbreviate ? text:text.substring(0, Constants.abbreviate-3) + "...";
+  }
 }

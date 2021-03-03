@@ -42,7 +42,7 @@ public class UICase7Day extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader(Region, Country.length() < Constants.abbreviate ? Country:Country.substring(0, 10) + "...");
+		  setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
         }
       });
   }

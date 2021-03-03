@@ -22,7 +22,7 @@ public class Constants {
   public static final int seven = 7;
 //  public static final int fourteen = 14;
   public static final int twentyEight = 28;
-  public static final int abbreviate = 13;
+  public static final int abbreviate = 15;
 
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";

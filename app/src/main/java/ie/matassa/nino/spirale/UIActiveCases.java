@@ -37,7 +37,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader(region, country.length() < Constants.abbreviate ? country:country.substring(0, 10) + "...");
+		  setHeader(region, UIMessage.abbreviate(country, Constants.abbreviate));
         }
       });
   }
