@@ -11,6 +11,9 @@ import java.util.*;
 import android.widget.*;
 import android.os.*;
 import java.util.stream.*;
+import android.icu.text.*;
+import java.nio.file.*;
+import org.apache.commons.io.*;
 
 
 public class CSV {
@@ -183,14 +186,32 @@ public class CSV {
 	UIMessage.notificationMessage(context, "Downloading... " + url + "/" + name);
 	UIMessage.toast(context,  "Downloading... " + url + "/" + name, Toast.LENGTH_SHORT);
 
-	String filePath = context.getFilesDir().getPath().toString() + "/" + name;
-	File file = new File(filePath);
-	if (file.exists()) file.delete();
+	String csvFilePath = context.getFilesDir().getPath().toString() + "/" + name;
+	File csvFile = new File(csvFilePath);
+	if (csvFile.exists()) { // Archive and copy it to documents/spirale then delete from this directory
+	  // Rename file
+	  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	  String timestamp  = dateFormat.format(new java.util.Date());
+	  String archivePath = context.getFilesDir().getPath().toString() + "/" + name + "-" + timestamp;
+	  File csvArchive = new File(archivePath);
+	  csvFile.renameTo(csvArchive);
+	  // Create directory if !exists
+	  File spiralDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/spirale");
+	  boolean bCreated = spiralDirectory.mkdir();
+	  // Copy archived file into it...
+	  try {
+		org.apache.commons.io.FileUtils.copyFileToDirectory(csvArchive, spiralDirectory);
+	  } catch (IOException e) {
+		Log.d("downloadUrlRequest", e.toString());
+	  } finally {
+		csvArchive.delete();
+	  }
+	}
 	ReadableByteChannel readChannel = null;
 
 	try {
 	  readChannel = Channels.newChannel(new URL(url).openStream());
-	  FileOutputStream fileOS = new FileOutputStream(filePath);
+	  FileOutputStream fileOS = new FileOutputStream(csvFilePath);
 	  FileChannel writeChannel = fileOS.getChannel();
 	  writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 	  writeChannel.close();

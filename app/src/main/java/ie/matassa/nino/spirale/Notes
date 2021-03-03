@@ -17,6 +17,8 @@ Unicode Character “∝” (U+221D) -> "\u221D"
 Country.length() < Constants.abbreviate ? Country:Country.substring(0, 10) + "..."
 country.length() < Constants.abbreviate ? country:country.substring(0, 10) + "..."
 
-UITerra called from UIMessage.notificationMessage at onCreate. Other minor fixes too.
-*/
+Archive .csv files to documents/spirale so if & when WHO make changes they can be tracked.
+compile 'commons-io:commons-io:2.4' added to Gradle (org.apache.commons.io)
 
+*/
+ 
