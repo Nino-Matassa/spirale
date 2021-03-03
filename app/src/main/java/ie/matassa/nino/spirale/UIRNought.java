@@ -52,7 +52,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
 	region = cRNought.getString(cRNought.getColumnIndex("Region"));
 	country = cRNought.getString(cRNought.getColumnIndex("Country"));
 
-	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.twentyEight);
+	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
 	for (RNoughtAverage values: rNoughtAverage) {
 	  metaField = new MetaField(regionId, countryId, Constants.UIRNought);
 	  metaField.key = values.date;

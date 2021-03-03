@@ -57,7 +57,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 	  countryId = cRNought.getInt(cRNought.getColumnIndex("Id"));
 	  String country = cRNought.getString(cRNought.getColumnIndex("Country"));
 
-	  ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.twentyEight);
+	  ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  metaField.key = country;
 	  metaField.value = String.valueOf(formatter.format(rNoughtAverage.get(0).average));

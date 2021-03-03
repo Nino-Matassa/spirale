@@ -50,7 +50,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 	region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	country = cDetail.getString(cDetail.getColumnIndex("Country"));
 
-	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.twentyEight);
+	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.moonPhase);
 	for(CaseRangeTotal fieldTotal: fieldTotals) {
 	  metaField = new MetaField(regionId, countryId, Constants.UIActiveCases);
 	  metaField.key = fieldTotal.date;

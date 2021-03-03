@@ -21,7 +21,7 @@ public class Constants {
 //  public static final int one = 1;
   public static final int seven = 7;
 //  public static final int fourteen = 14;
-  public static final int twentyEight = 28;
+  public static final int moonPhase = 28;
   public static final int abbreviate = 15;
 
   public static final String UITerra = "UITerra";
