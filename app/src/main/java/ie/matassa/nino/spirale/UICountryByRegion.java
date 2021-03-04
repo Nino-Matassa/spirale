@@ -74,7 +74,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	} catch (Exception e) {
 	  Log.d("UICountryByRegion", e.toString());
 	}
-	metaFields.sort(new sortStats());
+	//metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
 }

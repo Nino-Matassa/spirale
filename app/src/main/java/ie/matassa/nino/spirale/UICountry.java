@@ -94,6 +94,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	population = totalCases / casePer_C * Constants.oneHundredThousand;
 	precentInfected = totalCases == 0 ? 0: totalCases / population * 100;
 	infectionsCurve = totalCases == 0 ? 0: Math.log((double)case24Hour);
+	infectionsCurve = infectionsCurve.isInfinite() ? 0:infectionsCurve;
 
 	MetaField metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Last Updated";
