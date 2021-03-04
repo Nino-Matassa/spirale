@@ -54,10 +54,10 @@ public class MainActivity extends Activity {
 		case Constants.UITerraTotalDeaths:
 		  new UITerraTotalDeaths(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraCasePer_C:
+		case Constants.UITerraCasePerX:
 		  new UITerraCasePerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraDeathPer_C:
+		case Constants.UITerraDeathPerX:
 		  new UITerraDeathPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraCase24H:
@@ -75,10 +75,10 @@ public class MainActivity extends Activity {
 		case Constants.UITerraTotalInfected:
 		  new UITerraTotalInfected(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraCase24Per_C:
+		case Constants.UITerraCase24PerX:
 		  new UITerraCase24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraDeath24Per_C:
+		case Constants.UITerraDeath24PerX:
 		  new UITerraDeath24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraActiveCases:
@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 		case Constants.UIActiveCases:
 		  new UIActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraActiveCases_C:
+		case Constants.UITerraActiveCasesX:
 		  new UITerraActiveCasesPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraRNought:

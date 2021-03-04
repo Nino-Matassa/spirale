@@ -66,10 +66,10 @@ public class UI {
 		((Activity)context).setTitle("Spirale - Country");
 		break;
 	  case Constants.UICase24Hour:
-		((Activity)context).setTitle("Spirale - Cases 24 Hours");
+		((Activity)context).setTitle("Spirale - Cases24H");
 		break;
 	  case Constants.UIDeath24Hour:
-		((Activity)context).setTitle("Spirale - Deaths 24 Hours");
+		((Activity)context).setTitle("Spirale - Deaths24H");
 		break;
 	  case Constants.UITotalPrecentInfected:
 		((Activity)context).setTitle("Spirale - Precentage Infected");
@@ -83,44 +83,32 @@ public class UI {
 	  case Constants.UIRNought:
 		((Activity)context).setTitle("Spirale - " + Constants.rNought);
 		break;
-//	  case Constants.UIRNought7:
-//		((Activity)context).setTitle("Spirale - Ro/7");
-//		break;
-//	  case Constants.UIRNought14:
-//		((Activity)context).setTitle("Spirale - Ro/14");
-//		break;
 	  case Constants.UITerraRNought:
 		((Activity)context).setTitle("Spirale - Terra " + Constants.rNought);
 		break;
-//	  case Constants.UITerraRNought7:
-//		((Activity)context).setTitle("Spirale - Terra Ro/7");
-//		break;
-//	  case Constants.UITerraRNought14:
-//		((Activity)context).setTitle("Spirale - Terra Ro/14");
-//		break;
 	  case Constants.UITerraTotalCases:
 		((Activity)context).setTitle("Spirale - Terra Total Cases");
 		break;
 	  case Constants.UITerraTotalDeaths:
 		((Activity)context).setTitle("Spirale - Terra Total Deaths");
 		break;
-	  case Constants.UITerraCasePer_C:
-		((Activity)context).setTitle("Spirale - Terra Case/100,000");
+	  case Constants.UITerraCasePerX:
+		((Activity)context).setTitle("Spirale - Terra Case/" + Constants.roman100000);
 		break;
-	  case Constants.UITerraDeathPer_C:
-		((Activity)context).setTitle("Spirale - Terra Death/100,000");
+	  case Constants.UITerraDeathPerX:
+		((Activity)context).setTitle("Spirale - Terra Death/" + Constants.roman100000);
 		break;
 	  case Constants.UITerraCase24H:
-		((Activity)context).setTitle("Spirale - Terra Case/24H");
+		((Activity)context).setTitle("Spirale - Terra Case24H");
 		break;
 	  case Constants.UITerraCase7D:
-		((Activity)context).setTitle("Spirale - Terra Case/7D");
+		((Activity)context).setTitle("Spirale - Terra Case7D");
 		break;
 	  case Constants.UITerraDeath24H:
-		((Activity)context).setTitle("Spirale - Terra Death/24H");
+		((Activity)context).setTitle("Spirale - Terra Death24H");
 		break;
 	  case Constants.UITerraDeath7D:
-		((Activity)context).setTitle("Spirale - Terra Death/7D");
+		((Activity)context).setTitle("Spirale - Terra Death7D");
 		break;
 	  case Constants.UITerraTotalInfected:
 		((Activity)context).setTitle("Spirale - Terra Total Infected");
@@ -131,29 +119,29 @@ public class UI {
 	  case Constants.UITotalDeath:
 		((Activity)context).setTitle("Spirale - Total Deaths");
 		break;
-	  case Constants.UICasePer_C:
-		((Activity)context).setTitle("Spirale - Case/100,000");
+	  case Constants.UICasePerX:
+		((Activity)context).setTitle("Spirale - Case/" + Constants.roman100000);
 		break;
-	  case Constants.UIDeathPer_C:
-		((Activity)context).setTitle("Spirale - Death/100,000");
+	  case Constants.UIDeathPerX:
+		((Activity)context).setTitle("Spirale - Death/" + Constants.roman100000);
 		break;
 	  case Constants.UICase7Day:
-		((Activity)context).setTitle("Spirale - Case 7Day");
+		((Activity)context).setTitle("Spirale - Case7D");
 		break;
 	  case Constants.UIDeath7Day:
-		((Activity)context).setTitle("Spirale - Death 7Day");
+		((Activity)context).setTitle("Spirale - Death7D");
 		break;
-	  case Constants.UITerraCase24Per_C:
-		((Activity)context).setTitle("Spirale - Case24/100,000");
+	  case Constants.UITerraCase24PerX:
+		((Activity)context).setTitle("Spirale - Case24/" + Constants.roman100000);
 		break;
-	  case Constants.UITerraDeath24Per_C:
-		((Activity)context).setTitle("Spirale - Death24/100,000");
+	  case Constants.UITerraDeath24PerX:
+		((Activity)context).setTitle("Spirale - Death24/" + Constants.roman100000);
 		break;
 	  case Constants.UITerraActiveCases:
 		((Activity)context).setTitle("Spirale - Terra Active Cases");
 		break;
-	  case Constants.UITerraActiveCases_C:
-		((Activity)context).setTitle("Spirale - Terra Active Cases/100,000");
+	  case Constants.UITerraActiveCasesX:
+		((Activity)context).setTitle("Spirale - Terra Active Cases/" + Constants.roman100000);
 		break;
 	  case Constants.UIActiveCases:
 		((Activity)context).setTitle("Spirale - Active Cases");
@@ -214,10 +202,10 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraTotalDeaths)) {
 				new UITerraTotalDeaths(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraCasePer_C)) {
+			  if (metaField.UI.equals(Constants.UITerraCasePerX)) {
 				new UITerraCasePerX(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraDeathPer_C)) {
+			  if (metaField.UI.equals(Constants.UITerraDeathPerX)) {
 				new UITerraDeathPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraCase24H)) {
@@ -241,10 +229,10 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITotalDeath)) {
 				new UITotalDeath(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UICasePer_C)) {
+			  if (metaField.UI.equals(Constants.UICasePerX)) {
 				new UICasePerX(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UIDeathPer_C)) {
+			  if (metaField.UI.equals(Constants.UIDeathPerX)) {
 				new UIDeathPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UICase7Day)) {
@@ -253,16 +241,16 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UIDeath7Day)) {
 				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraCase24Per_C)) {
+			  if (metaField.UI.equals(Constants.UITerraCase24PerX)) {
 				new UITerraCase24PerX(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraDeath24Per_C)) {
+			  if (metaField.UI.equals(Constants.UITerraDeath24PerX)) {
 				new UITerraDeath24PerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraActiveCases_C)) {
+			  if (metaField.UI.equals(Constants.UITerraActiveCasesX)) {
 				new UITerraActiveCasesPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UIActiveCases)) {

@@ -15,7 +15,7 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UITerraDeathPerX(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraDeathPer_C);
+	super(context, Constants.UITerraDeathPerX);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -26,7 +26,7 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraDeathPer_C);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraDeathPerX);
 	MainActivity.stack.add(uiHistory);
   }
 

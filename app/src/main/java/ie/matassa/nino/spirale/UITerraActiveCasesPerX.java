@@ -14,7 +14,7 @@ public class UITerraActiveCasesPerX extends UI implements IRegisterOnStack {
   private MetaField metaField = null;
 
   public UITerraActiveCasesPerX(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraActiveCases_C);
+	super(context, Constants.UITerraActiveCasesX);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -25,7 +25,7 @@ public class UITerraActiveCasesPerX extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraActiveCases_C);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraActiveCasesX);
 	MainActivity.stack.add(uiHistory);
   }
 

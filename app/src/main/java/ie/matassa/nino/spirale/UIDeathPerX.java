@@ -18,7 +18,7 @@ public class UIDeathPerX extends UI implements IRegisterOnStack {
   private String country = null;
 
   public UIDeathPerX(Context context, int regionId, int countryId) {
-	super(context, Constants.UIDeathPer_C);
+	super(context, Constants.UIDeathPerX);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -29,7 +29,7 @@ public class UIDeathPerX extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIDeathPer_C);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIDeathPerX);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -75,7 +75,7 @@ public class UIDeathPerX extends UI implements IRegisterOnStack {
 	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeath"));
 	  deathPer_C = totalDeaths/population*Constants.oneHundredThousand;
 
-	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPer_C);
+	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPerX);
 	  metaField.key = date;
 	  metaField.value = String.valueOf(formatter.format(deathPer_C));
 	  metaFields.add(metaField);

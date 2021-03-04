@@ -18,7 +18,7 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 	private String country = null;
 
   public UICasePerX(Context context, int regionId, int countryId) {
-	super(context, Constants.UICasePer_C);
+	super(context, Constants.UICasePerX);
 	  this.context = context;
 	  this.regionId = regionId;
 	  this.countryId = countryId;
@@ -29,7 +29,7 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 
 	@Override
 	public void registerOnStack() {
-	  uiHistory = new UIHistory(regionId, countryId, Constants.UICasePer_C);
+	  uiHistory = new UIHistory(regionId, countryId, Constants.UICasePerX);
 	  MainActivity.stack.add(uiHistory);
 	}
 
@@ -75,7 +75,7 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 		int totalCase = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
 		casePerMillion = totalCase/population*Constants.oneHundredThousand;
 
-		metaField = new MetaField(regionId, countryId, Constants.UICasePer_C);
+		metaField = new MetaField(regionId, countryId, Constants.UICasePerX);
 		metaField.key = date;
 		metaField.value = String.valueOf(formatter.format(casePerMillion));
 		metaFields.add(metaField);
