@@ -77,7 +77,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	deathPer_C = cTerra.getDouble(cTerra.getColumnIndex("DeathPer_C"));
 	death7Day = cTerra.getInt(cTerra.getColumnIndex("Death7Day"));
 	death24Hour = cTerra.getInt(cTerra.getColumnIndex("Death24Hour"));
-	population = totalCase / casePer_C * Constants._C;
+	population = totalCase / casePer_C * Constants.oneHundredThousand;
 	precentInfected = totalCase / population * 100;
 	infectionsCurve = Math.log((double)case24Hour);
 
@@ -105,33 +105,33 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCases_C);
-	metaField.key = "Active Cases " + Constants.proportional;
-	Double activeCases_C = activeCases/population*Constants._C;
+	metaField.key = "Active Cases/" + Constants.roman100000;
+	Double activeCases_C = activeCases/population*Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(activeCases_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase24Per_C);
-	metaField.key = "Case24 " + Constants.proportional;
-	double case24_C = casePer_C / population * Constants._C;
+	metaField.key = "Case24H/" + Constants.roman100000;
+	double case24_C = casePer_C / population * Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(case24_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCasePer_C);
-	metaField.key = "Case " + Constants.proportional;
+	metaField.key = "Case/" + Constants.roman100000;
 	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase24H);
-	metaField.key = "Case/24";
+	metaField.key = "Case24H";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase7D);
-	metaField.key = "Case/7D";
+	metaField.key = "Case7D";
 	metaField.value = String.valueOf(formatter.format(case7Day));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -143,26 +143,26 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24Per_C);
-	metaField.key = "Death24 " + Constants.proportional;
-	double death24PerMillion = deathPer_C / population * Constants._C;
+	metaField.key = "Death24H/" + Constants.roman100000;
+	double death24PerMillion = deathPer_C / population * Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(death24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPer_C);
-	metaField.key = "Death " + Constants.proportional;
+	metaField.key = "Death/" + Constants.roman100000;
 	metaField.value = String.valueOf(formatter.format(deathPer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24H);
-	metaField.key = "Death/24";
+	metaField.key = "Death24H";
 	metaField.value = String.valueOf(formatter.format(death24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath7D);
-	metaField.key = "Death/7D";
+	metaField.key = "Death7D";
 	metaField.value = String.valueOf(formatter.format(death7Day));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -191,24 +191,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
-
-//	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
-//	Double rNought7 = rNoughtAverage7.get(0).average;
-//	metaField = new MetaField(0, 0, Constants.UITerraRNought7);
-//	metaField.key = "Ro/7";
-//	metaField.value = String.valueOf(formatter.format(rNought7));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-//	metaField = new MetaField();
-//	
-//	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
-//	Double rNought14 = rNoughtAverage14.get(0).average;
-//	metaField = new MetaField(0, 0, Constants.UITerraRNought14);
-//	metaField.key = "Ro/14";
-//	metaField.value = String.valueOf(formatter.format(rNought14));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-//	metaField = new MetaField();
 
 	metaField.key = "";
 	metaField.value = "";

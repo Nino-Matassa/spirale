@@ -12,15 +12,15 @@ public class Constants {
   public static final String rNought = "R\u2080";
   public static final String proportional = "\u221D";
   public static final String forEach = "\u2200";
-
+  
+  public static final String roman100000 = "C\u0305"; // Roman numeral for 100,000
+  public static final int oneHundredThousand = 100000;
+  
   public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
   public static final String[] Names = {csvOverviewName, csvDetailsName };
 
   public static final int dbVersion = 1;
-  public static final int _C = 100000; // _C == 100,000, well, overscore C in Roman numerals
-//  public static final int one = 1;
   public static final int seven = 7;
-//  public static final int fourteen = 14;
   public static final int moonPhase = 28;
   public static final int abbreviate = 15;
 
@@ -35,16 +35,12 @@ public class Constants {
   public static final String UITerraInfectionsCurve = "UITerraInfectionsCurve";
   public static final String UIRNought = "UIRNought";
   public static final String UITerraRNought = "UITerraRNought";
-//  public static final String UIRNought7 = "UIRNought7";
-//  public static final String UIRNought14 = "UIRNought14";
   public static final String UITotalCase = "UITotalCase";
   public static final String UITotalDeath = "UITotalDeath";
   public static final String UICasePer_C = "UICasePer_C";
   public static final String UIDeathPer_C = "UIDeathPer_C";
   public static final String UICase7Day = "UICase7Day";
   public static final String UIDeath7Day = "UIDeath7Day";
-//  public static final String UITerraRNought7 = "UITerraRNought7";
-//  public static final String UITerraRNought14 = "UITerraRNought14";
   public static final String UITerraTotalCases = "UITerraTotalCases";
   public static final String UITerraCasePer_C = "UITerraCasePer_C";
   public static final String UITerraTotalDeaths = "UITerraTotalDeaths";

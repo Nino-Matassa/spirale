@@ -6,7 +6,7 @@ import android.icu.text.*;
 import android.os.*;
 import java.util.*;
 
-public class UITerraCasePer_C extends UI implements IRegisterOnStack {
+public class UITerraCasePerX extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -14,7 +14,7 @@ public class UITerraCasePer_C extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraCasePer_C(Context context, int regionId, int countryId) {
+  public UITerraCasePerX(Context context, int regionId, int countryId) {
 	super(context, Constants.UITerraCasePer_C);
 	this.context = context;
 	this.regionId = regionId;
@@ -36,7 +36,7 @@ public class UITerraCasePer_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case " + Constants.proportional);
+		  setHeader("Country", "Case/" + Constants.roman100000);
         }
       });
   }

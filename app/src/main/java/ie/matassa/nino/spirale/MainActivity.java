@@ -55,10 +55,10 @@ public class MainActivity extends Activity {
 		  new UITerraTotalDeaths(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraCasePer_C:
-		  new UITerraCasePer_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UITerraCasePerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraDeathPer_C:
-		  new UITerraDeathPer_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UITerraDeathPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraCase24H:
 		  new UITerraCase24H(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
@@ -76,10 +76,10 @@ public class MainActivity extends Activity {
 		  new UITerraTotalInfected(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraCase24Per_C:
-		  new UITerraCase24Per_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UITerraCase24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraDeath24Per_C:
-		  new UITerraDeath24Per_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UITerraDeath24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraActiveCases:
 		  new UITerraActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 		  new UIActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraActiveCases_C:
-		  new UITerraActiveCases_C(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+		  new UITerraActiveCasesPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraRNought:
 		  new UITerraRNought(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());

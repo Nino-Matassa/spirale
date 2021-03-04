@@ -6,7 +6,7 @@ import android.icu.text.*;
 import android.os.*;
 import java.util.*;
 
-public class UITerraDeathPer_C extends UI implements IRegisterOnStack {
+public class UITerraDeathPerX extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -14,7 +14,7 @@ public class UITerraDeathPer_C extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraDeathPer_C(Context context, int regionId, int countryId) {
+  public UITerraDeathPerX(Context context, int regionId, int countryId) {
 	super(context, Constants.UITerraDeathPer_C);
 	this.context = context;
 	this.regionId = regionId;
@@ -36,7 +36,7 @@ public class UITerraDeathPer_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Death " + Constants.proportional);
+		  setHeader("Country", "Death/" + Constants.roman100000);
         }
       });
   }

@@ -5,7 +5,7 @@ import android.os.*;
 import java.util.*;
 import android.database.*;
 
-public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
+public class UITerraActiveCasesPerX extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -13,7 +13,7 @@ public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraActiveCases_C(Context context, int regionId, int countryId) {
+  public UITerraActiveCasesPerX(Context context, int regionId, int countryId) {
 	super(context, Constants.UITerraActiveCases_C);
 	this.context = context;
 	this.regionId = regionId;
@@ -35,7 +35,7 @@ public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Active Cases " + Constants.proportional);
+		  setHeader("Country", "Active Cases/" + Constants.roman100000);
         }
       });
   }
@@ -49,7 +49,7 @@ public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
 
 	  int totalCase = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
 	  double casePer_C = cTerra.getDouble(cTerra.getColumnIndex("CasePer_C"));
-	  population = totalCase / casePer_C * Constants._C;
+	  population = totalCase / casePer_C * Constants.oneHundredThousand;
 	  
 	}
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
@@ -65,7 +65,7 @@ public class UITerraActiveCases_C extends UI implements IRegisterOnStack {
 	  country = country.replace("'", "''");
 
 	  int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
-	  Double activeCases_C = activeCase/population*Constants._C;
+	  Double activeCases_C = activeCase/population*Constants.oneHundredThousand;
 	  metaField.key = country;
 	  metaField.value = String.valueOf(formatter.format(activeCases_C));
 	  metaField.underlineKey = true;

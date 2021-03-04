@@ -35,7 +35,7 @@ public class UITerraDeath7D extends UI implements IRegisterOnStack {
 		  @Override
 		  public void run() {
 			populateTable();
-			setHeader("Country", "Death/7D");
+			setHeader("Country", "Death7D");
 		  }
 		});
 	}

@@ -7,7 +7,7 @@ import android.os.*;
 import java.util.*;
 import android.util.*;
 
-public class UIDeathPer_C extends UI implements IRegisterOnStack {
+public class UIDeathPerX extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -17,7 +17,7 @@ public class UIDeathPer_C extends UI implements IRegisterOnStack {
   private String region = null;
   private String country = null;
 
-  public UIDeathPer_C(Context context, int regionId, int countryId) {
+  public UIDeathPerX(Context context, int regionId, int countryId) {
 	super(context, Constants.UIDeathPer_C);
 	this.context = context;
 	this.regionId = regionId;
@@ -60,7 +60,7 @@ public class UIDeathPer_C extends UI implements IRegisterOnStack {
 	  cCPM.moveToFirst();
 	  deathPer_C = cCPM.getDouble(cCPM.getColumnIndex("DeathPer_C"));
 	  int totalDeath = cCPM.getInt(cCPM.getColumnIndex("TotalDeath"));
-	  population = totalDeath/(double)deathPer_C*Constants._C;
+	  population = totalDeath/(double)deathPer_C*Constants.oneHundredThousand;
 	}
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -73,7 +73,7 @@ public class UIDeathPer_C extends UI implements IRegisterOnStack {
 	  }
 
 	  int totalDeaths = cDetail.getInt(cDetail.getColumnIndex("TotalDeath"));
-	  deathPer_C = totalDeaths/population*Constants._C;
+	  deathPer_C = totalDeaths/population*Constants.oneHundredThousand;
 
 	  metaField = new MetaField(regionId, countryId, Constants.UIDeathPer_C);
 	  metaField.key = date;

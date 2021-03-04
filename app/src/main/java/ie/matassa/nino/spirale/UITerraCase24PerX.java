@@ -6,8 +6,9 @@ import android.icu.text.*;
 import android.os.*;
 import ie.matassa.nino.spirale.*;
 import java.util.*;
+import android.util.*;
 
-public class UITerraDeath24Per_C extends UI implements IRegisterOnStack {
+public class UITerraCase24PerX extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -15,8 +16,8 @@ public class UITerraDeath24Per_C extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UITerraDeath24Per_C(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraDeath24Per_C);
+  public UITerraCase24PerX(Context context, int regionId, int countryId) {
+	super(context, Constants.UITerraCase24Per_C);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -27,7 +28,7 @@ public class UITerraDeath24Per_C extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraDeath24Per_C);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UITerraCase24Per_C);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -37,45 +38,44 @@ public class UITerraDeath24Per_C extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Death24 " + Constants.proportional);
+		  setHeader("Country", "Case24H/" + Constants.roman100000);
         }
       });
   }
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Country.Id, Country.FK_Region, Detail.Country, NewDeath from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
+	String sqlDetail = "select Country.Id, Country.FK_Region, Detail.Country, NewCase from Detail join Country on Detail.FK_Country = Country.Id group by Detail.Country";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
 	cDetail.moveToFirst();
 	do {
 	  int regionId = cDetail.getInt(cDetail.getColumnIndex("FK_Region"));
 	  int countryId = cDetail.getInt(cDetail.getColumnIndex("Id"));
-	  
-	  String sqlOverview = "select Overview.TotalDeath, Overview.DeathPer_C from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
+
+	  String sqlOverview = "select Overview.TotalCase, Overview.CasePer_C from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
 	  sqlOverview = sqlOverview.replace("#1", String.valueOf(countryId));
 	  Cursor cOverview = db.rawQuery(sqlOverview, null);
 	  cOverview.moveToFirst();
-	  int totalDeaths = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
-	  int deathPerMillion = cOverview.getInt(cOverview.getColumnIndex("DeathPer_C"));
+	  int totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
+	  int casePer_C = cOverview.getInt(cOverview.getColumnIndex("CasePer_C"));
 	  double population = 0.0;
-	  if(totalDeaths > 0 && deathPerMillion > 0)
-		population = totalDeaths/deathPerMillion*Constants._C;
-	  
+	  if (totalCases > 0 && casePer_C > 0)
+		population = totalCases / casePer_C * Constants.oneHundredThousand;
+
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cDetail.getString(cDetail.getColumnIndex("Country"));
 
 	  country = country.replace("'", "''");
 
-	  int newDeath = cDetail.getInt(cDetail.getColumnIndex("NewDeath"));
-	  double newDeathPerMillion = 0.0;
-	  if(population > 0.0)
-	  	newDeathPerMillion = newDeath/population*Constants._C;
+	  int newCase = cDetail.getInt(cDetail.getColumnIndex("NewCase"));
+	  double newCasePerMillion = 0.0;
+	  if (population > 0.0)
+		newCasePerMillion = newCase / population * Constants.oneHundredThousand;
 	  metaField.key = country;
-	  metaField.value = String.valueOf(formatter.format(newDeathPerMillion));
+	  metaField.value = String.valueOf(formatter.format(newCasePerMillion));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
-
-
+	  
 	} while(cDetail.moveToNext());
 
 	metaFields.sort(new sortStats());

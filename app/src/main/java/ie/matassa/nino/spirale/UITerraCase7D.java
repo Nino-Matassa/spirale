@@ -35,7 +35,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case/7D");
+		  setHeader("Country", "Case7D");
         }
       });
   }

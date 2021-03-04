@@ -7,7 +7,7 @@
   import java.util.*;
   import android.util.*;
 
-public class UICasePer_C extends UI implements IRegisterOnStack {
+public class UICasePerX extends UI implements IRegisterOnStack {
 	private Context context = null;
 	private int regionId = 0;
 	private int countryId = 0;
@@ -17,7 +17,7 @@ public class UICasePer_C extends UI implements IRegisterOnStack {
 	private String region = null;
 	private String country = null;
 
-  public UICasePer_C(Context context, int regionId, int countryId) {
+  public UICasePerX(Context context, int regionId, int countryId) {
 	super(context, Constants.UICasePer_C);
 	  this.context = context;
 	  this.regionId = regionId;
@@ -60,7 +60,7 @@ public class UICasePer_C extends UI implements IRegisterOnStack {
 		cCPM.moveToFirst();
 		casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePer_C"));
 		int totalCase = cCPM.getInt(cCPM.getColumnIndex("TotalCase"));
-		population = totalCase/(double)casePerMillion*Constants._C;
+		population = totalCase/(double)casePerMillion*Constants.oneHundredThousand;
 	  }
 	  do {
 		String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -73,7 +73,7 @@ public class UICasePer_C extends UI implements IRegisterOnStack {
 		}
 		
 		int totalCase = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-		casePerMillion = totalCase/population*Constants._C;
+		casePerMillion = totalCase/population*Constants.oneHundredThousand;
 
 		metaField = new MetaField(regionId, countryId, Constants.UICasePer_C);
 		metaField.key = date;

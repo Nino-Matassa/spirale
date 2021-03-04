@@ -91,7 +91,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
 	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	population = totalCases / casePer_C * Constants._C;
+	population = totalCases / casePer_C * Constants.oneHundredThousand;
 	precentInfected = totalCases == 0 ? 0: totalCases / population * 100;
 	infectionsCurve = totalCases == 0 ? 0: Math.log((double)case24Hour);
 
@@ -122,19 +122,19 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICasePer_C);
-	metaField.key = "Case/100,000";
+	metaField.key = "Case/" + Constants.roman100000;
 	metaField.value = String.valueOf(formatter.format(casePer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICase7Day);
-	metaField.key = "Case7Day";
+	metaField.key = "Case7D";
 	metaField.value = String.valueOf(formatter.format(case7Day));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
-	metaField.key = "Case24Hour";
+	metaField.key = "Case24H";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -146,19 +146,19 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeathPer_C);
-	metaField.key = "Death/100,000";
+	metaField.key = "Death/" + Constants.roman100000;
 	metaField.value = String.valueOf(formatter.format(deathPer_C));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeath7Day);
-	metaField.key = "Death7Day";
+	metaField.key = "Death7D";
 	metaField.value = String.valueOf(formatter.format(death7Day));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeath24Hour);
-	metaField.key = "Death24Hour";
+	metaField.key = "Death24H";
 	metaField.value = String.valueOf(formatter.format(death24Hour));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
@@ -190,22 +190,6 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-
-//	ArrayList<RNoughtAverage> rNoughtAverage7 = new RNoughtCalculation().calculate(cRNought, Constants.seven);
-//	Double rNought7 = rNoughtAverage7.get(0).average;
-//	metaField = new MetaField(regionId, countryId, Constants.UIRNought7);
-//	metaField.key = "Ro/7day";
-//	metaField.value = String.valueOf(formatter.format(rNought7));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-//
-//	ArrayList<RNoughtAverage> rNoughtAverage14 = new RNoughtCalculation().calculate(cRNought, Constants.fourteen);
-//	Double rNought14 = rNoughtAverage14.get(0).average;
-//	metaField = new MetaField(regionId, countryId, Constants.UIRNought14);
-//	metaField.key = "Ro/14day";
-//	metaField.value = String.valueOf(formatter.format(rNought14));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
 
     setTableLayout(populateTable(metaFields)); 
   }

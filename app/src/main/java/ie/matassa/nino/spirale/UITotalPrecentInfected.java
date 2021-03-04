@@ -60,7 +60,7 @@ public class UITotalPrecentInfected extends UI implements IRegisterOnStack {
 	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePer_C"));
 	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-	population = totalCases / casePerMillion * Constants._C;
+	population = totalCases / casePerMillion * Constants.oneHundredThousand;
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
 	  try {

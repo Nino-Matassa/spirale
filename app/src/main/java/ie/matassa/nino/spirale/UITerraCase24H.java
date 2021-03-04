@@ -36,7 +36,7 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Case/24H");
+		  setHeader("Country", "Case24H");
         }
       });
   }

@@ -205,21 +205,9 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UIRNought)) {
 				new UIRNought(context, metaField.regionId, metaField.countryId);
 			  }
-//			  if (metaField.UI.equals(Constants.UIRNought7)) {
-//				new UIRNought7(context, metaField.regionId, metaField.countryId);
-//			  }
-//			  if (metaField.UI.equals(Constants.UIRNought14)) {
-//				new UIRNought14(context, metaField.regionId, metaField.countryId);
-//			  }
 			  if (metaField.UI.equals(Constants.UITerraRNought)) {
 				new UITerraRNought(context, metaField.regionId, metaField.countryId);
 			  }
-//			  if (metaField.UI.equals(Constants.UITerraRNought7)) {
-//				new UITerraRNought7(context, metaField.regionId, metaField.countryId);
-//			  }
-//			  if (metaField.UI.equals(Constants.UITerraRNought14)) {
-//				new UITerraRNought14(context, metaField.regionId, metaField.countryId);
-//			  }
 			  if (metaField.UI.equals(Constants.UITerraTotalCases)) {
 				new UITerraTotalCases(context, metaField.regionId, metaField.countryId);
 			  }
@@ -227,10 +215,10 @@ public class UI {
 				new UITerraTotalDeaths(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraCasePer_C)) {
-				new UITerraCasePer_C(context, metaField.regionId, metaField.countryId);
+				new UITerraCasePerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraDeathPer_C)) {
-				new UITerraDeathPer_C(context, metaField.regionId, metaField.countryId);
+				new UITerraDeathPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraCase24H)) {
 				new UITerraCase24H(context, metaField.regionId, metaField.countryId);
@@ -254,10 +242,10 @@ public class UI {
 				new UITotalDeath(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UICasePer_C)) {
-				new UICasePer_C(context, metaField.regionId, metaField.countryId);
+				new UICasePerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UIDeathPer_C)) {
-				new UIDeathPer_C(context, metaField.regionId, metaField.countryId);
+				new UIDeathPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UICase7Day)) {
 				new UICase7Day(context, metaField.regionId, metaField.countryId);
@@ -266,16 +254,16 @@ public class UI {
 				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraCase24Per_C)) {
-				new UITerraCase24Per_C(context, metaField.regionId, metaField.countryId);
+				new UITerraCase24PerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraDeath24Per_C)) {
-				new UITerraDeath24Per_C(context, metaField.regionId, metaField.countryId);
+				new UITerraDeath24PerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases_C)) {
-				new UITerraActiveCases_C(context, metaField.regionId, metaField.countryId);
+				new UITerraActiveCasesPerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UIActiveCases)) {
 				new UIActiveCases(context, metaField.regionId, metaField.countryId);
