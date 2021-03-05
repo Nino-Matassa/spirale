@@ -21,11 +21,11 @@ public class UICountry extends UI implements IRegisterOnStack {
   private String lastUpdated = null;
   private double population = 0.0;
   private int totalCases = 0;
-  private double casePer_C = 0.0;
+  private double casePer100000 = 0.0;
   private int case7Day = 0;
   private int case24Hour = 0;
   private int totalDeath = 0;
-  private double deathPer_C = 0.0;
+  private double deathPer100000 = 0.0;
   private int death7Day = 0;
   private int death24Hour = 0;
   private String source = null;
@@ -77,21 +77,21 @@ public class UICountry extends UI implements IRegisterOnStack {
 	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
 
 
-	String sqlOverview = "select Region, Country, TotalCase, max(CasePer_C) as CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from Overview where FK_Country = #1".replace("#1", String.valueOf(countryId));
+	String sqlOverview = "select Region, Country, TotalCase, max(CasePer100000) as CasePer100000, Case7Day, Case24Hour, TotalDeath, DeathPer100000, Death7Day, Death24Hour, Source from Overview where FK_Country = #1".replace("#1", String.valueOf(countryId));
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
 
 	region = cOverview.getString(cOverview.getColumnIndex("Region"));
 	totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
-	casePer_C = cOverview.getDouble(cOverview.getColumnIndex("CasePer_C"));
+	casePer100000 = cOverview.getDouble(cOverview.getColumnIndex("CasePer100000"));
 	case7Day = cOverview.getInt(cOverview.getColumnIndex("Case7Day"));
 	case24Hour = cOverview.getInt(cOverview.getColumnIndex("Case24Hour"));
 	totalDeath = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
-	deathPer_C = cOverview.getDouble(cOverview.getColumnIndex("DeathPer_C"));
+	deathPer100000 = cOverview.getDouble(cOverview.getColumnIndex("DeathPer100000"));
 	death7Day = cOverview.getInt(cOverview.getColumnIndex("Death7Day"));
 	death24Hour = cOverview.getInt(cOverview.getColumnIndex("Death24Hour"));
 	source = cOverview.getString(cOverview.getColumnIndex("Source"));
-	population = totalCases / casePer_C * Constants.oneHundredThousand;
+	population = totalCases / casePer100000 * Constants.oneHundredThousand;
 	precentInfected = totalCases == 0 ? 0: totalCases / population * 100;
 	infectionsCurve = totalCases == 0 ? 0: Math.log((double)case24Hour);
 	infectionsCurve = infectionsCurve.isInfinite() ? 0:infectionsCurve;
@@ -124,7 +124,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(regionId, countryId, Constants.UICasePerX);
 	metaField.key = "Case/" + Constants.roman100000;
-	metaField.value = String.valueOf(formatter.format(casePer_C));
+	metaField.value = String.valueOf(formatter.format(casePer100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
@@ -148,7 +148,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(regionId, countryId, Constants.UIDeathPerX);
 	metaField.key = "Death/" + Constants.roman100000;
-	metaField.value = String.valueOf(formatter.format(deathPer_C));
+	metaField.value = String.valueOf(formatter.format(deathPer100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 

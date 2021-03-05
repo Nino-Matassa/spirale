@@ -51,15 +51,15 @@ public class UITerraDeath24PerX extends UI implements IRegisterOnStack {
 	  int regionId = cDetail.getInt(cDetail.getColumnIndex("FK_Region"));
 	  int countryId = cDetail.getInt(cDetail.getColumnIndex("Id"));
 	  
-	  String sqlOverview = "select Overview.TotalDeath, Overview.DeathPer_C from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
+	  String sqlOverview = "select Overview.TotalDeath, Overview.DeathPer100000 from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
 	  sqlOverview = sqlOverview.replace("#1", String.valueOf(countryId));
 	  Cursor cOverview = db.rawQuery(sqlOverview, null);
 	  cOverview.moveToFirst();
 	  int totalDeaths = cOverview.getInt(cOverview.getColumnIndex("TotalDeath"));
-	  int deathPerMillion = cOverview.getInt(cOverview.getColumnIndex("DeathPer_C"));
+	  int deathPer100000 = cOverview.getInt(cOverview.getColumnIndex("DeathPer100000"));
 	  double population = 0.0;
-	  if(totalDeaths > 0 && deathPerMillion > 0)
-		population = totalDeaths/deathPerMillion*Constants.oneHundredThousand;
+	  if(totalDeaths > 0 && deathPer100000 > 0)
+		population = totalDeaths/deathPer100000*Constants.oneHundredThousand;
 	  
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cDetail.getString(cDetail.getColumnIndex("Country"));

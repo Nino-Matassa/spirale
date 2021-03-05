@@ -55,12 +55,12 @@ public class UITerraCasePerX extends UI implements IRegisterOnStack {
 	  
 	  country = country.replace("'", "''");
 	  
-	  String sCasePerMillion = "select max(CasePer_C) as CasePer_C from Overview where Country = '#1'".replace("#1", country);
-	  Cursor cCasePerMillion = db.rawQuery(sCasePerMillion, null);
-	  cCasePerMillion.moveToFirst();
-	  Double casePer_C = cCasePerMillion.getDouble(cCasePerMillion.getColumnIndex("CasePer_C"));
+	  String sCase100000 = "select max(CasePer100000) as CasePer100000 from Overview where Country = '#1'".replace("#1", country);
+	  Cursor cCasePer100000 = db.rawQuery(sCase100000, null);
+	  cCasePer100000.moveToFirst();
+	  Double casePer100000 = cCasePer100000.getDouble(cCasePer100000.getColumnIndex("CasePer100000"));
 
-	  metaField.value = String.valueOf(formatter.format(casePer_C));
+	  metaField.value = String.valueOf(formatter.format(casePer100000));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 

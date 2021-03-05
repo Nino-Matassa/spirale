@@ -43,13 +43,13 @@ public class UITerraActiveCasesPerX extends UI implements IRegisterOnStack {
   private void populateTable() {
 	double population = 0.0;
 	{ // calculate population
-	  String sql = "select TotalCase, CasePer_C from overview where region = 'Terra'";
+	  String sql = "select TotalCase, CasePer100000 from overview where region = 'Terra'";
 	  Cursor cTerra = db.rawQuery(sql, null);
 	  cTerra.moveToFirst();
 
 	  int totalCase = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
-	  double casePer_C = cTerra.getDouble(cTerra.getColumnIndex("CasePer_C"));
-	  population = totalCase / casePer_C * Constants.oneHundredThousand;
+	  double CasePer100000 = cTerra.getDouble(cTerra.getColumnIndex("CasePer100000"));
+	  population = totalCase / CasePer100000 * Constants.oneHundredThousand;
 	  
 	}
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();

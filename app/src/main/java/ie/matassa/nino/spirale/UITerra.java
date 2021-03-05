@@ -17,11 +17,11 @@ public class UITerra extends UI implements IRegisterOnStack {
 
   private String country = null;
   private Integer totalCase = null;
-  private Double casePer_C = 0.0;
+  private Double casePer100000 = 0.0;
   private Integer case7Day = 0;
   private Integer case24Hour = 0;
   private Integer totalDeath = 0;
-  private Double deathPer_C = 0.0;
+  private Double deathPer100000 = 0.0;
   private Integer death7Day = 0;
   private Integer death24Hour = 0;
   private String lastUpdated = null;
@@ -64,20 +64,20 @@ public class UITerra extends UI implements IRegisterOnStack {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 
-    String sql = "select distinct Country, TotalCase, CasePer_C, Case7Day, Case24Hour, TotalDeath, DeathPer_C, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
+    String sql = "select distinct Country, TotalCase, CasePer100000, Case7Day, Case24Hour, TotalDeath, DeathPer100000, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
 	Cursor cTerra = db.rawQuery(sql, null);
     cTerra.moveToFirst();
 
 	country = cTerra.getString(cTerra.getColumnIndex("Country"));
 	totalCase = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
-	casePer_C = cTerra.getDouble(cTerra.getColumnIndex("CasePer_C"));
+	casePer100000 = cTerra.getDouble(cTerra.getColumnIndex("CasePer100000"));
 	case7Day = cTerra.getInt(cTerra.getColumnIndex("Case7Day"));
 	case24Hour = cTerra.getInt(cTerra.getColumnIndex("Case24Hour"));
 	totalDeath = cTerra.getInt(cTerra.getColumnIndex("TotalDeath"));
-	deathPer_C = cTerra.getDouble(cTerra.getColumnIndex("DeathPer_C"));
+	deathPer100000 = cTerra.getDouble(cTerra.getColumnIndex("DeathPer100000"));
 	death7Day = cTerra.getInt(cTerra.getColumnIndex("Death7Day"));
 	death24Hour = cTerra.getInt(cTerra.getColumnIndex("Death24Hour"));
-	population = totalCase / casePer_C * Constants.oneHundredThousand;
+	population = totalCase / casePer100000 * Constants.oneHundredThousand;
 	precentInfected = totalCase / population * 100;
 	infectionsCurve = Math.log((double)case24Hour);
 
@@ -113,14 +113,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase24PerX);
 	metaField.key = "Case24H/" + Constants.roman100000;
-	double case24_C = casePer_C / population * Constants.oneHundredThousand;
-	metaField.value = String.valueOf(formatter.format(case24_C));
+	double case24Per100000 = casePer100000 / population * Constants.oneHundredThousand;
+	metaField.value = String.valueOf(formatter.format(case24Per100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCasePerX);
 	metaField.key = "Case/" + Constants.roman100000;
-	metaField.value = String.valueOf(formatter.format(casePer_C));
+	metaField.value = String.valueOf(formatter.format(casePer100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
@@ -144,14 +144,14 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24PerX);
 	metaField.key = "Death24H/" + Constants.roman100000;
-	double death24PerMillion = deathPer_C / population * Constants.oneHundredThousand;
+	double death24PerMillion = deathPer100000 / population * Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(death24PerMillion));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeathPerX);
 	metaField.key = "Death/" + Constants.roman100000;
-	metaField.value = String.valueOf(formatter.format(deathPer_C));
+	metaField.value = String.valueOf(formatter.format(deathPer100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 

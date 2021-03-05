@@ -17,7 +17,7 @@ public class UITotalPrecentInfected extends UI implements IRegisterOnStack {
   private String Region = null;
   private String Country = null;
   private MetaField metaField = null;
-  private Double casePerMillion = 0.0;
+  private Double casePer100000 = 0.0;
   private Integer totalCases = 0;
   private Double population = 0.0;
   private Integer case24 = 0;
@@ -53,14 +53,14 @@ public class UITotalPrecentInfected extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select Date, NewCase, Detail.Region, Detail.Country, CasePer_C, Overview.TotalCase from Detail join Overview on Overview.FK_Country = Detail.FK_Country where Overview.FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
+	String sqlDetail = "select Date, NewCase, Detail.Region, Detail.Country, CasePer100000, Overview.TotalCase from Detail join Overview on Overview.FK_Country = Detail.FK_Country where Overview.FK_Country = #1 order by date asc".replace("#1", String.valueOf(countryId));
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
     cDetail.moveToFirst();
 	Region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	Country = cDetail.getString(cDetail.getColumnIndex("Country"));
-	casePerMillion = cDetail.getDouble(cDetail.getColumnIndex("CasePer_C"));
+	casePer100000 = cDetail.getDouble(cDetail.getColumnIndex("CasePer100000"));
 	totalCases = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-	population = totalCases / casePerMillion * Constants.oneHundredThousand;
+	population = totalCases / casePer100000 * Constants.oneHundredThousand;
 	do {
 	  String date = cDetail.getString(cDetail.getColumnIndex("Date"));
 	  try {

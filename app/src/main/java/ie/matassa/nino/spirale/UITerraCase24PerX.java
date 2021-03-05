@@ -52,15 +52,15 @@ public class UITerraCase24PerX extends UI implements IRegisterOnStack {
 	  int regionId = cDetail.getInt(cDetail.getColumnIndex("FK_Region"));
 	  int countryId = cDetail.getInt(cDetail.getColumnIndex("Id"));
 
-	  String sqlOverview = "select Overview.TotalCase, Overview.CasePer_C from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
+	  String sqlOverview = "select Overview.TotalCase, Overview.CasePer100000 from Overview join Country on Overview.Country = Country.Country where Country.Id = #1 group by Overview.Country";
 	  sqlOverview = sqlOverview.replace("#1", String.valueOf(countryId));
 	  Cursor cOverview = db.rawQuery(sqlOverview, null);
 	  cOverview.moveToFirst();
 	  int totalCases = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
-	  int casePer_C = cOverview.getInt(cOverview.getColumnIndex("CasePer_C"));
+	  int CasePer100000 = cOverview.getInt(cOverview.getColumnIndex("CasePer100000"));
 	  double population = 0.0;
-	  if (totalCases > 0 && casePer_C > 0)
-		population = totalCases / casePer_C * Constants.oneHundredThousand;
+	  if (totalCases > 0 && CasePer100000 > 0)
+		population = totalCases / CasePer100000 * Constants.oneHundredThousand;
 
 	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	  String country = cDetail.getString(cDetail.getColumnIndex("Country"));

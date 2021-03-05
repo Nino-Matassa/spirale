@@ -55,12 +55,12 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
 	  
 	  country = country.replace("'", "''");
 
-	  String sDeathPerMillion = "select max(DeathPer_C) as DeathPer_C from Overview where Country = '#1'".replace("#1", country);
+	  String sDeathPerMillion = "select max(DeathPer100000) as DeathPer100000 from Overview where Country = '#1'".replace("#1", country);
 	  Cursor cDeathPerMillion = db.rawQuery(sDeathPerMillion, null);
 	  cDeathPerMillion.moveToFirst();
-	  Double deathPerMillion = cDeathPerMillion.getDouble(cDeathPerMillion.getColumnIndex("DeathPer_C"));
+	  Double ceathPer100000 = cDeathPerMillion.getDouble(cDeathPerMillion.getColumnIndex("DeathPer100000"));
 
-	  metaField.value = String.valueOf(formatter.format(deathPerMillion));
+	  metaField.value = String.valueOf(formatter.format(ceathPer100000));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 

@@ -47,14 +47,14 @@ public class CSV {
 	String Region = null;
 	String Country = null;
 	Integer TotalCase = 0;
-	Double CasePer_C = 0.0;
+	Double CasePer100000 = 0.0;
 	Integer Case7Day = 0;
-	//Double Case7DayPer_C = 0.0; // Global
+	//Double Case7DayPer100000 = 0.0; // Global
 	Integer Case24Hour = 0;
 	Integer TotalDeath = 0;
-	Double DeathPer_C = 0.0;
+	Double DeathPer100000 = 0.0;
 	Integer Death7Day = 0;
-	//Double Death7DayPer_C = 0.0; // Global
+	//Double Death7DayPer100000 = 0.0; // Global
 	Integer Death24Hour = 0;
 	String Source = null;
 	List rows = null;
@@ -77,14 +77,14 @@ public class CSV {
 		Region = row[index++];
 		if (Region.equals("Other")) continue;
 		TotalCase = Integer.parseInt(row[index++]);
-		CasePer_C = Double.parseDouble(row[index++]);
+		CasePer100000 = Double.parseDouble(row[index++]);
 		Case7Day = Integer.parseInt(row[index++]);
-		index++; // Case7DayPer_C, but for global record only
+		index++; // Case7DayPer100000, but for global record only
 		Case24Hour = Integer.parseInt(row[index++]);
 		TotalDeath = Integer.parseInt(row[index++]);
-		DeathPer_C = Double.parseDouble(row[index++]);
+		DeathPer100000 = Double.parseDouble(row[index++]);
 		Death7Day = Integer.parseInt(row[index++]);
-		index++; // Death7DayPer_C, but for global record only
+		index++; // Death7DayPer100000, but for global record only
 		Death24Hour = Integer.parseInt(row[index++]);
 		Source = null;
 		if (secondRowRead) Source = row[index];
@@ -104,11 +104,11 @@ public class CSV {
 		  values.put("FK_Region", FK_Region);
 		}
 		values.put("TotalCase", TotalCase);
-		values.put("CasePer_C", CasePer_C);
+		values.put("CasePer100000", CasePer100000);
 		values.put("Case7Day", Case7Day);
 		values.put("Case24Hour", Case24Hour);
 		values.put("TotalDeath", TotalDeath);
-		values.put("DeathPer_C", DeathPer_C);
+		values.put("DeathPer100000", DeathPer100000);
 		values.put("Death7Day", Death7Day);
 		values.put("Death24Hour", Death24Hour);
 		values.put("Source", Source);

@@ -40,14 +40,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	+ "Region TEXT NOT NULL, "
 	+ "Country TEXT NOT NULL, "
 	+ "TotalCase INT NOT NULL, "
-	+ "CasePer_C DECIMAL(10, 5) NOT NULL, " // _C = 100,000
+	+ "CasePer100000 DECIMAL(10, 5) NOT NULL, "
 	+ "Case7Day INT NOT NULL, "
-	+ "Case7DayPer_C DECIMAL(10, 5), " // Global, not per country
+	+ "Case7DayPer100000 DECIMAL(10, 5), "
 	+ "Case24Hour INT NOT NULL, "
 	+ "TotalDeath INT NOT NULL, "
-	+ "DeathPer_C DECIMAL(10, 5) NOT NULL, " // _C = 100,000
+	+ "DeathPer100000 DECIMAL(10, 5) NOT NULL, "
 	+ "Death7Day INT NOT NULL, "
-	+ "Death7DayPer_C DECIMAL(10, 5), " // Global, not per country
+	+ "Death7DayPer100000 DECIMAL(10, 5), "
 	+ "Death24Hour INT NOT NULL, "
 	+ "Source TEXT NOT NULL, "
 	+ "FOREIGN KEY (FK_Region) REFERENCES Region(Id), "

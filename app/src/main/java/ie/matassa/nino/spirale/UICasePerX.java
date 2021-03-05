@@ -46,7 +46,7 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 
 	private void populateTable() {
 	  ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	  Double casePerMillion = 0.0;
+	  Double casePer100000 = 0.0;
 	  Double population = 0.0;
 	  String sqlDetail = "select Date, Country, Region, TotalCase from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
 	  Cursor cDetail = db.rawQuery(sqlDetail, null);
@@ -54,13 +54,13 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 	  region = cDetail.getString(cDetail.getColumnIndex("Region"));
 	  country = cDetail.getString(cDetail.getColumnIndex("Country"));
 	  { // Get population from Overview table
-		String sqlCPM = "select CasePer_C, TotalCase from Overview where country = '#1' limit 1";
+		String sqlCPM = "select CasePer100000, TotalCase from Overview where country = '#1' limit 1";
 		sqlCPM = sqlCPM.replace("#1", country.replace("'", "''"));
 		Cursor cCPM = db.rawQuery(sqlCPM, null);
 		cCPM.moveToFirst();
-		casePerMillion = cCPM.getDouble(cCPM.getColumnIndex("CasePer_C"));
+		casePer100000 = cCPM.getDouble(cCPM.getColumnIndex("CasePer100000"));
 		int totalCase = cCPM.getInt(cCPM.getColumnIndex("TotalCase"));
-		population = totalCase/(double)casePerMillion*Constants.oneHundredThousand;
+		population = totalCase/(double)casePer100000*Constants.oneHundredThousand;
 	  }
 	  do {
 		String date = cDetail.getString(cDetail.getColumnIndex("Date"));
@@ -73,11 +73,11 @@ public class UICasePerX extends UI implements IRegisterOnStack {
 		}
 		
 		int totalCase = cDetail.getInt(cDetail.getColumnIndex("TotalCase"));
-		casePerMillion = totalCase/population*Constants.oneHundredThousand;
+		casePer100000 = totalCase/population*Constants.oneHundredThousand;
 
 		metaField = new MetaField(regionId, countryId, Constants.UICasePerX);
 		metaField.key = date;
-		metaField.value = String.valueOf(formatter.format(casePerMillion));
+		metaField.value = String.valueOf(formatter.format(casePer100000));
 		metaFields.add(metaField);
 	  } while(cDetail.moveToNext());
 	  setTableLayout(populateTable(metaFields)); 

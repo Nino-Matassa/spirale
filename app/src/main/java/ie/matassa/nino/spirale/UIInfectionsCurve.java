@@ -18,9 +18,6 @@ public class UIInfectionsCurve extends UI implements IRegisterOnStack {
   private String region = null;
   private String country = null;
   private MetaField metaField = null;
-//  private Double casePer_C = 0.0;
-//  private Integer totalCases = 0;
-//  private Double population = 0.0;
   private Integer case24 = 0;
   private Double infectionsCurve = 0.0;
 
