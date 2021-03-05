@@ -42,23 +42,39 @@ public class UIRegion extends UI implements IRegisterOnStack {
 	MainActivity.stack.add(uiHistory);
   }
   
-
   private void populateRegion() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Region.Id, Region.Region, sum(Overview.Case24Hour) as NewCases from Region join Overview on Region.id = Overview.FK_Region group by Region.Region order by NewCases desc";
-    Cursor cRegion = db.rawQuery(sql, null);
+	String sqlRegion = "select Id, Region from Region";
+    Cursor cRegion = db.rawQuery(sqlRegion, null);
     cRegion.moveToFirst();
 	MetaField metaField = null;
     do {
 	  metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 	  metaField.key = cRegion.getString(cRegion.getColumnIndex("Region"));
-	  double log = Math.log(cRegion.getInt(cRegion.getColumnIndex("NewCases")));
-	  metaField.value = String.valueOf(formatter.format(log));
 	  metaField.underlineKey = true;
 	  metaField.UI = Constants.UICountryByRegion;
 	  metaField.regionId = cRegion.getInt(cRegion.getColumnIndex("Id"));
+	  String sqlOverview = "select count(Id) as N, sum(TotalCase) as TotalCase, sum(CasePer100000) as CasePer100000 from Overview where FK_Region = #1".replace("#1", String.valueOf(metaField.regionId));
+	  Cursor cOverview = db.rawQuery(sqlOverview, null);
+	  cOverview.moveToFirst();
+	  int N = cOverview.getInt(cOverview.getColumnIndex("N"));
+	  int totalCase = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
+	  double casePer100000 = cOverview.getDouble(cOverview.getColumnIndex("CasePer100000"));
+	  casePer100000 = casePer100000/N;
+	  double population = totalCase/casePer100000*Constants.oneHundredThousand;
+	  metaField.value = String.valueOf(formatter.format(population));
       metaFields.add(metaField);
 	} while(cRegion.moveToNext());
+	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
+  }
+}
+
+class sortStats implements Comparator<MetaField> {
+  @Override
+  public int compare(MetaField mfA, MetaField mfB) {
+	Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	return dB.compareTo(dA);
   }
 }

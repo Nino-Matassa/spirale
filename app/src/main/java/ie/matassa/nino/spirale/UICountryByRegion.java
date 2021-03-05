@@ -13,8 +13,8 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private int regionId = 0;
   private int countryId = 0;
-  private String Region = null;
-  private String Country = null;
+  private String region = null;
+  private String country = null;
 
   public UICountryByRegion(Context context, int regionId, int countryId) {
 	super(context, Constants.UICountryByRegion);
@@ -32,8 +32,8 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader(Region, "Infections Curve");
-		  ((Activity)context).setTitle("Spirale - " + Region);
+		  setHeader(region, "Infections Curve");
+		  ((Activity)context).setTitle("Spirale - " + region);
 		  registerOnStack();
         }
       });
@@ -52,19 +52,21 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	sqlCountryRegion = sqlCountryRegion.replace("#1", String.valueOf(regionId));
     Cursor cRegion = db.rawQuery(sqlCountryRegion, null);
     cRegion.moveToFirst();
-	Region = cRegion.getString(cRegion.getColumnIndex("Region"));
-	Cursor cCPM = null;
+	region = cRegion.getString(cRegion.getColumnIndex("Region"));
+	Cursor cOverview = null;
     MetaField metaField = null;
 	try {
 	  do {
-		String sqlCPM = "select distinct Case24Hour from Overview where FK_Country = #1".replace("#1", String.valueOf(cRegion.getLong(cRegion.getColumnIndex("Id"))));
-		cCPM = db.rawQuery(sqlCPM, null);
-		cCPM.moveToFirst();
+		String sqlOverview = "select distinct TotalCase, CasePer100000 from Overview where FK_Country = #1".replace("#1", String.valueOf(cRegion.getLong(cRegion.getColumnIndex("Id"))));
+		cOverview = db.rawQuery(sqlOverview, null);
+		cOverview.moveToFirst();
 		metaField = new MetaField(regionId, countryId, Constants.UICountryByRegion);
 		metaField.key = cRegion.getString(cRegion.getColumnIndex("Country"));
-		int case24Hour = cCPM.getInt(cCPM.getColumnIndex("Case24Hour"));
-		double log = case24Hour == 0 ? 0:Math.log(case24Hour);
-		metaField.value = String.valueOf(formatter.format(log));
+		int totalCase = cOverview.getInt(cOverview.getColumnIndex("TotalCase"));
+		double casePer100000 = cOverview.getDouble(cOverview.getColumnIndex("CasePer100000"));
+		Double population = totalCase/casePer100000*Constants.oneHundredThousand;
+		population = population.isInfinite() || population.isNaN() ? 0:population;
+		metaField.value = String.valueOf(formatter.format(population));
 		metaField.underlineKey = true;
 		metaField.UI = Constants.UICountry;
 		metaField.regionId = regionId;
@@ -74,7 +76,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	} catch (Exception e) {
 	  Log.d("UICountryByRegion", e.toString());
 	}
-	//metaFields.sort(new sortStats());
+	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
 }
@@ -87,3 +89,4 @@ class sortStats implements Comparator<MetaField> {
 	return dB.compareTo(dA);
   }
 }
+
