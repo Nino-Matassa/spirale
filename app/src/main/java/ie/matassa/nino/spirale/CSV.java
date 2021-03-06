@@ -24,6 +24,7 @@ public class CSV {
 
   public CSV(Context context) {
 	this.context = context;
+	UIMessage.notificationMessage(context, "Checking " + Constants.DataSource);
   }
 
   private List readCSV(String filePath) {
@@ -265,8 +266,8 @@ public class CSV {
 			populateTablesRegionAndCountry();
 			populateTableOverview();
 			populateTableDetails();
-			dbCompleted.threadListener();
 		  }
+		  dbCompleted.threadListener();
 		}
 	  }).start();
   }
