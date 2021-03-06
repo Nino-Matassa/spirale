@@ -144,8 +144,8 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24PerX);
 	metaField.key = "Death24H/" + Constants.roman100000;
-	double death24PerMillion = deathPer100000 / population * Constants.oneHundredThousand;
-	metaField.value = String.valueOf(formatter.format(death24PerMillion));
+	double death24Per100000 = deathPer100000 / population * Constants.oneHundredThousand;
+	metaField.value = String.valueOf(formatter.format(death24Per100000));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
