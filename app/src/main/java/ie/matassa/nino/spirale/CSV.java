@@ -179,9 +179,9 @@ public class CSV {
 	return true;
   }
 
-  private boolean downloadUrlRequest(String url, String name) {
+  private boolean downloadUrlRequest(String url, String name, boolean bForceDownload) {
 
-	if (!csvIsUpdated(url, name)) 
+	if (!bForceDownload && !csvIsUpdated(url, name)) 
 	  return false;
 
 	UIMessage.notificationMessage(context, "Downloading... " + url + "/" + name);
@@ -204,7 +204,8 @@ public class CSV {
 		org.apache.commons.io.FileUtils.copyFileToDirectory(csvArchive, spiralDirectory);
 	  } catch (IOException e) {
 		Log.d("downloadUrlRequest", e.toString());
-	  } finally {
+	  }
+	  finally {
 		csvArchive.delete();
 	  }
 	}
@@ -253,12 +254,12 @@ public class CSV {
 	}
   };
 
-  public void getDataFiles() {
+  public void getDataFiles(final boolean bForceDownload) {
 	new Thread(new Runnable() {
 		@Override 
 		public void run() {
 		  for (int queue = 0; queue < Constants.Urls.length; queue++) {
-			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue]);
+			downloadUrlRequest(Constants.Urls[queue], Constants.Names[queue], bForceDownload);
 		  }
 		  if (!Database.databaseExists()) {
 			MainActivity.stack.clear();
@@ -338,7 +339,7 @@ public class CSV {
 		Long Id = db.insert("Country", null, values);
 		hmCountryList.put(orc.Country, Id);
 	  }
-	} catch(Exception e) {
+	} catch (Exception e) {
 	  Log.d("ORCList", e.toString());
 	  UIMessage.notificationMessage(context, e.toString());
 	}

@@ -16,6 +16,8 @@ public class Constants {
   public static final String roman100000 = "C\u0305"; // Roman numeral for 100,000
   public static final int oneHundredThousand = 100000;
   
+  public static final String whiteRabbit = "\u1F407";
+  
   public static final String[] Urls = { CsvOverviewURL, CsvDetailsURL };
   public static final String[] Names = {csvOverviewName, csvDetailsName };
 

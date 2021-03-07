@@ -7,16 +7,7 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
-Add Androidx support for menu
 
-https://stackoverflow.com/questions/51280090/what-is-androidx#:~:text=In%20Android%20Studio%203.2%20(September,This%20refactor%20all%20packages%20automatically.
-https://developer.android.com/jetpack/androidx
-
-UI Region and Country by Region column headers to be changed to show Population.
-CVS to show alert dialog from constructor to avoid 'hanging'. threadListener() now called wether or not
-the database is rebuilt.
-Round population to integer.
-new UITerra(context); is called by new CSV(MainActivity.this).getDataFiles(); on exit.
 
 */
  

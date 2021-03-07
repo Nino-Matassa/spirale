@@ -41,6 +41,21 @@ public class UIMessage {
       });
   }
   
+  public static void informationBox(final Context context, final String msg) {
+	((Activity)context).runOnUiThread(new Runnable() {
+		@Override
+		public void run() {
+		  if (builder == null) {
+			builder = new AlertDialog.Builder(context);
+			alertDialog = builder.create();
+			//alertDialog.setCancelable(true);
+		  }
+		  alertDialog.setMessage(msg);
+		  alertDialog.show();
+        }
+      });
+  }
+  
   public static String abbreviate(String text, int length) {
 	return text.length() < Constants.abbreviate ? text:text.substring(0, Constants.abbreviate-3) + "...";
   }

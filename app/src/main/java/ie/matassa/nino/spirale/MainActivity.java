@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	bCallUITerra = true;
-	new CSV(MainActivity.this).getDataFiles();
+	new CSV(MainActivity.this).getDataFiles(false);
   }
 
   @Override
@@ -33,9 +33,8 @@ public class MainActivity extends Activity {
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
-		  //new UITerra(MainActivity.this);
 		  bCallUITerra = true;
-		  new CSV(MainActivity.this).getDataFiles();
+		  new CSV(MainActivity.this).getDataFiles(false);
 		  break;
 		case Constants.UIRegion:
 		  new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
@@ -104,10 +103,43 @@ public class MainActivity extends Activity {
     if (action == MotionEvent.ACTION_DOWN) {
 	  stack.clear();
 	  bCallUITerra = true;
-	  new CSV(MainActivity.this).getDataFiles();
-	  //new UITerra(MainActivity.this);
+	  new CSV(MainActivity.this).getDataFiles(false);
 	}
 	return super.onTouchEvent(event);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+	getMenuInflater().inflate(R.menu.main_menu, menu);
+	return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+	String message = null;
+	switch (item.getItemId()) {
+	  case R.id.about:
+		message = "COVID-19 statistical analysis using WHO data.";
+		message += "\nProject Spirale started Dec 10 2020";
+		UIMessage.informationBox(MainActivity.this, message);
+		break;
+	  case R.id.reinitialise:
+		message = "Download and reinitialise current WHO CSV files:";
+		message += "\n" + Constants.CsvOverviewURL;
+		message += "\n" + Constants.CsvDetailsURL;
+		UIMessage.informationBox(MainActivity.this, message);
+		Database.deleteDatabase();
+		bCallUITerra = true;
+		new CSV(MainActivity.this).getDataFiles(true);
+		break;
+	  case R.id.moi:
+		message = "Nino Matassa (mbcs)";
+		UIMessage.informationBox(MainActivity.this, message);
+		break;
+	  default:
+		return super.onOptionsItemSelected(item);
+	}
+	return true;
   }
 }
 
