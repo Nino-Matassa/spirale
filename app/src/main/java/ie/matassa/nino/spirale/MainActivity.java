@@ -33,7 +33,8 @@ public class MainActivity extends Activity {
 	  UIHistory uiHistory = stack.pop();
 	  switch (uiHistory.getUIX()) {
 		case Constants.UITerra:
-		  new UITerra(MainActivity.this);
+		  //new UITerra(MainActivity.this);
+		  bCallUITerra = true;
 		  new CSV(MainActivity.this).getDataFiles();
 		  break;
 		case Constants.UIRegion:
@@ -102,8 +103,9 @@ public class MainActivity extends Activity {
 	int action = event.getAction();
     if (action == MotionEvent.ACTION_DOWN) {
 	  stack.clear();
+	  bCallUITerra = true;
 	  new CSV(MainActivity.this).getDataFiles();
-	  new UITerra(MainActivity.this);
+	  //new UITerra(MainActivity.this);
 	}
 	return super.onTouchEvent(event);
   }

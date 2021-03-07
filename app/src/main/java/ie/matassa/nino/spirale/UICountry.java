@@ -103,7 +103,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(regionId, countryId, Constants.UICountry);
 	metaField.key = "Population";
-	metaField.value = String.valueOf(formatter.format(population));
+	metaField.value = String.valueOf(formatter.format(Math.round(population)));
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UITotalCase);

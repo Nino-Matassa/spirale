@@ -32,8 +32,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader(region, "Infections Curve");
-		  ((Activity)context).setTitle("Spirale - " + region);
+		  setHeader(region, "Population");
 		  registerOnStack();
         }
       });
@@ -66,7 +65,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		double casePer100000 = cOverview.getDouble(cOverview.getColumnIndex("CasePer100000"));
 		Double population = totalCase/casePer100000*Constants.oneHundredThousand;
 		population = population.isInfinite() || population.isNaN() ? 0:population;
-		metaField.value = String.valueOf(formatter.format(population));
+		metaField.value = String.valueOf(formatter.format(Math.round(population)));
 		metaField.underlineKey = true;
 		metaField.UI = Constants.UICountry;
 		metaField.regionId = regionId;

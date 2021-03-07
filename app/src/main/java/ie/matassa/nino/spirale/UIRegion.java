@@ -31,7 +31,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateRegion();
-		  setHeader(Region, "Infection Curve");
+		  setHeader(Region, "Population");
         }
       });
   }
@@ -62,7 +62,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 	  double casePer100000 = cOverview.getDouble(cOverview.getColumnIndex("CasePer100000"));
 	  casePer100000 = casePer100000/N;
 	  double population = totalCase/casePer100000*Constants.oneHundredThousand;
-	  metaField.value = String.valueOf(formatter.format(population));
+	  metaField.value = String.valueOf(formatter.format(Math.round(population)));
       metaFields.add(metaField);
 	} while(cRegion.moveToNext());
 	metaFields.sort(new sortStats());

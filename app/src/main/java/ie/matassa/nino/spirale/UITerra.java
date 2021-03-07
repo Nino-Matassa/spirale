@@ -83,7 +83,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";
-	metaField.value = String.valueOf(formatter.format(population));
+	metaField.value = String.valueOf(formatter.format(Math.round(population)));
 	metaField.underlineKey = true;
 	metaField.UI = Constants.UIRegion;
 	metaFields.add(metaField);
