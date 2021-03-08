@@ -7,7 +7,13 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
+Actionbar, main menu pre androidx
+https://stackoverflow.com/questions/43463837/adding-android-studio-main-menu-on-actionbar
 
+Include andriodx into project...
+https://discourse.android-ide.com/t/how-to-use-androidx-in-aide/114
+
+Add UIRNoughtForTerra, UIActiveCasesForTerra, UIActiveCasesPerXForTerra
 
 */
  

@@ -146,6 +146,15 @@ public class UI {
 	  case Constants.UIActiveCases:
 		((Activity)context).setTitle("Spirale - Active Cases");
 		break;
+	  case Constants.UIRNoughtForTerra:
+		((Activity)context).setTitle("Spirale - Terra " + Constants.rNought);
+		break;
+	  case Constants.UIActiveCasesForTerra:
+		((Activity)context).setTitle("Spirale - Terra Active Cases");
+		break; 
+	  case Constants.UIActiveCasesPerXForTerra:
+		((Activity)context).setTitle("Spirale - Terra Active Cases/" + Constants.roman100000);
+		break;
 	}
   }
 
@@ -263,7 +272,16 @@ public class UI {
 		  @Override
 		  public void onClick(View view) {
 			if (metaField.underlineValue) {
-
+			  /*metaField.UI is always set to lhs, so when control arrives here the rhs field has been clicked*/
+			  if (metaField.UI.equals(Constants.UITerraRNought)) {
+				new UIRNoughtForTerra(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
+				new UIActiveCasesForTerra(context, metaField.regionId, metaField.countryId);
+			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCasesX)) {
+				new UIActiveCasesPerXForTerra(context, metaField.regionId, metaField.countryId);
+			  }
 			}
           }
         });

@@ -48,9 +48,10 @@ public class UIMessage {
 		  if (builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
-			//alertDialog.setCancelable(true);
 		  }
 		  alertDialog.setMessage(msg);
+		  TextView textView = (TextView)alertDialog.findViewById(android.R.id.message);
+		  textView.setGravity(Gravity.CENTER);
 		  alertDialog.show();
         }
       });

@@ -62,7 +62,6 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
 	} while(cTerra.moveToNext());
 
-	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
 }

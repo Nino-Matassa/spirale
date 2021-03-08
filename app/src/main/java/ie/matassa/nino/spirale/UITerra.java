@@ -102,6 +102,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	int activeCases = cActiveCases.getInt(cActiveCases.getColumnIndex("NewCase"));
 	metaField.value = String.valueOf(formatter.format(activeCases));
 	metaField.underlineKey = true;
+	metaField.underlineValue = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCasesX);
@@ -109,6 +110,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	Double activeCases_C = activeCases/population*Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(activeCases_C));
 	metaField.underlineKey = true;
+	metaField.underlineValue = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase24PerX);
@@ -184,11 +186,12 @@ public class UITerra extends UI implements IRegisterOnStack {
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
-	Double rNought = rNoughtAverage.get(0).rNought;
+	Double rNought = rNoughtAverage.get(0).average;
 	metaField = new MetaField(0, 0, Constants.UITerraRNought);
 	metaField.key = Constants.rNought;
 	metaField.value = String.valueOf(formatter.format(rNought));
 	metaField.underlineKey = true;
+	metaField.underlineValue = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
 
