@@ -133,8 +133,15 @@ public class MainActivity extends Activity {
 		new CSV(MainActivity.this).getDataFiles(true);
 		break;
 	  case R.id.moi:
-		message = "Nino Matassa (mbcs)";
+		message = "Nino Matassa MBCS";
+		message += "\nSpirale: Dec 10 2020";
+		message += "\nCode available";
+		message += "\nhttps://github.com/Nino-Matassa/spirale";
 		UIMessage.informationBox(MainActivity.this, message);
+		break;
+		case R.id.home:
+		bCallUITerra = true;
+		new CSV(MainActivity.this).getDataFiles(false);
 		break;
 	  default:
 		return super.onOptionsItemSelected(item);

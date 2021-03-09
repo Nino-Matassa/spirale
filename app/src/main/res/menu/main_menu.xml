@@ -2,6 +2,7 @@
     
     <item android:id="@+id/about" android:title="About"/>
     <item android:id="@+id/reinitialise" android:title="Invalidate"/>
+	<item android:id="@+id/home" android:title="\u2302 Home"/>
 	<item android:id="@+id/moi" android:title="Moi"/>
 </menu>
 
