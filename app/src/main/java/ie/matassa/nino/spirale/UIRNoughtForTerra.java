@@ -51,7 +51,7 @@ public class UIRNoughtForTerra extends UI implements IRegisterOnStack {
 	ArrayList<RNoughtAverage> rNoughtAverages = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
 	
 	for(RNoughtAverage rNoughtAverage: rNoughtAverages) {
-	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
+	  metaField = new MetaField(regionId, countryId, Constants.UIRNoughtForTerra);
 	  metaField.key = rNoughtAverage.date;
 	  metaField.value = String.valueOf(formatter.format(rNoughtAverage.average));
 	  metaFields.add(metaField);

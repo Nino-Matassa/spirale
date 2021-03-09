@@ -55,14 +55,22 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
 	  int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
 	  metaField.key = country;
+	  //metaField.value = String.valueOf(formatter.format(activeCase == 0 ? 0:Math.log(activeCase)));
 	  metaField.value = String.valueOf(formatter.format(activeCase));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
-
-
 	} while(cTerra.moveToNext());
-
+	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
+  class sortStats implements Comparator<MetaField> {
+	@Override
+	public int compare(MetaField mfA, MetaField mfB) {
+	  Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	  Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	  return dB.compareTo(dA);
+	}
+  }
 }
+
 

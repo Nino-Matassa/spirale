@@ -78,14 +78,15 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	metaFields.sort(new sortStats());
     setTableLayout(populateTable(metaFields)); 
   }
-}
-
-class sortStats implements Comparator<MetaField> {
-  @Override
-  public int compare(MetaField mfA, MetaField mfB) {
-	Double dA = Double.parseDouble(mfA.value.replace(",", ""));
-	Double dB = Double.parseDouble(mfB.value.replace(",", ""));
-	return dB.compareTo(dA);
+  class sortStats implements Comparator<MetaField> {
+	@Override
+	public int compare(MetaField mfA, MetaField mfB) {
+	  Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	  Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	  return dB.compareTo(dA);
+	}
   }
 }
+
+
 
