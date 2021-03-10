@@ -65,7 +65,7 @@ public class UICase24Hour extends UI implements IRegisterOnStack {
 	  
 	  metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
 	  metaField.key = date;
-	  metaField.value = String.valueOf(formatter.format(case24)) + " " + Constants.proportional + " " + String.valueOf(formatter.format(Math.log(case24)));
+	  metaField.value = String.valueOf(formatter.format(case24));// + " " + Constants.proportional + " " + String.valueOf(formatter.format(Math.log(case24)));
 	  metaFields.add(metaField);
 	} while(cDetail.moveToNext());
     setTableLayout(populateTable(metaFields)); 

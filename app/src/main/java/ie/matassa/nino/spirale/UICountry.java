@@ -135,9 +135,9 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaFields.add(metaField);
 
 	metaField = new MetaField(regionId, countryId, Constants.UICase24Hour);
-	metaField.key = "Case24H " + Constants.proportional + " Curve";
+	metaField.key = "Case24H";// + Constants.proportional + " Curve";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
-	metaField.value += " " + Constants.proportional + " " + String.valueOf(formatter.format(Math.log(case24Hour)));
+	//metaField.value += " " + Constants.proportional + " " + String.valueOf(formatter.format(Math.log(case24Hour)));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 

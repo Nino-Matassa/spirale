@@ -45,9 +45,9 @@ public class MainActivity extends Activity {
 		case Constants.UICountryByRegion:
 		  new UICountryByRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraInfectionsCurve:
-		  new UITerraInfectionsCurve(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
+//		case Constants.UITerraInfectionsCurve:
+//		  new UITerraInfectionsCurve(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+//		  break;
 		case Constants.UITerraTotalCases:
 		  new UITerraTotalCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;

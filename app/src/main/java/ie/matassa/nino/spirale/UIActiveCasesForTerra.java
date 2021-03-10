@@ -53,8 +53,8 @@ public class UIActiveCasesForTerra extends UI implements IRegisterOnStack {
 	  metaField = new MetaField(regionId, countryId, Constants.UIActiveCasesForTerra);
 	  metaField.key = fieldTotal.date;
 	  //metaField.value = String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
-	  String curve = " " + Constants.proportional + " " + String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
-	  metaField.value = String.valueOf(formatter.format(fieldTotal.total)) + curve;
+	  //String curve = " " + Constants.proportional + " " + String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
+	  metaField.value = String.valueOf(formatter.format(fieldTotal.total));// + curve;
 	  metaFields.add(metaField);
 	}
     setTableLayout(populateTable(metaFields)); 
