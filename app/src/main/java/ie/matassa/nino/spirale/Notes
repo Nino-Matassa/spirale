@@ -18,6 +18,5 @@ https://discourse.android-ide.com/t/how-to-use-androidx-in-aide/114
 Add spinner to alert dialogues & add alert dialouges for screen building
 Show alert dialogue when building UI, use AsyncTask again?
 
-Date issue with UITerraActiveCases where the moonPhase needs to be calculated from yesterday to -29 days ago giving the full 28 day cycle from yesterday.
 */
  

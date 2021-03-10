@@ -16,7 +16,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
   private String country = null;
 
   public UIActiveCases(Context context, int regionId, int countryId) {
-	super(context, Constants.UITerraActiveCases);
+	super(context, Constants.UIActiveCases);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;

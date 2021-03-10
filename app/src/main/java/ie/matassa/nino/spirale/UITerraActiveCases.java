@@ -35,7 +35,7 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Active Cases");
+		  setHeader("Country", "Active Cases" + Constants.proportional + " Curve");
         }
       });
   }
@@ -55,8 +55,8 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
 	  int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
 	  metaField.key = country;
-	  //metaField.value = String.valueOf(formatter.format(activeCase == 0 ? 0:Math.log(activeCase)));
-	  metaField.value = String.valueOf(formatter.format(activeCase));
+	  metaField.value = String.valueOf(formatter.format(activeCase)) + " " + Constants.proportional + " " + String.valueOf(formatter.format(activeCase == 0 ? 0:Math.log(activeCase)));
+	  //metaField.value = String.valueOf(formatter.format(activeCase));
 	  metaField.underlineKey = true;
 	  metaFields.add(metaField);
 	} while(cTerra.moveToNext());
@@ -66,8 +66,12 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
   class sortStats implements Comparator<MetaField> {
 	@Override
 	public int compare(MetaField mfA, MetaField mfB) {
-	  Double dA = Double.parseDouble(mfA.value.replace(",", ""));
-	  Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	  String ssmfA = mfA.value.substring(0, mfA.value.indexOf(Constants.proportional)).replace(",", "");
+	  String ssmfB = mfB.value.substring(0, mfB.value.indexOf(Constants.proportional)).replace(",", "");
+	  //Double dA = Double.parseDouble(mfA.value.replace(",", ""));
+	  //Double dB = Double.parseDouble(mfB.value.replace(",", ""));
+	  Double dA = Double.parseDouble(ssmfA);
+	  Double dB = Double.parseDouble(ssmfB);
 	  return dB.compareTo(dA);
 	}
   }

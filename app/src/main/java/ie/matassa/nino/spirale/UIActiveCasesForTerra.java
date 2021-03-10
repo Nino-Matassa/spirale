@@ -37,7 +37,7 @@ public class UIActiveCasesForTerra extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Terra", "Active Cases Curve");
+		  setHeader("Terra", "Active Cases " + Constants.proportional + " Curve");
         }
       });
   }
@@ -52,8 +52,9 @@ public class UIActiveCasesForTerra extends UI implements IRegisterOnStack {
 	for(CaseRangeTotal fieldTotal: fieldTotals) {
 	  metaField = new MetaField(regionId, countryId, Constants.UIActiveCasesForTerra);
 	  metaField.key = fieldTotal.date;
-	  metaField.value = String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
-	  //metaField.value = String.valueOf(formatter.format(fieldTotal.total));
+	  //metaField.value = String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
+	  String curve = " " + Constants.proportional + " " + String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
+	  metaField.value = String.valueOf(formatter.format(fieldTotal.total)) + curve;
 	  metaFields.add(metaField);
 	}
     setTableLayout(populateTable(metaFields)); 
