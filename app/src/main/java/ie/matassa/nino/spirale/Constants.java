@@ -32,7 +32,7 @@ public class Constants {
   public static final String UICase24Hour = "UICase24Hour";
   public static final String UIDeath24Hour = "UIDeath24Hour";
   public static final String UITotalPrecentInfected = "UITotalPrecentInfected";
-  public static final String UIInfectionsCurve = "UIInfectionsCurve";
+  //public static final String UIInfectionsCurve = "UIInfectionsCurve";
   public static final String UITerraInfectionsCurve = "UITerraInfectionsCurve";
   public static final String UIRNought = "UIRNought";
   public static final String UITerraRNought = "UITerraRNought";
