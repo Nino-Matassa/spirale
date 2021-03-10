@@ -88,12 +88,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.UI = Constants.UIRegion;
 	metaFields.add(metaField);
 
-	metaField = new MetaField(0, 0, Constants.UITerraTotalCases);
-	metaField.key = "Total Cases";
-	metaField.value = String.valueOf(formatter.format(totalCase));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCases);
 	metaField.key = "Active Cases";
 	String sqlActiveCases = "select sum(NewCase) NewCase from detail where date > date('now', '-29 days')";
@@ -104,6 +98,12 @@ public class UITerra extends UI implements IRegisterOnStack {
 	//metaField.value += " " + Constants.proportional + " " + String.valueOf(formatter.format(Math.log(activeCases)));
 	metaField.underlineKey = true;
 	metaField.underlineValue = true;
+	metaFields.add(metaField);
+
+	metaField = new MetaField(0, 0, Constants.UITerraTotalCases);
+	metaField.key = "Total Cases";
+	metaField.value = String.valueOf(formatter.format(totalCase));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCasesX);

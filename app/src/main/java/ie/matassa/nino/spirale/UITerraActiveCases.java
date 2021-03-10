@@ -42,7 +42,8 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where date > date('now', '-29 days') group by Country.Country order by NewCase desc";
+	//String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where date > date('now', '-28 days') and date <= date('now') group by Country.Country order by NewCase desc";
+	String sql = "select Country.Id, Country.FK_Region, Country.Country, Region from Detail join Country on Detail.FK_Country = Country.Id group by Country.Country";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
@@ -53,7 +54,13 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 
 	  country = country.replace("'", "''");
 
-	  int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
+	  String sqlActiveCases = "select distinct Date, Country, Region, NewCase as CaseX from Detail where FK_Country = #1 order by date desc limit 29".replace("#1", String.valueOf(countryId));
+	  Cursor cActiveCases = db.rawQuery(sqlActiveCases, null);
+	  ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cActiveCases, Constants.moonPhase);
+	  int activeCase = fieldTotals.get(0).total;
+	  
+	  
+	  //int activeCase = cTerra.getInt(cTerra.getColumnIndex("ActiveCase"));
 	  metaField.key = country;
 	  //metaField.value = String.valueOf(formatter.format(activeCase)) + " " + Constants.proportional + " " + String.valueOf(formatter.format(activeCase == 0 ? 0:Math.log(activeCase)));
 	  metaField.value = String.valueOf(formatter.format(activeCase));

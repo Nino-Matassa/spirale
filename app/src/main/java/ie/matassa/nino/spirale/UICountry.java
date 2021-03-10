@@ -106,12 +106,6 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(Math.round(population)));
 	metaFields.add(metaField);
 
-	metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
-	metaField.key = "Total Cases";
-	metaField.value = String.valueOf(formatter.format(totalCases));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-
 	metaField = new MetaField(regionId, countryId, Constants.UIActiveCases);
 	metaField.key = "Active Cases";
 	String sqlActiveCases = "select distinct Date, Country, Region, NewCase as CaseX from Detail where FK_Country = #1 order by date desc".replace("#1", String.valueOf(countryId));
@@ -119,6 +113,12 @@ public class UICountry extends UI implements IRegisterOnStack {
 	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cActiveCases, Constants.moonPhase);
 	int activeCases = fieldTotals.get(0).total;
 	metaField.value = String.valueOf(formatter.format(activeCases));
+	metaField.underlineKey = true;
+	metaFields.add(metaField);
+
+	metaField = new MetaField(regionId, countryId, Constants.UITotalCase);
+	metaField.key = "Total Cases";
+	metaField.value = String.valueOf(formatter.format(totalCases));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 

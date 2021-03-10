@@ -18,7 +18,10 @@ https://discourse.android-ide.com/t/how-to-use-androidx-in-aide/114
 Add spinner to alert dialogues & add alert dialouges for screen building
 Show alert dialogue when building UI, use AsyncTask again?
 
-Remove infections curve from Terra, and remove proportional to curve from Terra & Country. Bad optics!
+Add to Terra:
+	Active Cases Curve
+	Case24H Curve
+	Death 24H Curve
 
 */
  
