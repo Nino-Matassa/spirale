@@ -7,13 +7,17 @@ https://covid19.who.int/info | Data Download
 https://covid19.who.int/WHO-COVID-19-global-data.csv | 3.25MB History (basic)
 https://covid19.who.int/WHO-COVID-19-global-table-data.csv | 17.93KB Daily Overview
 
-Actionbar, main menu pre androidx
-https://stackoverflow.com/questions/43463837/adding-android-studio-main-menu-on-actionbar
+SQLite - Date function: https://www.sqlitetutorial.net/sqlite-date-functions/sqlite-date-function/
 
-Include andriodx into project...
+TODO:
+
+Include andriodx into project... not really needed
+
 https://discourse.android-ide.com/t/how-to-use-androidx-in-aide/114
 
 Add spinner to alert dialogues & add alert dialouges for screen building
+Show alert dialogue when building UI, use AsyncTask again?
 
+Date issue with UITerraActiveCases where the moonPhase needs to be calculated from yesterday to -29 days ago giving the full 28 day cycle from yesterday.
 */
  
