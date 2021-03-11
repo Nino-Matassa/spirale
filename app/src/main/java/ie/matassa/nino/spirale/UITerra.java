@@ -105,18 +105,18 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineValue = true;
 	metaFields.add(metaField);
 
-	metaField = new MetaField(0, 0, Constants.UITerraTotalCases);
-	metaField.key = "Total Cases";
-	metaField.value = String.valueOf(formatter.format(totalCase));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
-
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCasesX);
 	metaField.key = "Active Cases/" + Constants.roman100000;
 	Double activeCases_C = activeCases/population*Constants.oneHundredThousand;
 	metaField.value = String.valueOf(formatter.format(activeCases_C));
 	metaField.underlineKey = true;
 	metaField.underlineValue = true;
+	metaFields.add(metaField);
+
+	metaField = new MetaField(0, 0, Constants.UITerraTotalCases);
+	metaField.key = "Total Cases";
+	metaField.value = String.valueOf(formatter.format(totalCase));
+	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraCase24PerX);
@@ -181,13 +181,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-//	metaField = new MetaField(0, 0, Constants.UITerraInfectionsCurve);
-//	metaField.key = "Infections Curve";
-//	metaField.value = String.valueOf(formatter.format(infectionsCurve));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-//	metaField = new MetaField();
-
 	String sqlRNought = "select Date, sum(NewCase) as CaseX from Detail group by Date order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
@@ -200,12 +193,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineValue = true;
 	metaFields.add(metaField);
 	metaField = new MetaField();
-
-	metaField.key = "";
-	metaField.value = "";
-	metaFields.add(metaField);
-	metaField = new MetaField();
-
+	
 	setTableLayout(populateTable(metaFields));
   }
 

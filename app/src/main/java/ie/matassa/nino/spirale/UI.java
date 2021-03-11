@@ -74,12 +74,6 @@ public class UI {
 	  case Constants.UITotalPrecentInfected:
 		((Activity)context).setTitle("Spirale - Precentage Infected");
 		break;
-//	  case Constants.UIInfectionsCurve:
-//		((Activity)context).setTitle("Spirale - Infections Curve");
-//		break;
-//	  case Constants.UITerraInfectionsCurve:
-//		((Activity)context).setTitle("Spirale - Terra Infections Curve");
-//		break;
 	  case Constants.UIRNought:
 		((Activity)context).setTitle("Spirale - " + Constants.rNought);
 		break;
@@ -193,12 +187,6 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITotalPrecentInfected)) {
 				new UITotalPrecentInfected(context, metaField.regionId, metaField.countryId);
 			  }
-//			  if (metaField.UI.equals(Constants.UIInfectionsCurve)) {
-//				new UIInfectionsCurve(context, metaField.regionId, metaField.countryId);
-//			  }
-//			  if (metaField.UI.equals(Constants.UITerraInfectionsCurve)) {
-//				new UITerraInfectionsCurve(context, metaField.regionId, metaField.countryId);
-//			  }
 			  if (metaField.UI.equals(Constants.UIRNought)) {
 				new UIRNought(context, metaField.regionId, metaField.countryId);
 			  }

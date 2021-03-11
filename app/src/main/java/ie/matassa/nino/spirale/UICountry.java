@@ -176,12 +176,6 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-//	metaField = new MetaField(regionId, countryId, Constants.UIInfectionsCurve);
-//	metaField.key = "Infections Curve";
-//	metaField.value = String.valueOf(formatter.format(infectionsCurve));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-
 	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
