@@ -4,7 +4,7 @@ android {
 	compileSdkVersion 21
     buildToolsVersion "21.1.0"
 
-    defaultConfig {
+	defaultConfig {
         applicationId "ie.matassa.nino.spirale"
         minSdkVersion 14
         targetSdkVersion 21

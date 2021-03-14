@@ -120,12 +120,10 @@ public class MainActivity extends Activity {
 		message = "COVID-19 statistical analysis using WHO data.";
 		message += "\nProject Spirale started Dec 10 2020";
 		try {
-		  // Reading in from androidmanifest.xml
 		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
-		  message += "\nVersion " + pInfo.versionName;
-		  
+		  message += "\nVersion " + pInfo.versionName; // Reading in from Androidmanifest.xml
 		} catch (PackageManager.NameNotFoundException e) {
-		  e.printStackTrace();
+		  Log.d("About", e.toString());
 		}
 		UIMessage.informationBox(MainActivity.this, message);
 		break;
@@ -139,7 +137,8 @@ public class MainActivity extends Activity {
 		new CSV(MainActivity.this).getDataFiles(true);
 		break;
 	  case R.id.moi:
-		message = "Nino Matassa MBCS";
+		message = "Credits:";
+		message += "\nNino Matassa MBCS";
 		message += "\nSpirale: Dec 10 2020";
 		message += "\nCode available";
 		message += "\nhttps://github.com/Nino-Matassa/spirale";

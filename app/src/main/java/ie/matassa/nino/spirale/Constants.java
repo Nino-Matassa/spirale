@@ -13,6 +13,7 @@ public class Constants {
   public static final String proportional = "\u221D";
   public static final String forEach = "\u2200";
   public static final String house = "\u2302";
+  public static final String approximately = "\u2248";
   
   public static final String roman100000 = "C\u0305"; // Roman numeral for 100,000
   public static final int oneHundredThousand = 100000;

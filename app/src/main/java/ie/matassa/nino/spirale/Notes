@@ -22,5 +22,24 @@ Autoincrement build number..
 https://stackoverflow.com/questions/21405457/autoincrement-versioncode-with-gradle-extra-properties
 https://stackoverflow.com/questions/17448565/how-to-autoincrement-versioncode-in-android-gradle
 
+build.gradle in the app folder
+Updating versionName is proving to be sofar impossible, it will accept a literal but not being set to
+a variable or a return string so far. Not sure why.
+
+The value is read in from the manifest file, Androidmanifest.xml:
+		try {
+		  // Reading in from Androidmanifest.xml
+		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
+		  message += "\nVersion " + pInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+		  e.printStackTrace();
+		}
+
+NB: There is no need to add them, versionName & versionCode to the manifest in development time, they appear
+there at run time and are called correctly. All that needs to be solved is to set their values automatically.
+
+Approximate active cases in UITerraActiveCases instead, alter the sql so if todays date was used yet for
+any given country.
+
 */
  

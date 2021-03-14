@@ -35,14 +35,14 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Country", "Active Cases");
+		  setHeader("Country", "Active Cases " + Constants.approximately);
         }
       });
   }
 
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where date > date('now', '-29 days') and date <= date('now') group by Country.Country order by NewCase desc limit 28";
+	String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where date > date('now', '-28 days') and date <= date('now') group by Country.Country order by NewCase desc";
 	Cursor cTerra = db.rawQuery(sql, null);
 	cTerra.moveToFirst();
 	do {
