@@ -9,6 +9,7 @@ import android.content.*;
 import android.view.*;
 import android.database.*;
 import android.database.sqlite.*;
+import android.content.pm.*;
 
 public class MainActivity extends Activity {
 
@@ -45,9 +46,6 @@ public class MainActivity extends Activity {
 		case Constants.UICountryByRegion:
 		  new UICountryByRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-//		case Constants.UITerraInfectionsCurve:
-//		  new UITerraInfectionsCurve(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-//		  break;
 		case Constants.UITerraTotalCases:
 		  new UITerraTotalCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
@@ -121,6 +119,14 @@ public class MainActivity extends Activity {
 	  case R.id.about:
 		message = "COVID-19 statistical analysis using WHO data.";
 		message += "\nProject Spirale started Dec 10 2020";
+		try {
+		  // Reading in from androidmanifest.xml
+		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
+		  message += "\nVersion " + pInfo.versionName;
+		  
+		} catch (PackageManager.NameNotFoundException e) {
+		  e.printStackTrace();
+		}
 		UIMessage.informationBox(MainActivity.this, message);
 		break;
 	  case R.id.reinitialise:

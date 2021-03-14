@@ -18,6 +18,9 @@ https://discourse.android-ide.com/t/how-to-use-androidx-in-aide/114
 Add spinner to alert dialogues & add alert dialouges for screen building
 Show alert dialogue when building UI, use AsyncTask again?
 
+Autoincrement build number..
+https://stackoverflow.com/questions/21405457/autoincrement-versioncode-with-gradle-extra-properties
+https://stackoverflow.com/questions/17448565/how-to-autoincrement-versioncode-in-android-gradle
 
 */
  
