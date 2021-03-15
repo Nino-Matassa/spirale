@@ -37,7 +37,7 @@ public class UIActiveCasesForTerra extends UI implements IRegisterOnStack {
 		@Override
 		public void run() {
 		  populateTable();
-		  setHeader("Terra", "Active Cases " + Constants.proportional + " Curve");
+		  setHeader("Terra", "Active Cases");
         }
       });
   }

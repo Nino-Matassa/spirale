@@ -56,7 +56,7 @@ public class Constants {
   public static final String UITerraDeath24PerX = "UITerraDeath24PerX";
   public static final String UITerraActiveCases = "UITerraActiveCases";
   public static final String UIActiveCases = "UIActiveCases";
-  public static final String UITerraActiveCasesX = "UITerraActiveCasesX";
+  //public static final String UITerraActiveCasesX = "UITerraActiveCasesX";
   public static final String UIRNoughtForTerra = "UIRNoughtForTerra";
   public static final String UIActiveCasesForTerra = "UIActiveCasesForTerra";
   public static final String UIActiveCasesPerXForTerra = "UIActiveCasesPerXForTerra";

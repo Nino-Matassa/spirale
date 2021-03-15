@@ -85,9 +85,9 @@ public class MainActivity extends Activity {
 		case Constants.UIActiveCases:
 		  new UIActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraActiveCasesX:
-		  new UITerraActiveCasesPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
+//		case Constants.UITerraActiveCasesX:
+//		  new UITerraActiveCasesPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
+//		  break;
 		case Constants.UITerraRNought:
 		  new UITerraRNought(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;

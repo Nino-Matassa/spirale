@@ -35,8 +35,6 @@ The value is read in from the manifest file, Androidmanifest.xml:
 		  e.printStackTrace();
 		}
 
-NB: There is no need to add them, versionName & versionCode to the manifest in development time, they appear there at run time and are called correctly. All that needs to be solved is to set their values automatically.
-
-Add AsyncTask to UI and show a build dialog when the screen data is being generated. It dosen't appear to do anything on PrimeOS
+Comment out Active Cases per 10,000
 */
  
