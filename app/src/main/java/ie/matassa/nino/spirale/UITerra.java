@@ -28,6 +28,7 @@ public class UITerra extends UI implements IRegisterOnStack {
   private Double precentInfected = 0.0;
   private Double population = 0.0;
   private Double infectionsCurve = 0.0;
+  private Integer nCountry = 0;
 
 
   ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
@@ -64,7 +65,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 
-    String sql = "select distinct Country, TotalCase, CasePer100000, Case7Day, Case24Hour, TotalDeath, DeathPer100000, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
+    String sql = "select (select count(Id) from country) as nCountry, Country, TotalCase, CasePer100000, Case7Day, Case24Hour, TotalDeath, DeathPer100000, Death7Day, Death24Hour, Source from overview where region = 'Terra'";
 	Cursor cTerra = db.rawQuery(sql, null);
     cTerra.moveToFirst();
 
@@ -80,6 +81,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	population = totalCase / casePer100000 * Constants.oneHundredThousand;
 	precentInfected = totalCase / population * 100;
 	infectionsCurve = Math.log((double)case24Hour);
+	nCountry = cTerra.getInt(cTerra.getColumnIndex("nCountry"));
 
 	MetaField metaField = new MetaField();
 	metaField.key = "Population";
@@ -107,7 +109,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCasesX);
 	metaField.key = "Active Cases/" + Constants.roman100000;
-	Double activeCases_C = activeCases/population*Constants.oneHundredThousand;
+	Double activeCases_C = (activeCases/population*Constants.oneHundredThousand)/nCountry;
 	metaField.value = String.valueOf(formatter.format(activeCases_C));
 	metaField.underlineKey = true;
 	metaField.underlineValue = true;
