@@ -12,8 +12,7 @@ import ie.matassa.nino.spirale.*;
 import java.util.*;
 import java.io.*;
 
-public class UI {
-
+public class UI extends AsyncTask<Void, Void, Void> {
   private Context context = null;
   private String UIX = null;
 
@@ -343,5 +342,23 @@ public class UI {
     tableRow.addView(textView);
     tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
     tableLayoutFooter.addView(tableRow);
+  }
+  
+  @Override
+  protected Void doInBackground(Void[] p1) {
+	// TODO: Implement this method
+	return null;
+  }
+
+  @Override
+  protected void onPreExecute() {
+	UIMessage.notificationMessage(context, UIX);
+	super.onPreExecute();
+  }
+
+  @Override
+  protected void onPostExecute(Void result) {
+	UIMessage.notificationMessage(context, null);
+	super.onPostExecute(result);
   }
 }
