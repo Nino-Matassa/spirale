@@ -176,7 +176,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " order by Date desc limit 29";
+	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " and CaseX > 0 order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
 	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);

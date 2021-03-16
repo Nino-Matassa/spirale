@@ -49,23 +49,29 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 	cCountry.moveToFirst();
 
 	do {
-	  countryId = cCountry.getInt(cCountry.getColumnIndex("Id"));
-	  String sqlDetail = "select Date, NewCase as CaseX, Country.Id, Country.FK_Region, Country.Country from Detail join Country on Detail.FK_Country = Country.Id where FK_Country = #1 order by Date desc limit 29".replace("#1", String.valueOf(countryId));
-	  Cursor cRNought = db.rawQuery(sqlDetail, null);
-	  cRNought.moveToFirst();
-	  regionId = cRNought.getInt(cRNought.getColumnIndex("FK_Region"));
-	  countryId = cRNought.getInt(cRNought.getColumnIndex("Id"));
-	  String country = cRNought.getString(cRNought.getColumnIndex("Country"));
+	  try {
+		countryId = cCountry.getInt(cCountry.getColumnIndex("Id"));
+		String sqlDetail = "select Date, NewCase as CaseX, Country.Id, Country.FK_Region, Country.Country from Detail join Country on Detail.FK_Country = Country.Id where FK_Country = #1 and CaseX > 0 order by Date desc limit 29".replace("#1", String.valueOf(countryId));
+		Cursor cRNought = db.rawQuery(sqlDetail, null);
+		cRNought.moveToFirst();
+		if(cRNought.isAfterLast())
+		  continue;
+		regionId = cRNought.getInt(cRNought.getColumnIndex("FK_Region"));
+		countryId = cRNought.getInt(cRNought.getColumnIndex("Id"));
+		String country = cRNought.getString(cRNought.getColumnIndex("Country"));
 
-	  ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
-	  metaField = new MetaField(regionId, countryId, Constants.UICountry);
-	  metaField.key = country;
-	  metaField.value = String.valueOf(formatter.format(rNoughtAverage.get(0).average));
-	  metaField.underlineKey = true;
-	  metaFields.add(metaField);
+		ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
+		metaField = new MetaField(regionId, countryId, Constants.UICountry);
+		metaField.key = country;
+		metaField.value = String.valueOf(formatter.format(rNoughtAverage.get(0).average));
+		metaField.underlineKey = true;
+		metaFields.add(metaField);
+	  } catch(Exception e) {
+		Log.d("UITerraRNought", e.toString());
+	  }
 	} while(cCountry.moveToNext());
 	metaFields.sort(new sortStats());
-	setTableLayout(populateTable(metaFields)); 
+	setTableLayout(populateTable(metaFields));
   }
   class sortStats implements Comparator<MetaField> {
 	@Override
