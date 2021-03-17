@@ -4,9 +4,10 @@ import android.content.*;
 import android.database.*;
 import android.icu.text.*;
 import android.os.*;
+import ie.matassa.nino.spirale.*;
 import java.util.*;
 
-public class UIActiveCasesPerXForTerra extends UI implements IRegisterOnStack {
+public class UIRHSTerraActiveCases extends UI implements IRegisterOnStack {
   private Context context = null;
   private int regionId = 0;
   private int countryId = 0;
@@ -14,8 +15,8 @@ public class UIActiveCasesPerXForTerra extends UI implements IRegisterOnStack {
   private UIHistory uiHistory = null;
   private MetaField metaField = null;
 
-  public UIActiveCasesPerXForTerra(Context context, int regionId, int countryId) {
-	super(context, Constants.UIActiveCasesPerXForTerra);
+  public UIRHSTerraActiveCases(Context context, int regionId, int countryId) {
+	super(context, Constants.UIRHSTerraActiveCases);
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
@@ -26,7 +27,7 @@ public class UIActiveCasesPerXForTerra extends UI implements IRegisterOnStack {
 
   @Override
   public void registerOnStack() {
-	uiHistory = new UIHistory(regionId, countryId, Constants.UIActiveCasesPerXForTerra);
+	uiHistory = new UIHistory(regionId, countryId, Constants.UIRHSTerraActiveCases);
 	MainActivity.stack.add(uiHistory);
   }
 
@@ -40,18 +41,8 @@ public class UIActiveCasesPerXForTerra extends UI implements IRegisterOnStack {
         }
       });
   }
-
+  
   private void populateTable() {
-	double population = 0.0;
-	{ // calculate population
-	  String sql = "select TotalCase, CasePer100000 from overview where region = 'Terra'";
-	  Cursor cTerra = db.rawQuery(sql, null);
-	  cTerra.moveToFirst();
-
-	  int totalCase = cTerra.getInt(cTerra.getColumnIndex("TotalCase"));
-	  double CasePer100000 = cTerra.getDouble(cTerra.getColumnIndex("CasePer100000"));
-	  population = totalCase / CasePer100000 * Constants.oneHundredThousand;
-	}
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
 	String sqlDetail = "select Date, sum(NewCase) as CaseX from Detail group by date order by date desc";
 	Cursor cDetail = db.rawQuery(sqlDetail, null);
@@ -59,13 +50,13 @@ public class UIActiveCasesPerXForTerra extends UI implements IRegisterOnStack {
 
 	ArrayList<CaseRangeTotal> fieldTotals = new CaseRangeCalculation().calculate(cDetail, Constants.moonPhase);
 	for(CaseRangeTotal fieldTotal: fieldTotals) {
-	  metaField = new MetaField(regionId, countryId, Constants.UIActiveCasesPerXForTerra);
+	  metaField = new MetaField(regionId, countryId, Constants.UIRHSTerraActiveCases);
 	  metaField.key = fieldTotal.date;
-	  Double activeCases_C = fieldTotal.total/population*Constants.oneHundredThousand;
-	  metaField.value = String.valueOf(formatter.format(activeCases_C));
+	  //metaField.value = String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
+	  //String curve = " " + Constants.proportional + " " + String.valueOf(formatter.format(fieldTotal.total == 0 ? 0:Math.log(fieldTotal.total)));
+	  metaField.value = String.valueOf(formatter.format(fieldTotal.total));// + curve;
 	  metaFields.add(metaField);
 	}
     setTableLayout(populateTable(metaFields)); 
   }
-  
 }

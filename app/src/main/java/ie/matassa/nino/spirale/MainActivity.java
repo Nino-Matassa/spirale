@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 
   @Override
   public void onBackPressed() {
+	//UIMessage.notificationMessage(MainActivity.this, stack.get(stack.size()-2).getUIX());
 	if (stack.size() == 1) {
 	  this.moveTaskToBack(true);
 	  UIMessage.toast(MainActivity.this, "Spirale - Moved to Background", Toast.LENGTH_LONG);

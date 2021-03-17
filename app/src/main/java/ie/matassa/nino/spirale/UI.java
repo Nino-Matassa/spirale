@@ -12,10 +12,10 @@ import ie.matassa.nino.spirale.*;
 import java.util.*;
 import java.io.*;
 
-public class UI extends AsyncTask<Void, Void, Void> {
+public class UI {
   private Context context = null;
   private String UIX = null;
-
+  
   private TableLayout tableLayout = null;
   private TableLayout tableLayoutHeader = null;
   private TableLayout tableLayoutFooter = null;
@@ -25,7 +25,9 @@ public class UI extends AsyncTask<Void, Void, Void> {
   public UI(Context context, String UIX) {
 	this.context = context;
 	this.UIX = UIX;
-
+	
+	new BusyBee().execute();
+	
 	setTitlebar();
 	if (UIX.equals(Constants.UITerra)) {
 	  MainActivity.stack.clear();
@@ -40,14 +42,14 @@ public class UI extends AsyncTask<Void, Void, Void> {
 	tableLayout = (TableLayout) ((Activity)context).findViewById(R.id.layoutTable);
 	tableLayoutHeader = (TableLayout)((Activity)context).findViewById(R.id.layoutTableHeader);
 	tableLayoutFooter = (TableLayout)((Activity)context).findViewById(R.id.layoutTableFooter);
-
+ 
 	String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
 	File csv = new File(filePath);
 	String lastUpdated = new Date(csv.lastModified()).toString();
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 	setFooter(lastUpdated);
-	UIMessage.notificationMessage(context, null);
+	//UIMessage.notificationMessage(context, null);
   }
 
   private void setTitlebar() {
@@ -139,13 +141,13 @@ public class UI extends AsyncTask<Void, Void, Void> {
 	  case Constants.UIActiveCases:
 		((Activity)context).setTitle("Spirale - Active Cases");
 		break;
-	  case Constants.UIRNoughtForTerra:
+	  case Constants.UIRHSTerraRNought:
 		((Activity)context).setTitle("Spirale - Terra " + Constants.rNought);
 		break;
-	  case Constants.UIActiveCasesForTerra:
+	  case Constants.UIRHSTerraActiveCases:
 		((Activity)context).setTitle("Spirale - Terra Active Cases");
 		break; 
-	  case Constants.UIActiveCasesPerXForTerra:
+	  case Constants.UIRHSTerraActiveCasesPerX:
 		((Activity)context).setTitle("Spirale - Terra Active Cases/" + Constants.roman100000);
 		break;
 	}
@@ -261,10 +263,10 @@ public class UI extends AsyncTask<Void, Void, Void> {
 			if (metaField.underlineValue) {
 			  /*metaField.UI is always set to lhs, so when control arrives here the rhs field has been clicked*/
 			  if (metaField.UI.equals(Constants.UITerraRNought)) {
-				new UIRNoughtForTerra(context, metaField.regionId, metaField.countryId);
+				new UIRHSTerraRNought(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
-				new UIActiveCasesForTerra(context, metaField.regionId, metaField.countryId);
+				new UIRHSTerraActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
 //			  if (metaField.UI.equals(Constants.UITerraActiveCasesX)) {
 //				new UIActiveCasesPerXForTerra(context, metaField.regionId, metaField.countryId);
@@ -344,21 +346,24 @@ public class UI extends AsyncTask<Void, Void, Void> {
     tableLayoutFooter.addView(tableRow);
   }
   
-  @Override
-  protected Void doInBackground(Void[] p1) {
-	// TODO: Implement this method
-	return null;
-  }
+  class BusyBee extends AsyncTask<Void, Void, Void> {
 
-  @Override
-  protected void onPreExecute() {
-	UIMessage.notificationMessage(context, UIX);
-	super.onPreExecute();
-  }
+	@Override
+	protected Void doInBackground(Void[] p1) {
+	  // TODO: Implement this method
+	  return null;
+	}
 
-  @Override
-  protected void onPostExecute(Void result) {
-	UIMessage.notificationMessage(context, null);
-	super.onPostExecute(result);
+	@Override
+	protected void onPreExecute() {
+	  UIMessage.notificationMessage(context, UIX);
+	  super.onPreExecute();
+	}
+
+	@Override
+	protected void onPostExecute(Void result) {
+	  UIMessage.notificationMessage(context, null);
+	  super.onPostExecute(result);
+	}
   }
 }

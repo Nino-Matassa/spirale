@@ -35,7 +35,9 @@ The value is read in from the manifest file, Androidmanifest.xml:
 		  e.printStackTrace();
 		}
 
-R-nought calculation fixed, days returning zero removed, this was skewing the data for those countries.
-
+BusyBee, AsyncTask, added as embedded class in UI firing and onPostExecute working fine, but onPreExecute no effect on PrimeOs, last time it was fine on the tablet, but not the phone.
+UIRNoughtForTerra renamed to UIRHSTerraRNought
+UIActiveCasesForTerra renamed to UIRHSTerraActiveCases
+UIActiveCasesPerXForTerra renamed to UIRHSTerraActiveCasesPerX
 */
  
