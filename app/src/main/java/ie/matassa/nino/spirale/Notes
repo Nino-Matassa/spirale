@@ -26,7 +26,7 @@ build.gradle in the app folder
 Updating versionName is proving to be sofar impossible, it will accept a literal but not being set to
 a variable or a return string so far. Not sure why.
 
-The value is read in from the manifest file, Androidmanifest.xml:
+versionName & versionCode are read in from the manifest file, Androidmanifest.xml in spite of the fact they aren't defined in the code. Clearly they are generated.
 		try {
 		  // Reading in from Androidmanifest.xml
 		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
@@ -35,9 +35,5 @@ The value is read in from the manifest file, Androidmanifest.xml:
 		  e.printStackTrace();
 		}
 
-BusyBee, AsyncTask, added as embedded class in UI firing and onPostExecute working fine, but onPreExecute no effect on PrimeOs, last time it was fine on the tablet, but not the phone.
-UIRNoughtForTerra renamed to UIRHSTerraRNought
-UIActiveCasesForTerra renamed to UIRHSTerraActiveCases
-UIActiveCasesPerXForTerra renamed to UIRHSTerraActiveCasesPerX
 */
  

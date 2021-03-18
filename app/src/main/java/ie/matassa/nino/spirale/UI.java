@@ -26,8 +26,6 @@ public class UI {
 	this.context = context;
 	this.UIX = UIX;
 	
-	new BusyBee().execute();
-	
 	setTitlebar();
 	if (UIX.equals(Constants.UITerra)) {
 	  MainActivity.stack.clear();
@@ -344,26 +342,5 @@ public class UI {
     tableRow.addView(textView);
     tableRow.setBackgroundColor(Color.parseColor("#E6E6CA"));
     tableLayoutFooter.addView(tableRow);
-  }
-  
-  class BusyBee extends AsyncTask<Void, Void, Void> {
-
-	@Override
-	protected Void doInBackground(Void[] p1) {
-	  // TODO: Implement this method
-	  return null;
-	}
-
-	@Override
-	protected void onPreExecute() {
-	  UIMessage.notificationMessage(context, UIX);
-	  super.onPreExecute();
-	}
-
-	@Override
-	protected void onPostExecute(Void result) {
-	  UIMessage.notificationMessage(context, null);
-	  super.onPostExecute(result);
-	}
   }
 }
