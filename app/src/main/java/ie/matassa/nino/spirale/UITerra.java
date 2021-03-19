@@ -109,7 +109,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 
 	metaField = new MetaField(0, 0, Constants.UITerraActiveCasesPerX);
 	metaField.key = "Active Cases/" + Constants.roman100000;
-	Double activeCases_C = (activeCases/population*Constants.oneHundredThousand);///nCountry;
+	Double activeCases_C = (activeCases/population*Constants.oneHundredThousand)/nCountry;
 	metaField.value = String.valueOf(formatter.format(activeCases_C));
 	metaField.underlineKey = true;
 	metaField.underlineValue = true;

@@ -35,6 +35,6 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		  e.printStackTrace();
 		}
 
-Re-enstate UITerraActiveCasesPerX & UIRHSTerraActiveCasesPerX
+Reinstate UITerraActiveCasesPerX & UIRHSTerraActiveCasesPerX math corrections
 */
  

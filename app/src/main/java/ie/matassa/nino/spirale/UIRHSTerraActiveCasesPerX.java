@@ -42,6 +42,13 @@ public class UIRHSTerraActiveCasesPerX extends UI implements IRegisterOnStack {
   }
 
   private void populateTable() {
+	int nCountry = 0;
+	{ // Get number of countries
+	  String sqlCountry = "select count(Id) as Id from Country";
+	  Cursor cCountry = db.rawQuery(sqlCountry, null);
+	  cCountry.moveToFirst();
+	  nCountry = cCountry.getInt(cCountry.getColumnIndex("Id"));
+	}
 	double population = 0.0;
 	{ // calculate population
 	  String sql = "select TotalCase, CasePer100000 from overview where region = 'Terra'";
@@ -61,7 +68,7 @@ public class UIRHSTerraActiveCasesPerX extends UI implements IRegisterOnStack {
 	for(CaseRangeTotal fieldTotal: fieldTotals) {
 	  metaField = new MetaField(regionId, countryId, Constants.UIRHSTerraActiveCasesPerX);
 	  metaField.key = fieldTotal.date;
-	  Double activeCases_C = fieldTotal.total/population*Constants.oneHundredThousand;
+	  Double activeCases_C = fieldTotal.total/population*Constants.oneHundredThousand/nCountry;
 	  metaField.value = String.valueOf(formatter.format(activeCases_C));
 	  metaFields.add(metaField);
 	}
