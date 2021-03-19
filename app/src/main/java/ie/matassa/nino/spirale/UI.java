@@ -133,9 +133,9 @@ public class UI {
 	  case Constants.UITerraActiveCases:
 		((Activity)context).setTitle("Spirale - Terra Active Cases");
 		break;
-//	  case Constants.UITerraActiveCasesX:
-//		((Activity)context).setTitle("Spirale - Terra Active Cases/" + Constants.roman100000);
-//		break;
+	  case Constants.UITerraActiveCasesPerX:
+		((Activity)context).setTitle("Spirale - Terra Active Cases/" + Constants.roman100000);
+		break;
 	  case Constants.UIActiveCases:
 		((Activity)context).setTitle("Spirale - Active Cases");
 		break;
@@ -246,9 +246,9 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
-//			  if (metaField.UI.equals(Constants.UITerraActiveCasesX)) {
-//				new UITerraActiveCasesPerX(context, metaField.regionId, metaField.countryId);
-//			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCasesPerX)) {
+				new UITerraActiveCasesPerX(context, metaField.regionId, metaField.countryId);
+			  }
 			  if (metaField.UI.equals(Constants.UIActiveCases)) {
 				new UIActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
@@ -266,9 +266,9 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UIRHSTerraActiveCases(context, metaField.regionId, metaField.countryId);
 			  }
-//			  if (metaField.UI.equals(Constants.UITerraActiveCasesX)) {
-//				new UIActiveCasesPerXForTerra(context, metaField.regionId, metaField.countryId);
-//			  }
+			  if (metaField.UI.equals(Constants.UITerraActiveCasesPerX)) {
+				new UIRHSTerraActiveCasesPerX(context, metaField.regionId, metaField.countryId);
+			  }
 			}
           }
         });

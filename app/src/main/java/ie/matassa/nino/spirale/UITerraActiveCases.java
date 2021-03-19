@@ -42,7 +42,6 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
   
   private void populateTable() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	//String sql = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where date >= date('now', '-28 days') and date <= date('now') group by Country.Country order by NewCase desc";
 	String sqlCountry = "select Country, FK_Country, max(Date) Date from Detail group by Country";
 	Cursor cCountry = db.rawQuery(sqlCountry, null);
 	cCountry.moveToFirst();
