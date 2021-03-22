@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 		message += "\nProject Spirale started Dec 10 2020";
 		try {
 		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
-		  message += "\nVersion " + pInfo.versionName; // Reading in from Androidmanifest.xml
+		  message += "\nVersion " + pInfo.versionName + " " + Constants.beta; // Reading in from Androidmanifest.xml
 		} catch (PackageManager.NameNotFoundException e) {
 		  Log.d("About", e.toString());
 		}
