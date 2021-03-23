@@ -21,6 +21,7 @@ public class UIRHSTerraActiveCases extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "History of active cases");
 	registerOnStack();
 	uiHandler();
   }
@@ -33,13 +34,14 @@ public class UIRHSTerraActiveCases extends UI implements IRegisterOnStack {
 
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+    handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader("Terra", "Active Cases");
+		  UIMessage.notificationMessage(context, null);
         }
-      });
+      }, 500);
   }
   
   private void populateTable() {

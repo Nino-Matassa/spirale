@@ -22,6 +22,7 @@ public class UIRHSTerraRNought extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "History of " + Constants.rNought + "  calculated over the previous 28 days.");
 	registerOnStack();
 	uiHandler();
   }
@@ -34,13 +35,14 @@ public class UIRHSTerraRNought extends UI implements IRegisterOnStack {
   
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+    handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader("Terra", Constants.rNought);
+		  UIMessage.notificationMessage(context, null);
         }
-      });
+      }, 500);
   }
   
   private void populateTable() {
