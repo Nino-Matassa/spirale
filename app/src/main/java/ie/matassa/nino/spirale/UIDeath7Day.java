@@ -26,6 +26,7 @@ public class UIDeath7Day extends UI implements IRegisterOnStack {
 	  this.regionId = regionId;
 	  this.countryId = countryId;
 	  formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "History of 7 day death rate.");
 	  registerOnStack();
 
 	  uiHandler();
@@ -39,13 +40,14 @@ public class UIDeath7Day extends UI implements IRegisterOnStack {
 
 	private void uiHandler() {
 	  Handler handler = new Handler(Looper.getMainLooper());
-	  handler.post(new Runnable() {
+	  handler.postDelayed(new Runnable() {
 		  @Override
 		  public void run() {
 			populateTable();
 			setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
+			UIMessage.notificationMessage(context, null);
 		  }
-		});
+		}, 500);
 	}
 
 	private void populateTable() {

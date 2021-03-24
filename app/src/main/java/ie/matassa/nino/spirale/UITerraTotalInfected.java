@@ -20,6 +20,7 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 	
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "Estimate of precentage affected.");
 	registerOnStack();
 	uiHandler();
   }
@@ -32,13 +33,14 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
   
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-	handler.post(new Runnable() {
+	handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "% Infected");
+		  UIMessage.notificationMessage(context, null);
 		}
-	  });
+	  }, 500);
   }
   
   public void populateTable() {

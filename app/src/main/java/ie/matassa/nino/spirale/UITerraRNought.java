@@ -23,7 +23,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, Constants.rNought + " over calculated 28 days listed per country.");
+	UIMessage.notificationMessage(context, Constants.rNought + " calculated over 28 days listed per country.");
 	registerOnStack();
 	uiHandler();
   }

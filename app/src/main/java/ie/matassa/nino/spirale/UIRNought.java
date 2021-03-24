@@ -25,6 +25,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, Constants.rNought + " 28 day average.");
 	registerOnStack();
 	uiHandler();
   }
@@ -35,13 +36,14 @@ public class UIRNought extends UI implements IRegisterOnStack {
   }
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+    handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader(region, UIMessage.abbreviate(country, Constants.abbreviate));
+		  UIMessage.notificationMessage(context, null);
         }
-      });
+      }, 500);
   }
 
   private void populateTable() {

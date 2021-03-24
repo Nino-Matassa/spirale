@@ -20,6 +20,7 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "Deaths per 100,000");
 	registerOnStack();
 	uiHandler();
   }
@@ -32,13 +33,14 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
 
   private void uiHandler() {
 	Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+    handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Death/" + Constants.roman100000);
+		  UIMessage.notificationMessage(context, null);
         }
-      });
+      }, 500);
   }
 
   private void populateTable() {

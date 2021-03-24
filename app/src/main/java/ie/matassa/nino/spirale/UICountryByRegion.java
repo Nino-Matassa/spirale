@@ -22,20 +22,22 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
+	UIMessage.notificationMessage(context, "Country by region.");
 
 	uiHandler();
   }
 
   private void uiHandler() {
     Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+    handler.postDelayed(new Runnable() {
 		@Override
 		public void run() {
 		  populateRegion();
 		  setHeader(region, "Population");
 		  registerOnStack();
+		  UIMessage.notificationMessage(context, null);
         }
-      });
+      }, 500);
   }
 
   @Override
