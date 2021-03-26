@@ -25,7 +25,7 @@ public class UICase7Day extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "History of 7 day case rate.");
+	UIMessage.informationBox(context, "History of 7 day case rate.");
 	registerOnStack();
 
 	uiHandler();
@@ -44,7 +44,7 @@ public class UICase7Day extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

@@ -22,7 +22,7 @@ public class UIRHSTerraRNought extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "History of " + Constants.rNought + "  calculated over the previous 28 days.");
+	UIMessage.informationBox(context, "History of " + Constants.rNought + "  calculated over the previous 28 days.");
 	registerOnStack();
 	uiHandler();
   }
@@ -40,7 +40,7 @@ public class UIRHSTerraRNought extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Terra", Constants.rNought);
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

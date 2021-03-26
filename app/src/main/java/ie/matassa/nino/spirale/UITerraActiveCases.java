@@ -19,7 +19,7 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Active cases by country.");
+	UIMessage.informationBox(context, "Active cases by country.");
 	registerOnStack();
 	uiHandler();
   }
@@ -37,7 +37,7 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Active Cases");
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

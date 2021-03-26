@@ -19,7 +19,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "7 day case rate.");
+	UIMessage.informationBox(context, "7 day case rate.");
 	registerOnStack();
 	uiHandler();
   }
@@ -37,7 +37,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Case7D");
-		  UIMessage.notificationMessage(context, null);
+		  UIMessage.informationBox(context, null);
         }
       }, 500);
   }

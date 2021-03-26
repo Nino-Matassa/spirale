@@ -21,7 +21,7 @@ public class UITerraDeath24PerX extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Deaths in the last 24 hours.");
+	UIMessage.informationBox(context, "Deaths in the last 24 hours.");
 	registerOnStack();
 	uiHandler();
   }
@@ -39,7 +39,7 @@ public class UITerraDeath24PerX extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Death24/" + Constants.roman100000);
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

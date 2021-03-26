@@ -20,7 +20,7 @@ public class UITerraTotalCases extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Total cases.");
+	UIMessage.informationBox(context, "Total cases.");
 	registerOnStack();
 	uiHandler();
   }
@@ -38,7 +38,7 @@ public class UITerraTotalCases extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Total Cases");
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

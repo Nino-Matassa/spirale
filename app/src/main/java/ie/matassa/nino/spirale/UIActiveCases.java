@@ -21,7 +21,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Active cases.");
+	UIMessage.informationBox(context, "Active cases.");
 	registerOnStack();
 	uiHandler();
   }
@@ -39,7 +39,7 @@ public class UIActiveCases extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(region, UIMessage.abbreviate(country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

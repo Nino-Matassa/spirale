@@ -35,6 +35,5 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		  e.printStackTrace();
 		}
 
-UI dialogues part 2
 */
  

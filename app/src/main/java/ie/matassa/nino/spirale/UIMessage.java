@@ -15,7 +15,7 @@ public class UIMessage {
 		}
 	  });
   }
-  
+
   private static AlertDialog.Builder builder = null;
   private static AlertDialog alertDialog = null;
 
@@ -31,7 +31,7 @@ public class UIMessage {
 			}
 			return;
 		  }
-		  if (builder == null) {
+		  if(builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
 		  }
@@ -40,12 +40,16 @@ public class UIMessage {
         }
       });
   }
-  
+
   public static void informationBox(final Context context, final String msg) {
 	((Activity)context).runOnUiThread(new Runnable() {
 		@Override
 		public void run() {
-		  if (builder == null) {
+		  if(msg == null) {
+			alertDialog.dismiss();
+			return;
+		  }
+		  if(builder == null) {
 			builder = new AlertDialog.Builder(context);
 			alertDialog = builder.create();
 		  }
@@ -56,8 +60,8 @@ public class UIMessage {
         }
       });
   }
-  
+
   public static String abbreviate(String text, int length) {
-	return text.length() < Constants.abbreviate ? text:text.substring(0, Constants.abbreviate-3) + "...";
+	return text.length() < Constants.abbreviate ? text: text.substring(0, Constants.abbreviate - 3) + "...";
   }
 }

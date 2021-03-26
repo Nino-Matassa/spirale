@@ -23,7 +23,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 	this.countryId = countryId;
 
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, Constants.rNought + " calculated over 28 days listed per country.");
+	UIMessage.informationBox(context, Constants.rNought + " calculated over 28 days listed per country.");
 	registerOnStack();
 	uiHandler();
   }
@@ -39,7 +39,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", Constants.rNought);
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

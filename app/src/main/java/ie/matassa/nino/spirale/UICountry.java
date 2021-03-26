@@ -38,7 +38,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Country details.");
+	UIMessage.informationBox(context, "Country details.");
 	registerOnStack();
 
 	uiHandler();
@@ -57,7 +57,7 @@ public class UICountry extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateCountry();
 		  setHeader(region, UIMessage.abbreviate(Country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

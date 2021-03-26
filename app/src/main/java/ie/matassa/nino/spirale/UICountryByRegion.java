@@ -22,7 +22,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Country by region.");
+	UIMessage.informationBox(context, "Country by region.");
 
 	uiHandler();
   }
@@ -35,7 +35,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		  populateRegion();
 		  setHeader(region, "Population");
 		  registerOnStack();
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

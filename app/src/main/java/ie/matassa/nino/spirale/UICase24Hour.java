@@ -23,7 +23,7 @@ public class UICase24Hour extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Cases in the last 24 hours.");
+	UIMessage.informationBox(context, "Cases in the last 24 hours.");
 	registerOnStack();
 
 	uiHandler();
@@ -42,7 +42,7 @@ public class UICase24Hour extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

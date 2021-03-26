@@ -22,7 +22,7 @@ public class UIDeath24Hour extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Deaths in the past 24 hours.");
+	UIMessage.informationBox(context, "Deaths in the past 24 hours.");
 	registerOnStack();
 
 	uiHandler();
@@ -41,7 +41,7 @@ public class UIDeath24Hour extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

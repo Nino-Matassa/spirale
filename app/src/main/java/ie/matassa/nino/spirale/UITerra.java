@@ -36,7 +36,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 	super(context, Constants.UITerra);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Terra");
+  UIMessage.informationBox(context, "Terra");
 	registerOnStack();
 
 	uiHandler();
@@ -55,7 +55,7 @@ public class UITerra extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTerra();
 		  setHeader("Terra", "General");
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

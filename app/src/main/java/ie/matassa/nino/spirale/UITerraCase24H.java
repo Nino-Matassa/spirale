@@ -19,7 +19,7 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 	this.context = context;
 	this.regionId = regionId;
 	this.countryId = countryId;
-	UIMessage.notificationMessage(context, "Cases over the last 24 hours.");
+	UIMessage.informationBox(context, "Cases over the last 24 hours.");
 	formatter = new DecimalFormat("#,###.##");
 	registerOnStack();
 	uiHandler();
@@ -38,7 +38,7 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader("Country", "Case24H");
-		  UIMessage.notificationMessage(context, null);
+		  UIMessage.informationBox(context, null);
         }
       }, 500);
   }

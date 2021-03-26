@@ -20,7 +20,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 	super(context, Constants.UIRegion);
 	this.context = context;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Regions");
+	UIMessage.informationBox(context, "Regions");
 	registerOnStack();
 
 	uiHandler();
@@ -33,7 +33,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateRegion();
 		  setHeader(Region, "Population");
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
         }
       }, 500);
   }

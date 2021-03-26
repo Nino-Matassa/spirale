@@ -23,7 +23,7 @@ public class UIDeathPerX extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.notificationMessage(context, "Death per 100,000");
+	UIMessage.informationBox(context, "Death per 100,000");
 	registerOnStack();
 	uiHandler();
   }
@@ -41,7 +41,7 @@ public class UIDeathPerX extends UI implements IRegisterOnStack {
 		public void run() {
 		  populateTable();
 		  setHeader(region, UIMessage.abbreviate(country, Constants.abbreviate));
-		  UIMessage.notificationMessage(context, null);
+		UIMessage.informationBox(context, null);
 		}
 	  }, 500);
   }
