@@ -38,7 +38,22 @@ public class UICountry extends UI implements IRegisterOnStack {
 	this.regionId = regionId;
 	this.countryId = countryId;
 	formatter = new DecimalFormat("#,###.##");
-	UIMessage.informationBox(context, "Country details.");
+	{ // Get country & date for information box
+	  String sqlDetail = "select max(Date) as Date, Country from Detail where FK_Country = #1".replace("#1", String.valueOf(countryId));
+	  Cursor cDetail = db.rawQuery(sqlDetail, null);
+	  cDetail.moveToFirst();
+	  lastUpdated = cDetail.getString(cDetail.getColumnIndex("Date"));
+	  try {
+		lastUpdated = new SimpleDateFormat("yyyy-MM-dd").parse(lastUpdated).toString();
+		String[] arrDate = lastUpdated.split(" ");
+		lastUpdated = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
+	  } catch (Exception e) {
+		Log.d(Constants.UICountry, e.toString());
+	  }
+
+	  Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
+	}
+	UIMessage.informationBox(context, Country + " " + lastUpdated);
 	registerOnStack();
 
 	uiHandler();
@@ -64,21 +79,6 @@ public class UICountry extends UI implements IRegisterOnStack {
 
   private void populateCountry() {
     ArrayList<MetaField> metaFields = new ArrayList<MetaField>();
-	String sqlDetail = "select max(Date) as Date, Country from Detail where FK_Country = #1".replace("#1", String.valueOf(countryId));
-	Cursor cDetail = db.rawQuery(sqlDetail, null);
-    cDetail.moveToFirst();
-	lastUpdated = cDetail.getString(cDetail.getColumnIndex("Date"));
-	try {
-      lastUpdated = new SimpleDateFormat("yyyy-MM-dd").parse(lastUpdated).toString();
-      String[] arrDate = lastUpdated.split(" ");
-      lastUpdated = arrDate[0] + " " + arrDate[1] + " " + arrDate[2] + " " + arrDate[5];
-	} catch (Exception e) {
-      Log.d(Constants.UICountry, e.toString());
-	}
-
-	Country = cDetail.getString(cDetail.getColumnIndex("Country")).replace("'", "''");
-
-
 	String sqlOverview = "select Region, Country, TotalCase, max(CasePer100000) as CasePer100000, Case7Day, Case24Hour, TotalDeath, DeathPer100000, Death7Day, Death24Hour, Source from Overview where FK_Country = #1".replace("#1", String.valueOf(countryId));
 	Cursor cOverview = db.rawQuery(sqlOverview, null);
 	cOverview.moveToFirst();
