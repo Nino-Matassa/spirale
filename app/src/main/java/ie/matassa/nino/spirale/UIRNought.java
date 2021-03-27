@@ -43,7 +43,7 @@ public class UIRNought extends UI implements IRegisterOnStack {
 		  setHeader(region, UIMessage.abbreviate(country, Constants.abbreviate));
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

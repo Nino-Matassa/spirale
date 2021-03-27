@@ -42,7 +42,7 @@ public class UIRHSTerraRNought extends UI implements IRegisterOnStack {
 		  setHeader("Terra", Constants.rNought);
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
   
   private void populateTable() {

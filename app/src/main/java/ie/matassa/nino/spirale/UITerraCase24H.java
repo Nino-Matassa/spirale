@@ -40,7 +40,7 @@ public class UITerraCase24H extends UI implements IRegisterOnStack {
 		  setHeader("Country", "Case24H");
 		  UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

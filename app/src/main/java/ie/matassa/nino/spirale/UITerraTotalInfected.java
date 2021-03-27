@@ -40,7 +40,7 @@ public class UITerraTotalInfected extends UI implements IRegisterOnStack {
 		  setHeader("Country", "% Infected");
 		UIMessage.informationBox(context, null);
 		}
-	  }, 500);
+	  }, Constants.delayMilliSeconds);
   }
   
   public void populateTable() {

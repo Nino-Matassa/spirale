@@ -37,7 +37,7 @@ public class UICountryByRegion extends UI implements IRegisterOnStack {
 		  registerOnStack();
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   @Override

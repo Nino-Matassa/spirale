@@ -44,7 +44,7 @@ public class UICase24Hour extends UI implements IRegisterOnStack {
 		  setHeader(Region, UIMessage.abbreviate(Country, Constants.abbreviate));
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

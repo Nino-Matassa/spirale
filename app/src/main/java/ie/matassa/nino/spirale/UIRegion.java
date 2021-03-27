@@ -35,7 +35,7 @@ public class UIRegion extends UI implements IRegisterOnStack {
 		  setHeader(Region, "Population");
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
   
   @Override

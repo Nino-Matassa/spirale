@@ -40,7 +40,7 @@ public class UITerraTotalCases extends UI implements IRegisterOnStack {
 		  setHeader("Country", "Total Cases");
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

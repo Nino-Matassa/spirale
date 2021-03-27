@@ -39,7 +39,7 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 		  setHeader("Country", "Active Cases");
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
   
   private void populateTable() {

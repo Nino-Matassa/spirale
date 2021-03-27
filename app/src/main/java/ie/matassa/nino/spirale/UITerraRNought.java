@@ -41,7 +41,7 @@ public class UITerraRNought extends UI implements IRegisterOnStack {
 		  setHeader("Country", Constants.rNought);
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

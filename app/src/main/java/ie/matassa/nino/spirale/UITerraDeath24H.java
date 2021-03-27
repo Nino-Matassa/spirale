@@ -40,7 +40,7 @@ public class UITerraDeath24H extends UI implements IRegisterOnStack {
 			setHeader("Country", "Death24H");
 		  UIMessage.informationBox(context, null);
 		  }
-		}, 500);
+		}, Constants.delayMilliSeconds);
 	}
 
 	private void populateTable() {

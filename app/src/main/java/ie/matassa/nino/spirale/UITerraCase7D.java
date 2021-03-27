@@ -39,7 +39,7 @@ public class UITerraCase7D extends UI implements IRegisterOnStack {
 		  setHeader("Country", "Case7D");
 		  UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

@@ -40,7 +40,7 @@ public class UITerraDeathPerX extends UI implements IRegisterOnStack {
 		  setHeader("Country", "Death/" + Constants.roman100000);
 		UIMessage.informationBox(context, null);
         }
-      }, 500);
+      }, Constants.delayMilliSeconds);
   }
 
   private void populateTable() {

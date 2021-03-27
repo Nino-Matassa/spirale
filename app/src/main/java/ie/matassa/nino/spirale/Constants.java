@@ -27,6 +27,7 @@ public class Constants {
   public static final int seven = 7;
   public static final int moonPhase = 28;
   public static final int abbreviate = 15;
+  public static final int delayMilliSeconds = 500;
 
   public static final String UITerra = "UITerra";
   public static final String UIRegion = "UIRegion";
