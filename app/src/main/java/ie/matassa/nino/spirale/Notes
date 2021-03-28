@@ -34,6 +34,6 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		} catch (PackageManager.NameNotFoundException e) {
 		  e.printStackTrace();
 		}
-UICountry altered to show country name & last date updated
+UITERRACASE24PERX & UITERRADEATH24PERX UITerraCasePerX & UITerraDEATHPerX are showing incorrectly... for now they are hidden
 */
  
