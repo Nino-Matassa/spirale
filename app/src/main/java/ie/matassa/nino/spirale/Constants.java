@@ -45,16 +45,12 @@ public class Constants {
   public static final String UICase7Day = "UICase7Day";
   public static final String UIDeath7Day = "UIDeath7Day";
   public static final String UITerraTotalCases = "UITerraTotalCases";
-  public static final String UITerraCasePerX = "UITerraCasePerX";
   public static final String UITerraTotalDeaths = "UITerraTotalDeaths";
-  public static final String UITerraDeathPerX = "UITerraDeathCasePerX";
   public static final String UITerraCase24H = "UITerraCase24H";
   public static final String UITerraCase7D = "UITerraCase7D";
   public static final String UITerraDeath24H = "UITerraDeath24H";
   public static final String UITerraDeath7D = "UITerraDeath7D";
   public static final String UITerraTotalInfected = "UITerraTotalInfected";
-  public static final String UITerraCase24PerX = "UITerraCase24PerX";
-  public static final String UITerraDeath24PerX = "UITerraDeath24PerX";
   public static final String UITerraActiveCases = "UITerraActiveCases";
   public static final String UIActiveCases = "UIActiveCases";
   public static final String UITerraActiveCasesPerX = "UITerraActiveCasesPerX";

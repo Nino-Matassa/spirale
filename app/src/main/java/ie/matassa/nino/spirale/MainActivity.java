@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
 
   @Override
   public void onBackPressed() {
-	//UIMessage.notificationMessage(MainActivity.this, stack.get(stack.size()-2).getUIX());
 	if (stack.size() == 1) {
 	  this.moveTaskToBack(true);
 	  UIMessage.toast(MainActivity.this, "Spirale - Moved to Background", Toast.LENGTH_LONG);
@@ -53,12 +52,6 @@ public class MainActivity extends Activity {
 		case Constants.UITerraTotalDeaths:
 		  new UITerraTotalDeaths(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
-		case Constants.UITerraCasePerX:
-		  new UITerraCasePerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
-		case Constants.UITerraDeathPerX:
-		  new UITerraDeathPerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
 		case Constants.UITerraCase24H:
 		  new UITerraCase24H(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;	
@@ -73,12 +66,6 @@ public class MainActivity extends Activity {
 		  break;
 		case Constants.UITerraTotalInfected:
 		  new UITerraTotalInfected(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
-		case Constants.UITerraCase24PerX:
-		  new UITerraCase24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
-		  break;
-		case Constants.UITerraDeath24PerX:
-		  new UITerraDeath24PerX(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
 		  break;
 		case Constants.UITerraActiveCases:
 		  new UITerraActiveCases(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());

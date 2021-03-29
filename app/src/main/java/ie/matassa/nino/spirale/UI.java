@@ -47,7 +47,6 @@ public class UI {
 	String[] arrDate = lastUpdated.split(" ");
 	lastUpdated = arrDate[0] + " " + arrDate[2] + " " + arrDate[3] + " " + arrDate[5];
 	setFooter(lastUpdated);
-	//UIMessage.notificationMessage(context, null);
   }
 
   private void setTitlebar() {
@@ -85,12 +84,6 @@ public class UI {
 	  case Constants.UITerraTotalDeaths:
 		((Activity)context).setTitle("Spirale - Terra Total Deaths");
 		break;
-	  case Constants.UITerraCasePerX:
-		((Activity)context).setTitle("Spirale - Terra Case/" + Constants.roman100000);
-		break;
-	  case Constants.UITerraDeathPerX:
-		((Activity)context).setTitle("Spirale - Terra Death/" + Constants.roman100000);
-		break;
 	  case Constants.UITerraCase24H:
 		((Activity)context).setTitle("Spirale - Terra Case24H");
 		break;
@@ -123,12 +116,6 @@ public class UI {
 		break;
 	  case Constants.UIDeath7Day:
 		((Activity)context).setTitle("Spirale - Death7D");
-		break;
-	  case Constants.UITerraCase24PerX:
-		((Activity)context).setTitle("Spirale - Case24/" + Constants.roman100000);
-		break;
-	  case Constants.UITerraDeath24PerX:
-		((Activity)context).setTitle("Spirale - Death24/" + Constants.roman100000);
 		break;
 	  case Constants.UITerraActiveCases:
 		((Activity)context).setTitle("Spirale - Terra Active Cases");
@@ -198,12 +185,6 @@ public class UI {
 			  if (metaField.UI.equals(Constants.UITerraTotalDeaths)) {
 				new UITerraTotalDeaths(context, metaField.regionId, metaField.countryId);
 			  }
-			  if (metaField.UI.equals(Constants.UITerraCasePerX)) {
-				new UITerraCasePerX(context, metaField.regionId, metaField.countryId);
-			  }
-			  if (metaField.UI.equals(Constants.UITerraDeathPerX)) {
-				new UITerraDeathPerX(context, metaField.regionId, metaField.countryId);
-			  }
 			  if (metaField.UI.equals(Constants.UITerraCase24H)) {
 				new UITerraCase24H(context, metaField.regionId, metaField.countryId);
 			  }
@@ -236,12 +217,6 @@ public class UI {
 			  }
 			  if (metaField.UI.equals(Constants.UIDeath7Day)) {
 				new UIDeath7Day(context, metaField.regionId, metaField.countryId);
-			  }
-			  if (metaField.UI.equals(Constants.UITerraCase24PerX)) {
-				new UITerraCase24PerX(context, metaField.regionId, metaField.countryId);
-			  }
-			  if (metaField.UI.equals(Constants.UITerraDeath24PerX)) {
-				new UITerraDeath24PerX(context, metaField.regionId, metaField.countryId);
 			  }
 			  if (metaField.UI.equals(Constants.UITerraActiveCases)) {
 				new UITerraActiveCases(context, metaField.regionId, metaField.countryId);
