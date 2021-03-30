@@ -34,6 +34,7 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		} catch (PackageManager.NameNotFoundException e) {
 		  e.printStackTrace();
 		}
-UITERRACASE24PERX & UITERRADEATH24PERX UITerraCasePerX & UITerraDEATHPerX removed
+
+Bugfix: new RNoughtCalculation().calculate(... was causing a crash where a country containing no data, Democratic People's Republic of Korea, because the function was being handed an empty set and assuming the set contained at least one element of data.
 */
  

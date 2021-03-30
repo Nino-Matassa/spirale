@@ -181,13 +181,15 @@ public class UICountry extends UI implements IRegisterOnStack {
 	String sqlRNought = "select Date, NewCase CaseX from Detail Where FK_Country = " + countryId + " and CaseX > 0 order by Date desc limit 29";
 	Cursor cRNought = db.rawQuery(sqlRNought, null);
 
-	ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
-	Double rNought = rNoughtAverage.get(0).average;
-	metaField = new MetaField(regionId, countryId, Constants.UIRNought);
-	metaField.key = Constants.rNought;
-	metaField.value = String.valueOf(formatter.format(rNought));
-	metaField.underlineKey = true;
-	metaFields.add(metaField);
+	if(cRNought.getCount() > 0) {
+		ArrayList<RNoughtAverage> rNoughtAverage = new RNoughtCalculation().calculate(cRNought, Constants.moonPhase);
+		Double rNought = rNoughtAverage.get(0).average;
+		metaField = new MetaField(regionId, countryId, Constants.UIRNought);
+		metaField.key = Constants.rNought;
+		metaField.value = String.valueOf(formatter.format(rNought));
+		metaField.underlineKey = true;
+		metaFields.add(metaField);
+	}
 
     setTableLayout(populateTable(metaFields)); 
   }
