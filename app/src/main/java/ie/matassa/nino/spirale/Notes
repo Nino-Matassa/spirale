@@ -35,6 +35,6 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		  e.printStackTrace();
 		}
 
-Bugfix: new RNoughtCalculation().calculate(... was causing a crash where a country containing no data, Democratic People's Republic of Korea, because the function was being handed an empty set and assuming the set contained at least one element of data.
+R-Nought calculation corrected, the variable moonPhase set to 27, 0 being a number and the block devisor being set to (moonPhase + 1) because the calculation was out by one on the number of rnoughts to be calculated.
 */
  

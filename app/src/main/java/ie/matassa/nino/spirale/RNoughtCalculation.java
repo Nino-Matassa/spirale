@@ -58,7 +58,7 @@ public class RNoughtCalculation {
 		  break;
 		rNought += listRNought.get(outer + inner).rNought;
 	  }
-	  listRNought.get(outer).average = rNought / length;
+	  listRNought.get(outer).average = rNought / (length + 1);
 	}
 	return listRNought;
   }
