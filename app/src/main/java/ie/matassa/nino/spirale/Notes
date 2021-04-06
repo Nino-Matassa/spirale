@@ -35,6 +35,7 @@ versionName & versionCode are read in from the manifest file, Androidmanifest.xm
 		  e.printStackTrace();
 		}
 
-R-Nought calculation corrected, the variable moonPhase set to 27, 0 being a number and the block devisor being set to (moonPhase + 1) because the calculation was out by one on the number of rnoughts to be calculated.
+
+
 */
  
