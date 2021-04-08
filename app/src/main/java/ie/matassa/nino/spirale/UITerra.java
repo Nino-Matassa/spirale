@@ -118,19 +118,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
 
-//	metaField = new MetaField(0, 0, Constants.UITerraCase24PerX);
-//	metaField.key = "Case24H/" + Constants.roman100000;
-//	double case24Per100000 = casePer100000 / population * Constants.oneHundredThousand;
-//	metaField.value = String.valueOf(formatter.format(case24Per100000));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-
-//	metaField = new MetaField(0, 0, Constants.UITerraCasePerX);
-//	metaField.key = "Case/" + Constants.roman100000;
-//	metaField.value = String.valueOf(formatter.format(casePer100000));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-
 	metaField = new MetaField(0, 0, Constants.UITerraCase24H);
 	metaField.key = "Case24H";
 	metaField.value = String.valueOf(formatter.format(case24Hour));
@@ -148,19 +135,6 @@ public class UITerra extends UI implements IRegisterOnStack {
 	metaField.value = String.valueOf(formatter.format(totalDeath));
 	metaField.underlineKey = true;
 	metaFields.add(metaField);
-
-//	metaField = new MetaField(0, 0, Constants.UITerraDeath24PerX);
-//	metaField.key = "Death24H/" + Constants.roman100000;
-//	double death24Per100000 = deathPer100000 / population * Constants.oneHundredThousand;
-//	metaField.value = String.valueOf(formatter.format(death24Per100000));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
-
-//	metaField = new MetaField(0, 0, Constants.UITerraDeathPerX);
-//	metaField.key = "Death/" + Constants.roman100000;
-//	metaField.value = String.valueOf(formatter.format(deathPer100000));
-//	metaField.underlineKey = true;
-//	metaFields.add(metaField);
 
 	metaField = new MetaField(0, 0, Constants.UITerraDeath24H);
 	metaField.key = "Death24H";

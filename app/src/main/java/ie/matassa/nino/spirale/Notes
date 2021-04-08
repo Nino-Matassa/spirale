@@ -22,19 +22,8 @@ Autoincrement build number..
 https://stackoverflow.com/questions/21405457/autoincrement-versioncode-with-gradle-extra-properties
 https://stackoverflow.com/questions/17448565/how-to-autoincrement-versioncode-in-android-gradle
 
-build.gradle in the app folder
-Updating versionName is proving to be sofar impossible, it will accept a literal but not being set to
-a variable or a return string so far. Not sure why.
-
-versionName & versionCode are read in from the manifest file, Androidmanifest.xml in spite of the fact they aren't defined in the code. Clearly they are generated.
-		try {
-		  // Reading in from Androidmanifest.xml
-		  PackageInfo pInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
-		  message += "\nVersion " + pInfo.versionName;
-		} catch (PackageManager.NameNotFoundException e) {
-		  e.printStackTrace();
-		}
-
+Needs a later version of gradle. Need to move to Android Studio to do that unless something
+changes on aide.
 
 
 */

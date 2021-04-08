@@ -10,15 +10,7 @@ public class RNoughtCalculation {
 	public RNoughtCalculation() {}
 
 	private Double calculate(int current, int previous) {
-		Double rNought = 0.0;
-
-		// Use identity where zero cases are reported
-		if (current == 0) current = 1;
-		if (previous == 0) previous = 1;
-
-		rNought = current / (double)previous;
-		
-		return rNought;
+		return current / (double)previous;
 	}
 
 	public ArrayList<RNoughtAverage> calculate(Cursor cursor, int length) {
