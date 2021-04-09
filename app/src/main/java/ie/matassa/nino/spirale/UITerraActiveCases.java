@@ -52,7 +52,7 @@ public class UITerraActiveCases extends UI implements IRegisterOnStack {
 	  String date = cCountry.getString(cCountry.getColumnIndex("Date"));
 	  String country = cCountry.getString(cCountry.getColumnIndex("Country"));
 	  country = country.replace("'", "''");
-	  String sqlDetail = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where Country.Id = #1 and date > date('#2', '-28 days') group by Country.Country order by NewCase desc";
+	  String sqlDetail = "select Country.Id, Country.FK_Region, Country.Country, Region, sum(NewCase) ActiveCase from Detail join Country on Detail.FK_Country = Country.Id where Country.Id = #1 and date > date('#2', '-27 days') group by Country.Country order by NewCase desc";
 	  sqlDetail = sqlDetail.replace("#1", String.valueOf(countryId)).replace("#2", date);
 	  Cursor cDetail = db.rawQuery(sqlDetail, null);
 	  cDetail.moveToFirst();
