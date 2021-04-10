@@ -25,6 +25,7 @@ https://stackoverflow.com/questions/17448565/how-to-autoincrement-versioncode-in
 Needs a later version of gradle. Need to move to Android Studio to do that unless something
 changes on aide.
 
+UITerraActiveCasesPerX updated to agree with UITerraActiveCases
 
 */
  
