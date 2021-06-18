@@ -26,7 +26,7 @@ public class Constants {
   public static final int dbVersion = 1;
   public static final int seven = 7;
   public static final int moonPhase = 27; // 0 is a number....
-  public static final int abbreviate = 15;
+  public static final int abbreviate = 99;//15; Needs to be based on dynamic column width...
   public static final int delayMilliSeconds = 50;
 
   public static final String UITerra = "UITerra";
