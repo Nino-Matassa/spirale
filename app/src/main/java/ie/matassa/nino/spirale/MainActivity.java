@@ -35,11 +35,8 @@ public class MainActivity extends Activity {
 			UIHistory uiHistory = stack.pop();
 			switch (uiHistory.getUIX()) {
 				case Constants.UITerra:
-					// Because csvs are being updated constantly skip this and...
-//		  bCallUITerra = true;
-//		  new CSV(MainActivity.this).getDataFiles(false);
-					// ... do this
-					new UITerra(MainActivity.this);
+					bCallUITerra = true;
+					new CSV(MainActivity.this).getDataFiles(false);
 					break;
 				case Constants.UIRegion:
 					new UIRegion(MainActivity.this, uiHistory.getRegionId(), uiHistory.getCountryId());
