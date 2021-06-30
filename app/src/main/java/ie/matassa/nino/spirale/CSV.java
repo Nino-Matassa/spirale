@@ -139,7 +139,7 @@ public class CSV {
 
 		String filePath = context.getFilesDir().getPath().toString() + "/" + Constants.csvDetailsName;
 		rows = readCSV(filePath);
-		UIMessage.notificationMessage(context, Constants.DataSource + "\nBuilding Detail " + formatter.format(rows.size()) + " rows");
+		UIMessage.notificationMessage(context, "Building Detail " + formatter.format(rows.size()) + " rows");
 		int rowsbuilt = 0;
 
 		try {
@@ -172,7 +172,7 @@ public class CSV {
 				Long FK_Country = hmCountryList.get(Country);
 				values.put("FK_Country", FK_Country);
 				Long Id = db.insert("Detail", null, values);
-				UIMessage.notificationMessage(context, Constants.DataSource + "\nBuilding Detail " + formatter.format(rowsbuilt++) + " of " + formatter.format(rows.size()));
+				UIMessage.notificationMessage(context, "Building Detail " + formatter.format(rowsbuilt++) + " of " + formatter.format(rows.size()));
 			}
 		} catch (NumberFormatException e) {
 			Log.d("populateTableDetails", e.toString());
